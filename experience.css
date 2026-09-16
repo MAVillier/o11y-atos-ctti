@@ -81,6 +81,8 @@ h1[tabindex="-1"]:focus{outline:none}
 .footer{font-size:13px;align-items:center}
 .footer a{min-height:44px;display:inline-flex;align-items:center}
 #toast{font-size:14px}
+.guide-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 48px}
+@media(max-width:760px){.guide-grid{grid-template-columns:1fr;gap:20px}}
 @media(max-width:1150px){.topbar{padding:10px 3vw;gap:15px}.topbar nav{gap:16px}.projection-link{padding-left:15px}.brand .brand-title{font-size:20px}.topbar nav a,.projection-link{font-size:14px}}
 @media(max-width:960px){
  .hero{grid-template-columns:1fr;gap:45px;min-height:0}.hero-map{min-width:0}

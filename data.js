@@ -18,8 +18,8 @@ window.ATLES_DATA={
           "role": "Aporten atributs compartits per descriure serveis i operacions; les extensions corporatives es documenten sense perdre la correspondència amb l’estàndard."
         },
         {
-          "name": "JSON Schema i proves de contracte",
-          "role": "Validen camps i tipus; les comprovacions de valors, unitats i coherència entre senyals completen la validació estructural."
+          "name": "JSON Schema, Weaver i proves de contracte",
+          "role": "Comproven estructura i convencions amb exemples executables. La semàntica de negoci i el mapatge OTLP–CTTI necessiten proves pròpies."
         },
         {
           "name": "Collector i registre de contractes",
@@ -43,6 +43,14 @@ window.ATLES_DATA={
       "caution": "Validar l’estructura no demostra que una mesura representi bé el servei. Cal contrastar unitats, procedència i comportament amb casos coneguts. Els camps sensibles no s’han de copiar a un repositori d’errors sense control.",
       "evidence": [
         {
+          "sourceId": "INT01",
+          "relatedSourceIds": [
+            "INT13"
+          ],
+          "claim": "Altinn documenta OpenTelemetry i un entorn local de prova. La guia pública brasilera també recomana formats oberts per reduir dependències.",
+          "transfer": "Atos proposa aprofitar aquest patró per comprovar, abans de l’alta, identificadors, unitats i camps sensibles del servei. Un canvi de versió haurà de passar les mateixes proves i conservar la correspondència amb el catàleg CTTI. El precedent acredita una base tècnica; l’esquema executable i els criteris d’acceptació els concretaríem aquí."
+        },
+        {
           "sourceId": "R01",
           "claim": "eBay va comparar la captura antiga amb OpenTelemetry i va detectar diferències en noms i etiquetes abans de consolidar el canvi.",
           "transfer": "En podem traslladar la comprovació de paritat. Atos proposa concretar-la sobre el catàleg i els criteris corporatius, amb validació de l’Oficina d’Observabilitat i dels responsables designats."
@@ -51,6 +59,11 @@ window.ATLES_DATA={
           "sourceId": "R02",
           "claim": "OpenTelemetry publica convencions per descriure recursos, atributs i operacions amb una semàntica compartida.",
           "transfer": "Serveixen de base tècnica. Les famílies i versions escollides necessitaran validació amb el catàleg del CTTI."
+        },
+        {
+          "sourceId": "TEC_WEAVER",
+          "claim": "OpenTelemetry presenta Weaver per mantenir i comprovar convencions semàntiques.",
+          "transfer": "Atos proposa provar-lo com a candidat al costat d’esquemes JSON i mostres CTTI; no pressuposa que OTLP sigui equivalent al JSON corporatiu."
         }
       ],
       "effort": "mitjà",
@@ -114,6 +127,14 @@ window.ATLES_DATA={
       ],
       "caution": "Un collector també pot fallar. Les cues tenen límits i els reintents poden generar duplicats segons el protocol. Cal dimensionar cada salt i evitar que una aturada de telemetria freni la transacció del ciutadà.",
       "evidence": [
+        {
+          "sourceId": "INT14",
+          "relatedSourceIds": [
+            "INT18"
+          ],
+          "claim": "StackOps ofereix observabilitat compartida al govern de Singapur. perfSONAR aporta un precedent de mesures que travessen xarxes de diferents organitzacions.",
+          "transfer": "Atos proposa recollir cada senyal pel camí adequat i conservar-ne font, domini i responsable. Les mètriques d’aplicació conviurien amb les dels equips de xarxa i les evidències dels operadors de fibra. Els casos no acrediten compatibilitat amb totes les eines CTTI: el pilot ha de provar connectors, saturació, retards i recuperació."
+        },
         {
           "sourceId": "R01",
           "claim": "eBay relata la substitució de la recollida de mètriques per OpenTelemetry mantenint el comportament que esperaven els seus equips.",
@@ -207,6 +228,12 @@ window.ATLES_DATA={
       "caution": "L’agregació és irreversible quan s’elimina el detall. Un arxiu immutable pot contenir dades incorrectes. Cal provar el significat de les consultes i la recuperació, i acordar la conservació abans de bloquejar o purgar.",
       "evidence": [
         {
+          "sourceId": "INT04",
+          "relatedSourceIds": [],
+          "claim": "El Ministry of Justice britànic adverteix que els històrics de resolució reduïda poden deixar de servir per calcular disponibilitat en períodes llargs.",
+          "transfer": "Atos proposa separar el detall de diagnosi de l’evidència necessària per reproduir un indicador. Abans de reduir o eliminar dades, repetiríem el càlcul amb el seu denominador, exclusions i versió. La guia té una revisió pendent; la seva advertència serveix per definir una prova, sense importar al CTTI una política concreta de retenció."
+        },
+        {
           "sourceId": "R04",
           "claim": "Uber va dissenyar M3 amb polítiques de retenció i agregació configurables per a les mètriques.",
           "transfer": "La lliçó és associar resolució i ús. Les finestres i els volums del CTTI s’han de mesurar."
@@ -228,35 +255,35 @@ window.ATLES_DATA={
     {
       "id": "A4",
       "title": "Observabilitat com a codi",
-      "subtitle": "Regles, quadres i rutes passen per revisió, proves i un desplegament que es pot reconstruir.",
+      "subtitle": "Configuració versionada i context de cada desplegament per comprovar què ha canviat i amb quin resultat.",
       "problem": "La memòria ja descriu SIC/SIC+ i la incorporació d’observabilitat de cloud a Talaia. Atos proposa estendre aquest camí on sigui aplicable. Un canvi manual en una alerta pot resoldre una urgència i perdre’s quan es reinstal·la l’eina. Si les configuracions viuen només a les consoles, costa comparar entorns i entendre qui va canviar un llindar. Al CTTI, la convivència de proveïdors fa especialment útil disposar d’un paquet de configuració que es pugui revisar i repetir.",
-      "proposal": "Proposem mantenir regles, dashboards, polítiques de retenció i encaminament en repositoris amb versions i responsables. Cada proposta de canvi passa proves de sintaxi, coherència i comportament amb dades conegudes. Un desplegament controlat aplica la versió a un àmbit acotat i comprova l’estat real. Les diferències entre repositori i plataforma generen un avís; les excepcions d’urgència es registren i després es regularitzen. El paquet inclou les dependències i els secrets per referència, mai incorporats al codi. La reversió recupera una configuració provada i declara quins efectes, com una purga ja feta, no pot desfer. El pilot acabaria amb documentació, acceptació i traspàs a l’equip que mantindrà la configuració, seguint el pas de projecte a administració previst per al servei d’eines.",
+      "proposal": "Atos proposa mantenir collectors, regles, sondes i dashboards com a codi, amb revisió i proves abans de publicar-los. Sobre SIC+, cada desplegament de la solució observada deixaria també un esdeveniment amb servei, entorn, versió, canvi autoritzat i resultat. Des d’una degradació es podria arribar a les proves del canvi proper i comparar el comportament abans i després. La proximitat temporal orienta la investigació; no acredita per si sola la causa. El circuit de canvi manté les aprovacions i els equips executors, i una finestra de manteniment no oculta qualsevol afectació.",
       "flow": [
-        "Proposar el canvi amb responsable i motiu.",
-        "Provar regles i configuracions amb dades conegudes.",
-        "Desplegar per àmbits i comparar estat real i declarat.",
-        "Revertir o consolidar la versió amb evidència del resultat."
+        "Versionar configuració i proves.",
+        "Validar i desplegar pel circuit corporatiu.",
+        "Relacionar versió, canvi i senyals del servei.",
+        "Comprovar el resultat i recuperar si cal."
       ],
       "technology": [
         {
-          "name": "Git i flux de revisió",
-          "role": "Conserven autoria, versions, aprovacions i diferències; permeten reconstruir el paquet que s’havia desplegat en un moment concret."
+          "name": "SIC+ i metadades de release",
+          "role": "Relacionen components, versions i proves amb el canvi; cal validar-ne l’exportació cap a l’observabilitat."
         },
         {
-          "name": "Argo CD o Flux, quan l’entorn ho permeti",
-          "role": "Reconcilien configuracions declaratives en Kubernetes; per a altres eines s’utilitzen adaptadors i APIs comprovades."
+          "name": "Git, Terraform i proves automàtiques",
+          "role": "Versionen collectors, regles i sondes i comproven la configuració abans de publicar-la."
         },
         {
-          "name": "promtool i proves d’integració",
-          "role": "Comproven el comportament d’alertes amb sèries de prova i completen el control amb verificació de desplegament i notificació."
+          "name": "Esdeveniments de canvi i línia temporal",
+          "role": "Permeten investigar el comportament del servei amb context de desplegament, sense confondre correlació amb causa."
         }
       ],
-      "pilot": "Versionar les alertes, el dashboard i l’encaminament d’un servei. Preparar un canvi correcte i un que provoqui una falsa alarma. Fer-los passar per la mateixa cadena i reconstruir després la configuració en un entorn net. El lliurable serà una plantilla reutilitzable amb les proves, els permisos i el procediment de canvi d’urgència.",
-      "tender": "Atos proposa versionar les configuracions de l’abast i desplegar-les amb un procediment reproduïble. La proposta inclou proves abans del canvi, detecció de divergències, registre d’excepcions i recuperació. El CTTI tindria el codi de configuració, les proves i les instruccions per reconstruir l’entorn, amb les llicències i els drets corresponents.",
+      "pilot": "Seguir un canvi correcte, un de fallit i un de cancel·lat en preproducció. Comprovar configuració d’observabilitat, versió de l’aplicació, proves MAT i referència del canvi. Comparar el servei abans i després i verificar la recuperació quan es desfaci un canvi autoritzat.",
+      "tender": "Atos proposa versionar la configuració d’observabilitat i relacionar cada canvi de la solució amb el seu comportament abans i després. El pilot reutilitza SIC+, metadades, proves i circuit de canvi per identificar què es va desplegar, quina evidència queda i si s’ha recuperat el resultat funcional.",
       "acceptance": [
-        "Una regla que falla una prova no es publica en l’àmbit controlat.",
-        "Un canvi manual es detecta i queda relacionat amb una excepció o correcció.",
-        "Una instal·lació neta reprodueix regles, rutes i quadres del pilot."
+        "Un canvi deixa configuració, versió, entorn i evidència de les proves accessibles.",
+        "Es distingeixen desplegament correcte, fallit, cancel·lat i prova omesa.",
+        "La comparació abans/després mostra la recuperació funcional i les fonts que encara falten."
       ],
       "metrics": [
         "Canvis amb prova i revisió / canvis totals.",
@@ -267,6 +294,12 @@ window.ATLES_DATA={
       ],
       "caution": "Algunes eines exporten configuració incompleta o depenen d’identificadors interns. Cal provar la reconstrucció, no donar-la per feta perquè hi hagi un fitxer JSON. La reconciliació automàtica ha de respectar les intervencions d’emergència autoritzades.",
       "evidence": [
+        {
+          "sourceId": "INT03",
+          "relatedSourceIds": [],
+          "claim": "Cloud Pi Native, del Ministeri de l’Interior francès, sincronitza quadres i alertes dels projectes des de Git amb ArgoCD.",
+          "transfer": "Atos proposa aplicar el mateix criteri als patrons acordats: canvi revisat, prova, desplegament i reversió amb historial. Cada regla tindria un mantenidor identificat i una comprovació sobre el servei que ha de protegir. La font també recorda que les alertes particulars no venen resoltes per defecte: disposar de plataforma no tanca la feina de definir-les."
+        },
         {
           "sourceId": "R06",
           "claim": "OpenGitOps defineix un estat declarat, versionat i reconciliat contínuament amb el desplegament.",
@@ -305,14 +338,19 @@ window.ATLES_DATA={
         {
           "name": "eBPF / OpenTelemetry OBI",
           "role": "Aporta visibilitat inicial en càrregues Linux compatibles; se’n comproven permisos, impacte i limitacions abans d’habilitar-lo."
+        },
+        {
+          "name": "MAT i proves de visibilitat",
+          "role": "Reutilitzen una operació funcional per comprovar emissió, recepció i consulta del senyal amb la identitat correcta."
         }
       ],
-      "pilot": "Aplicar la plantilla a una aplicació nova i a una d’heretada amb tecnologies diferents. Verificar una petició correcta, una dependència lenta i un error. Comparar la cobertura automàtica amb la instrumentació necessària per entendre el tràmit. Lliurar dues plantilles d’alta, el catàleg de compatibilitats i les excepcions justificades, amb la sobrecàrrega de CPU, memòria i latència mesurada.",
+      "pilot": "Executar una operació correcta, una dependència lenta i un cas sense telemetria. L’informe ha de distingir prova superada, fallida, omesa i sense evidència, i assenyalar quin equip ha de resoldre cada buit. Es reutilitzaria una prova MAT i es contrastaria la cobertura amb el paquet corporatiu aplicable.",
       "tender": "Atos proposa patrons d’instrumentació i plantilles d’alta per a les plataformes acordades. Cada alta comprova identitat, senyals mínims, encaminament d’alertes i traçabilitat del recorregut de prova. Les limitacions i excepcions tenen responsable i revisió. La proposta inclou actualització, desactivació i retirada dels agents, amb l’impacte sobre l’aplicació mesurat.",
       "acceptance": [
         "Una petició de prova es relaciona amb el servei i les dependències cobertes.",
         "Una fallada controlada arriba a l’equip assignat amb context útil.",
-        "Es mesura la sobrecàrrega i es retira l’agent sense perdre la configuració base."
+        "Es mesura la sobrecàrrega i es retira l’agent sense perdre la configuració base.",
+        "L’alta diferencia prova superada, fallida, omesa i sense evidència; cap desplegament verd substitueix la prova de recepció dels senyals."
       ],
       "metrics": [
         "Altes que superen el mínim observable / altes revisades.",
@@ -326,6 +364,14 @@ window.ATLES_DATA={
       ],
       "caution": "L’autoinstrumentació no entén un tràmit administratiu. eBPF té requisits de sistema i no cobreix totes les comunicacions. Cal descriure els buits i afegir instrumentació de negoci on el diagnòstic ho necessiti.",
       "evidence": [
+        {
+          "sourceId": "INT01",
+          "relatedSourceIds": [
+            "R08"
+          ],
+          "claim": "Nais integra observabilitat a la plataforma i documenta límits d’entorn i filtratge. Altinn ofereix un laboratori per provar la instrumentació OpenTelemetry.",
+          "transfer": "Atos proposa que cada alta lliuri una traça comprensible, un error de prova visible i un responsable que n’accepti el manteniment. L’activació automàtica es faria només sobre entorns compatibles. El resultat funcional del tràmit continuaria necessitant esdeveniments propis; cap d’aquests casos demostra que afegir un agent cobreixi tot el servei."
+        },
         {
           "sourceId": "R08",
           "claim": "Nais, la plataforma de NAV a Noruega, permet activar instrumentació OpenTelemetry des de la configuració de desplegament i verificar-ne les traces.",
@@ -389,8 +435,8 @@ window.ATLES_DATA={
       ],
       "technology": [
         {
-          "name": "Catàleg de dades i registre de serveis",
-          "role": "Mantenen equivalències, definicions i propietaris; cada transformació té una versió que es pot revisar i reproduir."
+          "name": "Catàleg corporatiu i metadades SIC+",
+          "role": "Relacionen servei, component i versió. Cada vincle conserva si prové de l’inventari, del desplegament o de l’activitat observada."
         },
         {
           "name": "SQL federat, com Trino",
@@ -401,12 +447,13 @@ window.ATLES_DATA={
           "role": "Preparen conjunts que requereixen consulta estable i ràpida, conservant la procedència i les regles de transformació."
         }
       ],
-      "pilot": "Escollir un servei que aparegui al catàleg, a una eina de monitoratge i a l’històric d’incidents. Resoldre els noms i preparar tres consultes: estat, evolució i incidents relacionats. Comparar consulta federada i dades preparades, incloent una font indisponible. El resultat serà el diccionari semàntic inicial, els mapatges i una proposta d’arquitectura basada en mesures.",
+      "pilot": "Triar tres fonts: metadades de SIC+, inventari corporatiu i comunicacions observades. Comparar la consulta federada amb una vista preparada per al pilot, inclosa una font indisponible. Contrastar una dependència declarada sense trànsit recent, una comunicació no declarada i una font desactualitzada, conservant origen i vigència de cada relació.",
       "tender": "Atos proposa identificar cada servei amb un llenguatge comú i conservar la traça de les transformacions. Les consultes mostren cobertura i vigència i respecten els permisos de les fonts. La proposta inclou mapatges, definicions i interfícies exportables. La decisió de centralitzar o federar dades es contrasta amb proves de consistència, rendiment i comportament davant de fonts indisponibles.",
       "acceptance": [
         "El mateix servei es reconcilia entre les tres fonts del pilot.",
         "Una font absent es mostra com a informació incompleta, sense inventar un estat saludable.",
-        "La consulta es reprodueix a partir de la versió del mapatge i les dades conservades."
+        "La consulta es reprodueix a partir de la versió del mapatge i les dades conservades.",
+        "Una relació declarada que no s’ha observat manté la seva procedència i es mostra com a pendent de contrast."
       ],
       "metrics": [
         "Registres relacionats amb un servei inequívoc / registres tractats.",
@@ -418,6 +465,14 @@ window.ATLES_DATA={
       ],
       "caution": "Federar pot traslladar càrrega a sistemes operatius i produir resultats parcials. Cal limitar consultes i explicitar les finestres temporals. El registre de serveis necessita un responsable capaç de resoldre identitats duplicades.",
       "evidence": [
+        {
+          "sourceId": "R28",
+          "relatedSourceIds": [
+            "INT10"
+          ],
+          "claim": "X-tee relaciona intercanvis amb metadades operatives. GSA Site Scanning consolida fonts d’inventari per identificar i revisar webs federals.",
+          "transfer": "Atos proposa reconciliar identitat tècnica, servei consumidor i responsable abans d’unir les dades. Un domini nou, un àlies o una dependència declarada requeririen comprovació i data de vigència. La vista comuna mostraria d’on surt cada relació i què falta confirmar. Aquests precedents no acrediten que tots els inventaris CTTI encaixin automàticament ni que calgui copiar totes les dades."
+        },
         {
           "sourceId": "R04",
           "claim": "M3 permetia a Uber consultar mètriques entre regions mantenint dades locals i compatibilitat amb fonts anteriors.",
@@ -491,6 +546,12 @@ window.ATLES_DATA={
       "caution": "La puntuació no ha de premiar volum de dades ni nombre d’eines. Cal separar manca de cobertura, manca d’evidència i incompliment, i revisar les rúbriques quan deixen de discriminar situacions rellevants.",
       "evidence": [
         {
+          "sourceId": "INT10",
+          "relatedSourceIds": [],
+          "claim": "GSA Site Scanning revisa diàriament un inventari de webs federals i publica el motor i les dades que produeix.",
+          "transfer": "Atos proposa contrastar la cobertura declarada amb els serveis que apareguin als inventaris corporatius i als dominis autoritzats. Una mostra manual distingiria serveis reals, àlies i actius retirats. Així, la valoració de maduresa mostraria també allò que queda fora del recompte. La revisió periòdica nord-americana inspira aquest control; no és una certificació de cobertura ni monitoratge continu."
+        },
+        {
           "sourceId": "R11",
           "claim": "Spotify descriu Soundcheck com una manera de comprovar components i mostrar el seu ajust als estàndards d’enginyeria.",
           "transfer": "Podem traslladar el vincle entre comprovació i servei. La matriu de trenta caselles continua sent la proposta de l’Atles."
@@ -528,9 +589,13 @@ window.ATLES_DATA={
         {
           "name": "Graf de dependències",
           "role": "Ajuda a identificar correccions que desbloquegen diverses capacitats, com resoldre la identitat de servei abans de correlacionar incidents."
+        },
+        {
+          "name": "Registre corporatiu d’excepcions",
+          "role": "Enllaça el deute amb decisió, responsable i vigència, segons el circuit aplicable a cada excepció."
         }
       ],
-      "pilot": "Escollir deu mancances de dos serveis: identificació, alarmat, retenció i instrumentació. Provar una correcció, una excepció temporal i una regressió posterior. Comprovar que els reintents no dupliquen tasques. Lliurar el registre i un informe que compari tancaments declarats amb comprovacions superades.",
+      "pilot": "Provar una correcció, una excepció vigent i una de caducada. Cada cas ha de conservar la decisió del circuit competent i separar el tancament de la tasca de la recuperació demostrada de cobertura.",
       "tender": "Atos proposa un registre de deute amb causa, servei, propietari, prioritat i prova de resolució. Les excepcions tenen aprovador, justificació i revisió. La proposta s’integra amb el circuit de treball acordat i controla duplicats. El tancament automàtic es basa en evidència reproduïble; les correccions que necessiten criteri expert incorporen una validació identificada.",
       "acceptance": [
         "Una detecció repetida actualitza la tasca sense duplicar-la.",
@@ -548,6 +613,12 @@ window.ATLES_DATA={
       "caution": "Les interfícies de CONTIC o altres eines s’han de validar. El venciment d’una excepció no ha de provocar una aturada de producció sense una política expressa per a aquell control.",
       "evidence": [
         {
+          "sourceId": "INT10",
+          "relatedSourceIds": [],
+          "claim": "El programa Site Scanning de la GSA treballa amb inventaris consolidats i comprovacions periòdiques de webs federals.",
+          "transfer": "Atos proposa convertir les diferències verificades en feina concreta: un servei nou sense sonda, una alerta vinculada a un actiu retirat o un responsable desactualitzat. Cada cas tindria propietari, prioritat i prova de tancament; les excepcions conservarien vigència i motiu. Trobar una discrepància no la converteix automàticament en deute: primer cal confirmar que l’actiu pertany a l’abast acordat."
+        },
+        {
           "sourceId": "R13",
           "claim": "Kyverno documenta excepcions explícites per recurs i política, amb condicions comprovables.",
           "transfer": "És un mecanisme útil per a part de l’entorn. El circuit de deute, aprovació i caducitat requereix disseny propi."
@@ -564,9 +635,9 @@ window.ATLES_DATA={
     {
       "id": "B3",
       "title": "Mesurar la qualitat de l’observabilitat",
-      "subtitle": "Senyals de prova i conciliació de comptadors comproven que l’observabilitat funciona quan se la necessita.",
+      "subtitle": "Senyals de prova i control de frescor detecten quan es perd visibilitat abans de donar un servei per sa.",
       "problem": "El servei d’eines ja preveu vigilar la seva salut, les integracions i la continuïtat. Atos proposa comprovar el recorregut complet, des de la font fins a la consulta i l’avís. Així, un quadre verd no s’interpreta com a servei saludable quan han deixat d’arribar dades. El CdC necessita saber quina visibilitat conserva si falla una peça.",
-      "proposal": "Proposem mesurar cobertura, frescor, integritat i resposta del camí d’observació. Els collectors publiquen comptadors d’entrada, sortida i descartats. Un emissor genera un senyal de prova que ha d’arribar al receptor previst, sense contaminar els indicadors del servei. Les sondes comproven permisos, cerca i notificació. Cada indicador té numerador, denominador, finestra i límit de validesa. Una fallada de telemetria obre un cas per al responsable del tram afectat i informa el CdC de la visibilitat perduda. Si coincideix amb una incidència del servei, els dos casos queden vinculats i conserven proves de recuperació diferents. El quadre permet localitzar el salt degradat abans de concloure que l’aplicació ha fallat.",
+      "proposal": "Atos proposa provar la cadena d’observabilitat amb senyals controlats i comprovacions de frescor. El pròxim enviament esperat del format CTTI permet detectar fonts silencioses; una prova de recorregut completa comprovaria també recepció, consulta i avís. El sistema distingiria dada antiga, font inaccessible, manteniment previst i servei degradat. En un entorn acordat, una degradació coneguda permetria contrastar com reacciona l’Índex de Salut, a qui arriba l’alerta i quina prova acredita la recuperació. La qualitat es mesuraria per trams, amb responsables i cobertura explícits.",
       "flow": [
         "Definir cobertura esperada i punts de comprovació.",
         "Emetre senyals sintètics i recollir comptadors.",
@@ -585,14 +656,18 @@ window.ATLES_DATA={
         {
           "name": "Motor de càlcul versionat",
           "role": "Publica indicadors reproduïbles i identifica quina part de la mesura manca quan una font no està disponible."
+        },
+        {
+          "name": "Pròxim enviament i proves de recorregut",
+          "role": "Comproven la frescor de cada font i l’arribada efectiva dels senyals fins a la consulta i l’avís."
         }
       ],
-      "pilot": "Triar un servei amb dos camins d’ingesta. Introduir un retard, un filtre incorrecte i un receptor indisponible en un entorn controlat. Comprovar quin indicador els detecta i si l’operador localitza la fallada. Lliurar les sondes i el criteri per distingir incidència de servei i de monitoratge.",
+      "pilot": "Retardar un enviament i interrompre un receptor en un entorn de prova. Afegir una degradació controlada del servei per comprovar que l’Índex de Salut i els avisos reaccionen segons les regles aplicables. Registrar detecció, acceptació, diagnòstic i recuperació, distingint servei afectat i pèrdua de telemetria.",
       "tender": "Atos proposa indicadors de qualitat amb definició, font i abast, i proves de cap a cap dels circuits acordats, incloent consulta i notificació. La solució fa visibles interrupcions, descartats i dades caducades. Els llindars es plantegen sobre una línia base i es revisen quan canvien el volum o l’arquitectura.",
       "acceptance": [
-        "Un tall d’ingesta es detecta encara que l’aplicació respongui.",
-        "L’avís sintètic arriba al destinatari i es reconcilia amb l’emissió.",
-        "Una dada antiga mostra l’antiguitat i no rep un estat verd per defecte."
+        "Una font silenciosa es detecta dins del marge acordat i s’assigna al tram responsable.",
+        "Les dades antigues i els manteniments previstos no es presenten com a cobertura actual.",
+        "Una degradació coneguda i la seva recuperació es reflecteixen en els senyals i en l’índex segons les regles CTTI."
       ],
       "metrics": [
         "Senyals de prova rebuts / emesos i retard p95.",
@@ -605,6 +680,14 @@ window.ATLES_DATA={
       ],
       "caution": "Les sondes han d’exercitar camins representatius. Una ruta privilegiada pot amagar fallades del trànsit real. Cal separar el senyal en el càlcul sense donar-li un tractament que alteri el recorregut.",
       "evidence": [
+        {
+          "sourceId": "INT15",
+          "relatedSourceIds": [
+            "INT05"
+          ],
+          "claim": "NIRS va assajar el setembre de 2026 una fallada del transport de logs. GOV.UK documenta comprovacions de la cadena d’alerta.",
+          "transfer": "Atos proposa provar què passa quan la supervisió deixa de rebre dades: el sistema ha de mostrar la visibilitat perduda i avisar pel camí acordat. L’exercici recorreria emissió, ingesta, consulta i recepció de l’avís. La font coreana acredita el simulacre; la detecció del silenci i el canal independent formen part de la nostra proposta."
+        },
         {
           "sourceId": "R03",
           "claim": "OpenTelemetry recomana observar ocupació de cues, capacitat i errors d’enviament del Collector.",
@@ -662,6 +745,14 @@ window.ATLES_DATA={
       ],
       "caution": "Publicar més sovint no corregeix una font desactualitzada. La vista de direcció ha de conservar prou context per evitar comparacions entre serveis amb finestres, càrregues o cobertures diferents.",
       "evidence": [
+        {
+          "sourceId": "R28",
+          "relatedSourceIds": [
+            "INT04"
+          ],
+          "claim": "X-tee diferencia informació operativa i dades públiques agregades. El Ministry of Justice explicita límits dels històrics quan es calcula disponibilitat.",
+          "transfer": "Atos proposa publicar cada indicador amb població, finestra, cobertura i versió de la definició. El quadre, l’API i l’exportació haurien de donar el mateix resultat per al mateix període. Una rectificació conservaria explicació i historial. La publicació oberta es decidiria separadament del detall operatiu; tenir una dada disponible no significa que sigui interpretable o publicable."
+        },
         {
           "sourceId": "R17",
           "claim": "GOV.UK Pay publica activitat amb transaccions, imports i serveis actius, indicant-ne l’actualització.",
@@ -721,6 +812,14 @@ window.ATLES_DATA={
       "caution": "La correlació temporal no prova la causa. L’assistent pot ometre fets o relacionar-ne d’irrellevants. Cal conservar versions i validar les conclusions amb els equips que coneixen el servei.",
       "evidence": [
         {
+          "sourceId": "INT05",
+          "relatedSourceIds": [
+            "INT09"
+          ],
+          "claim": "Login.gov assigna el registre cronològic de l’incident. GOV.UK ha explicat com va corregir fonts identificades de soroll als registres d’error.",
+          "transfer": "Atos proposa reconstruir què es va observar, què es va decidir i amb quina evidència, distingint fets d’hipòtesis. Cada millora acordada acabaria en una prova repetible o en un canvi verificat. El relat britànic és un antecedent datat; no atribuiríem la mateixa millora al CTTI ni confondríem menys registres amb menys incidents."
+        },
+        {
           "sourceId": "R16",
           "claim": "Google descriu revisions sense culpabilització, elaborades de manera col·laborativa i orientades a corregir causes sistèmiques.",
           "transfer": "En podem traslladar el criteri de revisió. L’expedient integrat és la concreció tecnològica proposada per al CTTI."
@@ -779,6 +878,15 @@ window.ATLES_DATA={
       "caution": "Les eines poden tenir estats i APIs incompatibles. Cal pactar el model mínim i resoldre conflictes de sincronització. El context compartit s’ha de limitar a allò necessari per investigar l’incident.",
       "evidence": [
         {
+          "sourceId": "R28",
+          "relatedSourceIds": [
+            "INT18",
+            "INT09"
+          ],
+          "claim": "X-tee comparteix metadades d’intercanvi; perfSONAR ajuda a diagnosticar entre xarxes. Login.gov diferencia coordinació i execució tècnica.",
+          "transfer": "Atos proposa que els equips treballin sobre un mateix identificador d’incident i un paquet d’evidències amb permisos acotats. El traspàs indicaria què s’ha comprovat, què falta i qui accepta el pas següent. En una degradació de xarxa, cada operador aportaria el seu tram. Compartir diagnosi no traslladaria al Centre de Control l’autoritat d’intervenir sobre qualsevol component."
+        },
+        {
           "sourceId": "R30",
           "claim": "W3C defineix un format comú per propagar el context de traça entre sistemes compatibles.",
           "transfer": "Ajuda a unir fragments tècnics; no resol la responsabilitat contractual ni acredita causalitat."
@@ -835,6 +943,14 @@ window.ATLES_DATA={
       ],
       "caution": "Un clic d’acceptació no prova que s’hagi iniciat un diagnòstic. Cal observar les etapes sense convertir els temps en incentius per acceptar avisos que l’equip no pot atendre.",
       "evidence": [
+        {
+          "sourceId": "INT05",
+          "relatedSourceIds": [
+            "INT08"
+          ],
+          "claim": "GOV.UK prova periòdicament PagerDuty i manté un Watchdog separat. VA.gov demana avisos accionables, incloent fallades silencioses i trànsit inesperadament baix.",
+          "transfer": "Atos proposa comprovar que l’alerta arriba a la guàrdia vigent, que algú l’accepta i que queda clar qui inicia la diagnosi. Una notificació lliurada no equival a una actuació començada. El pilot també inclouria una ruta sense responsable i un canvi de torn, perquè les incidències del mateix encaminament quedin visibles."
+        },
         {
           "sourceId": "R14",
           "claim": "Uber va concentrar diferents fonts d’alerta en una plataforma amb gestió i canals de notificació compartits.",
@@ -893,6 +1009,14 @@ window.ATLES_DATA={
       "caution": "Els temps només són comparables si els estats tenen el mateix significat. Les tasques paral·leles no s’han de sumar com si fossin temps transcorregut. Cal un camí alternatiu si falla la plataforma de coordinació.",
       "evidence": [
         {
+          "sourceId": "INT09",
+          "relatedSourceIds": [
+            "INT07"
+          ],
+          "claim": "Login.gov separa direcció de situació, execució, comunicació i cronologia. El centre d’operacions de RIA manté la responsabilitat de cada institució sobre els seus serveis.",
+          "transfer": "Atos proposa concretar aquest repartiment dins dels circuits CTTI: qui coordina, qui actua, qui valida la recuperació i qui comunica l’estat. Els relleus deixarien confirmació explícita i assumptes pendents. Els exemples aporten criteri organitzatiu; les competències de RIA i els temps del manual nord-americà no es traslladen automàticament."
+        },
+        {
           "sourceId": "R15",
           "claim": "Google documenta comandament explícit, registre viu i confirmació del traspàs entre responsables.",
           "transfer": "La proposta ho porta a estats i esdeveniments comprovables, adaptats als rols i eines que acordi el CTTI."
@@ -949,6 +1073,14 @@ window.ATLES_DATA={
       "caution": "Una reversió pot fallar o no compensar tots els efectes externs. El nivell admissible ha de dependre de l’acció concreta; una bona taxa mitjana d’encert no autoritza operacions amb conseqüències incompatibles amb el risc acceptat.",
       "evidence": [
         {
+          "sourceId": "INT16",
+          "relatedSourceIds": [
+            "INT17"
+          ],
+          "claim": "Austràlia publica criteris de control d’agents. GovTech ha documentat un prototip amb eines acotades i accions traçables en preproducció.",
+          "transfer": "Atos proposa començar amb assistència en lectura i autoritzar cada ampliació sobre proves de qualitat, permisos i resultat. Una acció amb efecte identificaria responsable, aprovació i manera d’aturar-la. Aquests precedents ajuden a dissenyar el control; no acrediten que una administració repari habitualment incidents TIC de forma autònoma ni justifiquen passar directament a N3."
+        },
+        {
           "sourceId": "CG02",
           "claim": "AIOpsLab aporta un entorn de recerca que combina aplicacions, càrrega, fallades i observació per provar agents al llarg del cicle d’incident. Permet estudiar comportaments que un qüestionari de text no reprodueix, incloent la interacció amb sistemes i eines.",
           "transfer": "En podem adoptar el mètode d’avaluació reproduïble. El banc experimental no acredita fiabilitat en els serveis CTTI ni determina els seus nivells d’autoritat."
@@ -993,7 +1125,8 @@ window.ATLES_DATA={
       "acceptance": [
         "Dues implementacions compleixen el mateix contracte de classificació.",
         "Un reinici entre passos conserva el cas i no duplica el tiquet.",
-        "Una funció de consulta no pot executar una eina de modificació."
+        "Una funció de consulta no pot executar una eina de modificació.",
+        "Dos agents compatibles intercanvien una tasca amb identitat i traça del cas; un agent sense permís queda bloquejat i registrat."
       ],
       "metrics": [
         "Funcions amb contracte i prova de substitució superada / total.",
@@ -1006,6 +1139,14 @@ window.ATLES_DATA={
       ],
       "caution": "MCP i els esquemes comuns no garanteixen que dos components entenguin igual una prioritat o una causa. Cal compartir vocabulari, exemples i proves; també revisar les llicències dels components que es vulguin transferir.",
       "evidence": [
+        {
+          "sourceId": "INT17",
+          "relatedSourceIds": [
+            "INT16"
+          ],
+          "claim": "El prototip de GovTech utilitza agents especialitzats, MCP i traces. La guia australiana demana seguir les interaccions i els permisos dels agents.",
+          "transfer": "Atos proposa definir cada assistent per la feina que pot fer, les eines que necessita i el responsable que n’accepta el resultat. IA Mesh descriuria aquí aquesta cooperació governada. El pilot provaria si diversos agents aporten més que un flux senzill i si se’n pot substituir un sense perdre control. La font no acredita una arquitectura pública universal."
+        },
         {
           "sourceId": "CG03",
           "claim": "Anthropic descriu patrons separables d’encaminament, seqüenciació i orquestració, i explica que les interfícies d’eines requereixen disseny i proves específiques. Recomana incorporar complexitat quan millora un resultat mesurable, tenint en compte el cost i la latència.",
@@ -1042,9 +1183,7 @@ window.ATLES_DATA={
             "role": "Descriuen capacitats i intercanvi de tasques quan cal cooperació entre agents. Es fixen versions i es proven autenticació, errors i compatibilitat abans de connectar-los."
           }
         ],
-        "proofs": [
-          "Dos agents compatibles intercanvien una tasca amb identitat i traça del cas; un agent sense permís queda bloquejat i registrat."
-        ]
+        "proofs": []
       }
     },
     {
@@ -1098,6 +1237,12 @@ window.ATLES_DATA={
           "sourceId": "CG06",
           "claim": "Grab relata que va millorar la documentació de dades amb revisió dels responsables abans d’oferir un assistent intern de descoberta. Quan una pregunta requereix intervenció humana, la conversa pot ajudar a actualitzar la documentació que faltava.",
           "transfer": "Es pot adoptar el bucle consulta, buit i revisió editorial. Els conjunts de dades de Grab no són runbooks CTTI i no se’n transfereixen resultats quantitatius."
+        },
+        {
+          "sourceId": "INT16",
+          "relatedSourceIds": [],
+          "claim": "La guia australiana inclou el seguiment de la memòria dels agents. És orientació institucional, no una implantació demostrada de coneixement operatiu.",
+          "transfer": "Atos proposa completar la referència de GOV.UK Chat ja present amb una prova de vigència: retirar un procediment, substituir-ne la versió i comprovar què recupera l’assistent. La resposta hauria de citar la font vigent o explicar que manca suport. El propietari del coneixement valida el contingut; la plataforma ha de propagar també els canvis de permisos."
         }
       ],
       "effort": "mitjà",
@@ -1121,20 +1266,21 @@ window.ATLES_DATA={
           "role": "Connecta traces, mètriques i esdeveniments dels models i eines amb la telemetria del servei, fixant les versions semàntiques utilitzades."
         },
         {
-          "name": "Passarel·la de models amb control corporatiu",
-          "role": "Centralitza accés, rutes autoritzades, filtratge i límits de consum, amb configuració i registre disponibles per al CTTI."
+          "name": "Via de consum d’IA autoritzada",
+          "role": "Aplica identitat, permisos, quotes i traçabilitat. El disseny s’adapta a les capacitats disponibles; l’AI Gateway corporatiu encara consta en planificació."
         },
         {
           "name": "Avaluador independent del flux executiu",
           "role": "Compara resultats amb evidències i criteris operatius, distingint acceptació humana, correcció demostrada i compliment dels permisos."
         }
       ],
-      "pilot": "Instrumentar l’assistent de coneixement de C3 i la classificació de C2. Introduir fonts caducades, errors de connector, reintents i una versió de model alternativa. Comparar traces amb el resultat revisat pels operadors i atribuir-ne el cost a cada funció. Provar la indisponibilitat de la passarel·la i l’activació del procediment humà. Lliurar el quadre d’operació, les regles de retenció, les alertes de regressió i un inventari reconstruïble d’agents i versions.",
+      "pilot": "Provar un assistent amb fonts caducades, una consulta fora del seu abast, reintents i un canvi de model. Cada resultat ha de conservar evidència i cost, respectar els permisos i permetre continuar pel procediment humà quan falli una dependència.",
       "tender": "Atos proposa observar la IA relacionant execució, fonts, permisos, versions, consum i resultat. Una passarel·la sota govern del CTTI, o una solució equivalent, incorpora configuració exportable i proves de continuïtat. La proposta concreta dades registrades, accessos i retenció segons la finalitat i els requisits aplicables. Cada canvi de model passa per una avaluació de regressió abans d’assumir el mateix abast operatiu.",
       "acceptance": [
         "Una execució es reconstrueix des del tiquet fins a fonts, eines i aprovacions.",
         "Un límit de consum interromp reintents sense perdre l’estat del cas.",
-        "Una regressió de qualitat es detecta encara que la latència i l’acceptació siguin bones."
+        "Una regressió de qualitat es detecta encara que la latència i l’acceptació siguin bones.",
+        "Provar també un bucle de crides i una tasca que arriba al límit de cost, i comprovar l’aturada i el traspàs sense repetir accions ja executades."
       ],
       "metrics": [
         "Cost total per resultat validat, incloent reintents i revisió humana.",
@@ -1143,6 +1289,14 @@ window.ATLES_DATA={
       "dependencies": [],
       "caution": "El filtratge automàtic pot deixar escapar dades i també eliminar context útil. Cal provar-lo amb dades representatives. La propietat de la configuració no elimina dependències del model ni justifica conservar totes les converses completes.",
       "evidence": [
+        {
+          "sourceId": "INT16",
+          "relatedSourceIds": [
+            "INT17"
+          ],
+          "claim": "GovTech instrumenta el seu prototip amb Langfuse i OpenTelemetry. L’addenda australiana tracta errors d’eines, permisos, latència i consum.",
+          "transfer": "Atos proposa registrar versió de l’agent, fonts, eines, aprovacions i resultat verificable, amb cost per tasca resolta. El quadre separaria funcionament tècnic, qualitat de la resposta i respecte de les regles. La traça ha de permetre revisar les accions observables; no és una còpia del raonament intern del model. El precedent de Singapur continua sent una prova en preproducció."
+        },
         {
           "sourceId": "CG08",
           "claim": "Uber descriu una passarel·la interna de models que integra autenticació, mètriques, registres d’auditoria i atribució de cost, juntament amb tractament d’informació personal. La publicació identifica equips usuaris reals i explica l’arquitectura que unifica diversos proveïdors.",
@@ -1179,9 +1333,7 @@ window.ATLES_DATA={
           }
         ],
         "technology": [],
-        "proofs": [
-          "Provar també un bucle de crides i una tasca que arriba al límit de cost, i comprovar l’aturada i el traspàs sense repetir accions ja executades."
-        ]
+        "proofs": []
       }
     },
     {
@@ -1227,6 +1379,12 @@ window.ATLES_DATA={
       ],
       "caution": "Els logs de consulta poden ometre accessos indirectes i usos excepcionals. Cal conèixer informes, investigacions i obligacions de conservació abans de retirar dades; reduir avisos sense mesurar incidents perduts pot empitjorar el servei.",
       "evidence": [
+        {
+          "sourceId": "INT05",
+          "relatedSourceIds": [],
+          "claim": "GOV.UK va publicar el 2021 una reducció important dels esdeveniments d’error registrats després de corregir fonts concretes de soroll.",
+          "transfer": "Atos proposa revisar duplicats, avisos sense ús i senyals que ja no representen el servei, mantenint una prova sobre incidents coneguts abans de retirar-los. Cada canvi deixaria motiu, responsable i possibilitat de tornar enrere. El cas britànic explica una millora dels registres; no demostra una reducció equivalent d’incidents ni permet fixar un percentatge d’estalvi per al CTTI."
+        },
         {
           "sourceId": "CG09",
           "claim": "Google explica que una freqüència elevada d’avisos pot portar a ignorar incidents reals i defensa un camí d’alerta simple i comprensible. També diferencia el símptoma observat de les possibles causes que l’equip ha d’investigar després.",
@@ -1295,6 +1453,12 @@ window.ATLES_DATA={
           "sourceId": "CG12",
           "claim": "PyRCA ofereix mètodes de diagnòstic sobre mètriques, incloent grafs i restriccions de coneixement expert. El repositori distingeix els exemples adaptats d’usos interns de les comparacions sobre dades simulades, i indica que se centra principalment en mètriques.",
           "transfer": "Pot servir per explorar candidats estadístics amb dades CTTI. No s’ha de presentar com un lector de logs ni copiar la precisió dels seus experiments simulats."
+        },
+        {
+          "sourceId": "INT14",
+          "relatedSourceIds": [],
+          "claim": "GovTech publica usos de StackOps per seguir fluxos i dependències. Els testimonis no acrediten diagnosi causal autònoma amb intel·ligència artificial.",
+          "transfer": "Atos proposa mantenir aquesta idea com a pilot: ordenar evidències, relacionar canvis i suggerir comprovacions que un operador pugui repetir. La resposta distingiria observació, hipòtesi i causa confirmada. L’avaluació comptaria errors, contradiccions i temps net recuperat. El cas públic aporta context de servei; les referències tècniques ja presents continuen explicant el mecanisme d’anàlisi."
         }
       ],
       "effort": "alt",
@@ -1368,6 +1532,12 @@ window.ATLES_DATA={
           "sourceId": "CG14",
           "claim": "Vega-Lite defineix visualitzacions mitjançant objectes JSON amb dades, transformacions i composició de vistes. L’esquema facilita la validació formal i permet separar una especificació versionada del motor que la dibuixa, amb components reutilitzables entre diferents visualitzacions.",
           "transfer": "Aporta un format obert per conservar i revisar el gràfic. La definició de mètriques i les restriccions semàntiques són responsabilitat del disseny proposat al CTTI."
+        },
+        {
+          "sourceId": "INT04",
+          "relatedSourceIds": [],
+          "claim": "El Ministry of Justice documenta límits dels històrics agregats per calcular disponibilitat. És una advertència de qualitat de dades, no un cas de quadres generats amb IA.",
+          "transfer": "Atos proposa que cada quadre generat mostri consulta, definició, període i dades que el sostenen. Abans de passar a ús operatiu, es compararia amb preguntes de resultat conegut i permisos reals. Mantindríem les referències de generació ja presents; afegir un cas públic poc comparable faria aquesta fitxa menys precisa."
         }
       ],
       "effort": "mitjà",
@@ -1417,6 +1587,15 @@ window.ATLES_DATA={
       ],
       "caution": "El portal depèn de les APIs i permisos reals de les eines. Automatitzar un procediment ambigu multiplica els errors. Cal començar per operacions estables i conservar una via de recuperació manual.",
       "evidence": [
+        {
+          "sourceId": "INT01",
+          "relatedSourceIds": [
+            "R08",
+            "INT14"
+          ],
+          "claim": "Altinn ofereix un entorn de prova; Nais i StackOps incorporen observabilitat a plataformes compartides per equips de serveis públics.",
+          "transfer": "Atos proposa un paquet d’alta que es demani pels canals corporatius aplicables i acabi amb instrumentació, quadre, alerta i accés comprovats. El responsable rebria una prova del resultat i les dades necessàries per mantenir-lo. L’autoservei reduiria passos repetits, però no donaria l’alta per feta només perquè una petició o un desplegament hagin acabat sense error."
+        },
         {
           "sourceId": "R24",
           "claim": "LinkedIn explica com Nuage va evolucionar de l’autoservei a un control del cicle de vida amb propietat, permisos i polítiques.",
@@ -1476,6 +1655,14 @@ window.ATLES_DATA={
       "caution": "Una regla sintàcticament correcta pot tenir un llindar inadequat per a un altre servei. Les dades de prova han de cobrir càrregues i temporades diferents. Cal pressupostar el manteniment del repositori compartit.",
       "evidence": [
         {
+          "sourceId": "INT03",
+          "relatedSourceIds": [
+            "INT13"
+          ],
+          "claim": "Cloud Pi Native sincronitza alertes i quadres des de Git. La guia brasilera recomana comprovar cobertura i comportament de les alertes.",
+          "transfer": "Atos proposa distribuir patrons amb versió, exemples correctes i defectuosos, dependències i mantenidor. Un equip podria reutilitzar la regla sabent què observa, en quines condicions funciona i com tornar a la versió anterior. La publicació francesa descriu una implantació; la brasilera és una guia. Cap de les dues eximeix de provar cada patró sobre el servei receptor."
+        },
+        {
           "sourceId": "R26",
           "claim": "openDesk distribueix regles Prometheus pròpies i de col·laboradors, juntament amb dashboards i una matriu de cobertura.",
           "transfer": "Ofereix una referència pública per empaquetar deteccions, mostrant també on la cobertura encara és incompleta."
@@ -1533,6 +1720,14 @@ window.ATLES_DATA={
       "caution": "La manca d’ús pot respondre a una eina inadequada, permisos insuficients o falta de temps. Les mètriques d’adopció han d’ajudar a millorar el servei intern i s’han de llegir amb els equips.",
       "evidence": [
         {
+          "sourceId": "INT15",
+          "relatedSourceIds": [
+            "INT01"
+          ],
+          "claim": "NIRS va executar un simulacre de fallada del transport de logs. Altinn permet preparar un entorn local d’instrumentació i prova.",
+          "transfer": "Atos proposa treballar l’adopció amb situacions que cada rol hagi de resoldre: trobar la manca de senyal, interpretar-la, avisar i comprovar la recuperació. El traspàs al mantenidor inclouria aquesta pràctica i les dificultats detectades. Els precedents mostren exercici i entorn disponible; l’aprenentatge i la reducció d’errors s’haurien de comprovar amb els equips CTTI."
+        },
+        {
           "sourceId": "R27",
           "claim": "Backstage Learn ofereix recorreguts pràctics per desplegar la plataforma, incorporar programari i crear plantilles.",
           "transfer": "Podem aplicar la mateixa lògica a tasques d’observabilitat, amb casos i entorns propis del CTTI."
@@ -1549,9 +1744,9 @@ window.ATLES_DATA={
     {
       "id": "E1",
       "title": "Mesurar el que li passa al servei",
-      "subtitle": "Els esdeveniments de negoci relacionen rendiment tècnic, tràmits completats i punts d’abandonament.",
+      "subtitle": "Seguir una operació fins al resultat funcional evita donar per acabat un tràmit que només s’ha acceptat.",
       "problem": "PCN&ME recull processos crítics i moments d’estrès, i Patró ja recull informació de negoci d’aplicacions segons el model del servei d’eines. Atos proposa connectar aquesta base amb traces i dependències. La definició funcional és decisiva: un intent, un reintent i una finalització no poden acabar comptant com tres operacions satisfactòries.",
-      "proposal": "A partir dels processos i moments crítics de PCN&ME i de la informació de negoci de Patró que correspongui, proposem definir els passos clau d’un recorregut i emetre esdeveniments de negoci amb identitat de servei, tipus d’operació, resultat i temps. Un identificador opac relaciona els passos i les traces sense incorporar dades personals innecessàries. El tractament deduplica reintents i reconcilia totals amb la font transaccional. El quadre mostra finalització, errors i temps per pas, al costat de les dependències tècniques. El responsable funcional valida què representa èxit, abandonament i excepció. Els canvis de procediment tenen una versió perquè no alterin silenciosament les sèries històriques.",
+      "proposal": "Atos proposa relacionar l’experiència tècnica amb el resultat que defineix el responsable funcional: una operació acceptada, pendent, completada o fallida. En fluxos asíncrons, la confirmació d’API o del broker es contrastaria amb el consumidor i la font transaccional. Identificadors d’operació i regles de conciliació permetrien tractar reintents, duplicats i resultats tardans. El quadre mostraria temps fins a la finalització, volum pendent i trams sense evidència. Els equips tècnics instrumenten el recorregut i el negoci valida què significa èxit; no cal capturar el contingut personal del tràmit.",
       "flow": [
         "Acordar el recorregut i què vol dir completar-lo.",
         "Emetre esdeveniments amb identificadors opacs.",
@@ -1570,14 +1765,18 @@ window.ATLES_DATA={
         {
           "name": "Capa semàntica i dashboard de servei",
           "role": "Comparteixen definicions d’èxit, temps i excepció, amb versió i detall suficient per investigar desviacions."
+        },
+        {
+          "name": "Esdeveniments i conciliació de resultats",
+          "role": "Relacionen productor, transport i consumidor; recuperen resultats tardans sense comptar duplicats."
         }
       ],
-      "pilot": "Escollir un tràmit amb inici i final identificables. Instrumentar passos en un entorn de prova i incloure reintents, errors i finalització diferida. Reconciliar els resultats amb la font de negoci. Lliurar el mapa d’esdeveniments i un quadre que permeti localitzar on es perd la continuïtat del recorregut.",
-      "tender": "Atos proposa definir i capturar esdeveniments de negoci vinculats al servei i a la telemetria tècnica. Les definicions es versionen i es validen amb el responsable funcional. La solució incorpora deduplicació, tractament d’esdeveniments tardans i conciliació amb les fonts acordades. Només es capturen els identificadors i camps necessaris per al cas d’ús. La proposta reutilitza el context de procés de PCN&ME i la informació de negoci de Patró. Els recomptes es concilien amb la font transaccional acordada abans d’afegir noves mesures.",
+      "pilot": "Escollir una integració asíncrona real i provar un consumidor aturat, un reintent i una recuperació. El recompte d’operacions úniques i el resultat final han de coincidir amb la font transaccional, sense donar per acabat el que només s’ha acceptat.",
+      "tender": "Atos proposa observar el resultat de negoci de cada recorregut, des de l’acceptació fins a la finalització validada. La solució diferencia operacions pendents, completades i fallides, concilia reintents i relaciona les desviacions amb els equips del tram afectat.",
       "acceptance": [
-        "Un reintent no incrementa dues vegades les finalitzacions.",
-        "Un canvi de definició queda identificat en les comparacions històriques.",
-        "Un resultat de negoci es relaciona amb els passos tècnics coberts."
+        "Una operació acceptada però no completada continua visible com a pendent.",
+        "Els reintents no inflen el recompte d’operacions úniques.",
+        "El resultat final coincideix amb la font transaccional i té validació funcional."
       ],
       "metrics": [
         "Tràmits completats / intents elegibles, amb exclusions explícites.",
@@ -1590,6 +1789,14 @@ window.ATLES_DATA={
       ],
       "caution": "L’abandonament pot tenir causes alienes a la tecnologia. Una caiguda de finalitzacions necessita context de demanda i calendari. Els identificadors opacs també requereixen controls d’accés i una retenció justificada.",
       "evidence": [
+        {
+          "sourceId": "INT08",
+          "relatedSourceIds": [
+            "INT11"
+          ],
+          "claim": "VA.gov tracta les fallades silencioses de sol·licituds. GC Notify diferencia acceptació, processament i lliurament de missatges.",
+          "transfer": "Atos proposa seguir les fites del tràmit i detectar casos que queden pendents més enllà del temps esperat, encara que l’aplicació respongui. La conciliació consideraria reintents, duplicats i finalitzacions tardanes, amb identificadors que evitin exposar dades personals. El responsable funcional definiria què vol dir acabar. El precedent orienta la mesura; els objectius i el circuit de recuperació es concretarien per servei."
+        },
         {
           "sourceId": "R17",
           "claim": "GOV.UK Pay publica transaccions, import processat i serveis que utilitzen la plataforma.",
@@ -1628,6 +1835,10 @@ window.ATLES_DATA={
         {
           "name": "Integració amb gestió de canvis",
           "role": "Mostra el marge disponible abans d’un canvi i registra les excepcions que el responsable decideix assumir."
+        },
+        {
+          "name": "Exemplars i detall del senyal",
+          "role": "Permeten passar d’una mètrica compatible a una traça de mostra. Un índex agregat necessita identificar primer el senyal que explica el canvi."
         }
       ],
       "pilot": "Escollir un servei i definir un indicador amb el seu responsable. Reproduir dades de normalitat, degradació breu, fallada sostinguda i absència de telemetria. Comparar les alertes i decisions que en sortirien. Lliurar la definició versionada, el càlcul contrastat i la política proposada, sense activar bloqueigs de canvi abans d’acordar-los.",
@@ -1635,7 +1846,8 @@ window.ATLES_DATA={
       "acceptance": [
         "El càlcul es reprodueix amb un conjunt de dades conegut.",
         "La falta de dades es diferencia de l’èxit i de l’error del servei.",
-        "Una alerta indica objectiu, finestra i consum que l’han activada."
+        "Una alerta indica objectiu, finestra i consum que l’han activada.",
+        "Quan l’eina ho permet, una mètrica condueix a una traça de mostra i indica el límit de mostreig; l’Índex de Salut manté les seves regles."
       ],
       "metrics": [
         "Compliment del SLO i pressupost restant per finestra.",
@@ -1645,8 +1857,16 @@ window.ATLES_DATA={
         "E1",
         "B3"
       ],
-      "caution": "Un objectiu inadequat pot generar soroll o tolerar una experiència dolenta. Els serveis amb poc trànsit necessiten un tractament específic. Els llindars del pilot no són compromisos aprovats del futur contracte.",
+      "caution": "Un objectiu inadequat pot generar soroll o tolerar una experiència dolenta. Els serveis amb poc trànsit necessiten un tractament específic. Els llindars es contrastaran amb la línia base i la criticitat abans d’aplicar-los al servei.",
       "evidence": [
+        {
+          "sourceId": "INT11",
+          "relatedSourceIds": [
+            "INT04"
+          ],
+          "claim": "GC Notify publica objectius i estats diferenciats de missatge. El Ministry of Justice adverteix sobre la pèrdua de resolució dels històrics.",
+          "transfer": "Atos proposa definir cada objectiu amb resultat, població, finestra i exclusions, i guardar l’evidència que permet repetir el càlcul. La falta de telemetria apareixeria com a desconeixement, no com a èxit. No traslladaríem els percentatges d’altres serveis. El pressupost d’error ajudaria a prioritzar actuacions sense substituir els ANS ni els circuits corporatius de validació."
+        },
         {
           "sourceId": "R19",
           "claim": "Notify explica que el 95% dels emails i SMS s’envien en deu segons, i diferencia aquest pas de la recepció final.",
@@ -1656,6 +1876,11 @@ window.ATLES_DATA={
           "sourceId": "CG21",
           "claim": "Google SRE desenvolupa alertes basades en consum de pressupost d’error i finestres múltiples.",
           "transfer": "Podem adoptar el mètode de càlcul, ajustant objectius, mostra i resposta al context de cada servei."
+        },
+        {
+          "sourceId": "TEC_EXEMPLARS",
+          "claim": "El model de mètriques d’OpenTelemetry preveu exemplars per conservar context d’observacions seleccionades.",
+          "transfer": "Atos proposa comprovar un salt des del senyal que explica una degradació fins a una traça autoritzada; la mostra no representa totes les peticions."
         }
       ],
       "effort": "mitjà",
@@ -1675,6 +1900,10 @@ window.ATLES_DATA={
       ],
       "technology": [
         {
+          "name": "FinOps de la PTD i FOCUS",
+          "role": "Aporten una base corporativa de cost amb abast conegut. Cal comprovar correspondència de serveis i imports compartits o sense assignar."
+        },
+        {
           "name": "FOCUS i model de facturació",
           "role": "Normalitzen conceptes de cost i ús entre fonts compatibles; les dades corporatives completen els conceptes que falten."
         },
@@ -1687,7 +1916,7 @@ window.ATLES_DATA={
           "role": "Relaciona volum, retenció i consultes amb servei, i calcula escenaris amb hipòtesis visibles i sensibilitat als preus."
         }
       ],
-      "pilot": "Analitzar un període de facturació de dos serveis amb perfils diferents. Conciliar el total de la plataforma amb cost atribuït, compartit i pendent. Simular una reducció de detall i comprovar-ne la cobertura amb incidents coneguts. Lliurar el model de cost, les regles de repartiment i un escenari justificat.",
+      "pilot": "Conciliar un període de dos serveis amb cost directe, compartit i no assignat. Qualsevol escenari de reducció ha de mostrar l’efecte sobre la cobertura i la qualitat del servei, a més de l’import.",
       "tender": "Atos proposa un model de costos reproduïble per servei i capacitat d’observabilitat. Separa costos directes, compartits i no assignats i reconcilia els totals amb la facturació. Les simulacions mostren hipòtesis i efectes sobre cobertura. La proposta inclou dades i regles exportables, amb el tractament acordat de llicències, transferències i operació.",
       "acceptance": [
         "La suma de categories reconcilia amb la factura o explica la diferència.",
@@ -1705,6 +1934,12 @@ window.ATLES_DATA={
       ],
       "caution": "El repartiment dels costos comuns és una convenció que s’ha d’acordar. FOCUS no aporta la identitat del servei per art de màgia. Les tarifes i els descomptes poden canviar el resultat dels escenaris.",
       "evidence": [
+        {
+          "sourceId": "INT12",
+          "relatedSourceIds": [],
+          "claim": "British Columbia ofereix monitoratge de la plataforma i demana evidència d’ús per justificar ampliacions de quota.",
+          "transfer": "Atos proposa relacionar consum, reserva de capacitat i cost atribuït al servei abans de decidir un ajust. Els recursos compartits i les dades sense assignació quedarien visibles, també en el cost de la telemetria. El precedent acredita una decisió amb dades, però no un estalvi publicat. La mesura pròpia permetria valorar si reduir volum manté la cobertura i la capacitat de diagnosi."
+        },
         {
           "sourceId": "R21",
           "claim": "FOCUS normalitza dades de facturació i ús de diversos proveïdors en un format compartit.",
@@ -1779,6 +2014,12 @@ window.ATLES_DATA={
       "caution": "Els canvis de demanda poden distorsionar la comparació. Cal acordar mostres i valorar el manteniment a llarg termini. Recuperar capacitat no equival automàticament a reduir la dotació del servei.",
       "evidence": [
         {
+          "sourceId": "INT14",
+          "relatedSourceIds": [],
+          "claim": "GovTech publica testimonis de millora del temps de tractament d’incidents amb StackOps, sense detallar una base comparativa suficient.",
+          "transfer": "Atos proposa mesurar aquí el temps dedicat a una tasca repetida abans i després del canvi. Del temps recuperat es descomptarien manteniment, excepcions, revisió humana i errors. Només el saldo comprovable serviria per decidir en què reinvertir capacitat. La referència justifica fer l’experiment; no permet prometre una xifra ni atribuir automàticament el benefici a una eina o a la IA."
+        },
+        {
           "sourceId": "R23",
           "claim": "Google SRE distingeix el treball repetitiu i automatitzable de les activitats que produeixen millores duradores.",
           "transfer": "La distinció ajuda a mesurar el retorn; la dedicació i els compromisos del CTTI s’han d’acordar localment."
@@ -1818,12 +2059,13 @@ window.ATLES_DATA={
           "role": "Executa la reconstrucció i registra adaptacions, recursos necessaris i funcions que no es poden traslladar directament."
         }
       ],
-      "pilot": "Escollir un servei i acordar una traça, una alerta i una consulta històrica que calgui reconstruir. Fer l’assaig amb un equip que no hagi preparat el paquet. Mesurar treball, transferències i diferències. Lliurar un informe de reversibilitat amb passos, costos observats i accions per al següent assaig anual.",
+      "pilot": "Fer la prova anual sobre un servei representatiu: un segon equip recupera un període de dades, les regles, el binari i la configuració de la versió escollida. Comprovar consultes, permisos, dependències i resultat funcional en un entorn separat. Documentar què no es pot reconstruir i l’esforç necessari per corregir-ho.",
       "tender": "Atos proposa un pla de reversibilitat amb inventari de dades, configuracions, drets i dependències. Inclou una prova anual de reconstrucció sobre un àmbit acordat, amb destí alternatiu i criteris de paritat funcional. Les diferències, adaptacions i costos es fan explícits. El CTTI tindria el paquet actualitzat i els resultats de les proves, amb un pla de correcció de les mancances.",
       "acceptance": [
         "Un equip diferent reconstrueix les funcions acordades amb el paquet.",
         "La comparació explica diferències de dades, consultes i detecció.",
-        "El pla inclou dependències i costos de sortida, també els no resolts."
+        "El pla inclou dependències i costos de sortida, també els no resolts.",
+        "El binari i la configuració de la versió escollida existeixen i es poden recuperar; conservar una etiqueta no és suficient."
       ],
       "metrics": [
         "Funcions reconstruïdes / funcions incloses en l’assaig.",
@@ -1836,6 +2078,14 @@ window.ATLES_DATA={
       ],
       "caution": "OTLP facilita transportar telemetria, però no migra automàticament dashboards, permisos ni semàntica de consultes. Les llicències i els drets de reutilització s’han d’acordar abans de valorar una funció com a reversible.",
       "evidence": [
+        {
+          "sourceId": "INT13",
+          "relatedSourceIds": [
+            "INT01"
+          ],
+          "claim": "El govern brasiler recomana formats oberts per reduir dependències. Altinn documenta instrumentació OpenTelemetry que es pot provar en un entorn local.",
+          "transfer": "Atos proposa demostrar la sortida amb un servei representatiu: enviar dades a una segona destinació i reconstruir una consulta, una alerta i els accessos necessaris. Registraríem conversions, pèrdues i esforç. El protocol obert facilita el transport; no garanteix equivalència de funcions. La guia brasilera és un criteri d’arquitectura, no una prova de migració superada."
+        },
         {
           "sourceId": "R01",
           "claim": "eBay va conservar el comportament esperat dels equips i va comparar la recollida antiga amb la nova durant la migració.",
@@ -1896,8 +2146,11 @@ window.ATLES_DATA={
       "evidence": [
         {
           "sourceId": "R28",
-          "claim": "RIA publica dades de monitoratge d’X-Road amb deu dies de retard, temps arrodonit a l’hora i exclusions explícites.",
-          "transfer": "És un cas públic concret de publicació amb controls. Els mateixos valors no serien automàticament adequats per al CTTI."
+          "relatedSourceIds": [
+            "INT10"
+          ],
+          "claim": "X-tee publica agregats de metadades d’intercanvi. GSA Site Scanning ofereix dades, API i exportacions de les seves comprovacions.",
+          "transfer": "Atos proposa escollir quina informació de servei té utilitat pública i publicar-la amb definició, actualització, cobertura i límits coneguts. El detall operatiu restringit tindria un circuit diferent. Abans d’obrir dades, se’n comprovarien l’autorització i els possibles efectes de combinar-les. Els precedents mostren que una publicació útil pot ser parcial i agregada; no obliguen a exposar traces ni contingut dels tràmits."
         },
         {
           "sourceId": "R17",
@@ -1952,6 +2205,14 @@ window.ATLES_DATA={
       "caution": "La identitat tècnica no resol tota la sobirania. Les còpies, el suport remot i els drets contractuals requereixen comprovacions pròpies. El xifrat ha d’anar acompanyat d’un model clar de custòdia i accés a les claus.",
       "evidence": [
         {
+          "sourceId": "R28",
+          "relatedSourceIds": [
+            "R08"
+          ],
+          "claim": "X-tee diferencia vistes d’operador, membres i informació pública. Nais incorpora instruccions de filtratge de dades sensibles a l’observació del navegador.",
+          "transfer": "Atos proposa provar els permisos sobre consulta, exportació i suport, amb les mateixes restriccions que corresponguin a la font. Un equip rebria prou evidència per investigar sense obtenir per això accés d’intervenció. El pilot inclouria retirada de permisos i comprovació del resultat. Els exemples orienten el disseny; la classificació i les autoritzacions s’han de validar al CTTI."
+        },
+        {
           "sourceId": "R29",
           "claim": "SPIFFE defineix identitats criptogràfiques de curta durada per autenticar càrregues entre entorns heterogenis.",
           "transfer": "És una opció per al control d’emissors i processos. La ubicació i l’autorització de dades necessiten polítiques addicionals."
@@ -2004,6 +2265,10 @@ window.ATLES_DATA={
         {
           "name": "Emulació d’adversari amb Caldera o equivalent",
           "role": "Permet verificar controls sobre escenaris acordats en un entorn autoritzat, conservant evidències de detecció i de bloqueig."
+        },
+        {
+          "name": "SBOM i declaracions VEX",
+          "role": "Relacionen components i afectació declarada amb la versió real desplegada. La vigència i l’exposició efectiva s’han de validar."
         }
       ],
       "pilot": "Seleccionar un component comú i el seu conjunt limitat d’actius, amb els responsables d’operació i seguretat. Revisar versions, connectivitat, identitats i controls que ja existeixen. Construir uns quants camins representatius, contrastar-los amb els responsables i validar-ne una mostra sense afectar el servei. Lliurar una cua prioritzada de tractaments i una proposta d’indicadors que mostri per separat exposició, mitigació, correcció definitiva i informació encara desconeguda.",
@@ -2036,6 +2301,17 @@ window.ATLES_DATA={
           "sourceId": "CG17",
           "claim": "MITRE descriu Caldera com una plataforma oberta d’emulació d’adversaris basada en ATT&CK per provar defenses i anuncia el trasllat a Apache Incubator el 2026. La documentació acredita el mecanisme de validació, sense quantificar eficàcia en el nostre entorn.",
           "transfer": "Es pot considerar una eina de prova acotada, o equivalent. La proposta no pressuposa autorització per executar-la ni pressuposa la selecció d’aquest producte."
+        },
+        {
+          "sourceId": "TEC_SBOM",
+          "claim": "CISA descriu l’ús d’inventaris de components com a base de transparència del programari.",
+          "transfer": "Atos proposa relacionar-los amb la versió desplegada i l’exposició del servei; una declaració de vulnerabilitat no substitueix la comprovació del context."
+        },
+        {
+          "sourceId": "INT07",
+          "relatedSourceIds": [],
+          "claim": "El centre d’operacions de RIA agrega una visió de servei, mentre cada institució manté responsabilitats pròpies. RIA també té competències de ciberseguretat.",
+          "transfer": "Atos proposa relacionar exposició, component i servei afectat perquè els responsables competents puguin prioritzar amb context. El CdC compartiria evidències dins del seu abast, mantenint els circuits amb seguretat i operadors. El cas estonià ajuda a explicar la coordinació; no acredita el nostre model de priorització ni justifica atribuir al CdC funcions de l’Agència o del SOC."
         }
       ],
       "effort": "alt",
@@ -2087,7 +2363,8 @@ window.ATLES_DATA={
       "acceptance": [
         "Una resposta HTTP correcta amb tràmit incomplet es detecta com a fallada funcional.",
         "Una avaria de la sonda no es publica com una caiguda confirmada del servei.",
-        "Les transaccions sintètiques queden separades del càlcul d’ús real."
+        "Les transaccions sintètiques queden separades del càlcul d’ús real.",
+        "Si el recorregut inclou renovació de certificat o canvi d’identitat, es comprova l’accés funcional posterior amb els equips responsables."
       ],
       "metrics": [
         "Recorreguts crítics amb comprovació funcional completa / recorreguts prioritzats.",
@@ -2098,6 +2375,14 @@ window.ATLES_DATA={
       ],
       "caution": "Els robots poden quedar bloquejats per autenticació multifactor, proteccions antiabús o canvis d’interfície. Les dades reals tenen biaixos de mostra; cal explicar cobertura i no extrapolar un dispositiu o navegador a tota la ciutadania.",
       "evidence": [
+        {
+          "sourceId": "INT08",
+          "relatedSourceIds": [
+            "INT18"
+          ],
+          "claim": "VA.gov observa fallades silencioses de sol·licituds. perfSONAR contrasta latència, pèrdua i ruta entre xarxes gestionades per organitzacions diferents.",
+          "transfer": "Atos proposa seguir un recorregut representatiu des d’una seu, Internet i la destinació, i relacionar-ne els símptomes amb el resultat funcional. Les sondes ajudarien a delimitar un tram degradat; els operadors aportarien les evidències de xarxa i fibra. Una resposta tècnica correcta no tancaria la comprovació del tràmit. Les proves actives tindrien freqüència i càrrega acordades."
+        },
         {
           "sourceId": "CG18",
           "claim": "El manual de serveis de GOV.UK recomana mesurar el percentatge d’usuaris que completa una tasca i combinar comprovacions internes i externes. Explica que l’observació externa ha de continuar funcionant encara que caigui la infraestructura del servei monitoritzat.",
@@ -2156,6 +2441,14 @@ window.ATLES_DATA={
       ],
       "caution": "La disponibilitat històrica i l’estat present responen preguntes diferents. Un pressupost d’error esgotat pot conviure amb un servei recuperat; les regles han d’evitar comunicar una caiguda actual només per un indicador acumulat.",
       "evidence": [
+        {
+          "sourceId": "INT09",
+          "relatedSourceIds": [
+            "INT11"
+          ],
+          "claim": "Login.gov publica un circuit per actualitzar l’estat del servei. GC Notify descriu incidents i diferencia estats de missatge.",
+          "transfer": "Atos proposa mostrar quin component està afectat, des de quan, quins consumidors poden notar-ho i quan s’ha comprovat la informació. La recuperació tècnica i els casos pendents de completar tindrien seguiment diferenciat. Qui comunica l’estat disposaria d’evidència validada i d’un canal alternatiu si falla la plataforma principal. Els exemples no converteixen una estimació d’impacte en una xifra confirmada."
+        },
         {
           "sourceId": "CG20",
           "claim": "La pàgina operativa de GOV.UK Notify separa API, web, enviament i recepció de notificacions, mostra incidències passades i permet subscriure’s a canvis per diversos canals, incloent webhook i feeds. És un servei públic compartit amb consumidors identificables.",
@@ -2258,15 +2551,23 @@ window.ATLES_DATA={
     },
     {
       "id": "R08",
-      "title": "Get started with auto-instrumentation",
-      "publisher": "Nais / NAV",
-      "url": "https://doc.nais.io/observability/how-to/auto-instrumentation/",
+      "title": "Nais: l’observabilitat forma part de la plataforma",
+      "publisher": "NAV / equip Nais",
+      "url": "https://doc.nais.io/observability/frontend/",
       "country": "Noruega",
-      "kind": "Documentació tècnica",
-      "summary": "La plataforma pública Nais incorpora agents OpenTelemetry des de la configuració de desplegament i permet verificar les traces a l’APM.",
-      "limitation": "El suport depèn del llenguatge i les llibreries; els esdeveniments de negoci requereixen treball addicional.",
-      "date": "s.d.",
-      "accessed": "2026-09-09"
+      "kind": "Cas operatiu",
+      "summary": "Nais combina OpenTelemetry amb eines per a logs, traces, mètriques i experiència de navegador. La guia de frontend documenta Faro, instruccions de filtratge de dades sensibles i un abast que exclou els clústers on-premises.",
+      "limitation": "La disponibilitat de la plataforma no acredita cobertura universal. Els límits de cada entorn s’han de conservar; la instrumentació no defineix el resultat administratiu.",
+      "date": "2026-07-06",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Operació documentada",
+      "dateNote": "Actualització documentada al catàleg de recerca",
+      "relatedLinks": [
+        "https://doc.nais.io/observability/how-to/auto-instrumentation/",
+        "https://docs.nav.cloud.nais.io/observability/index.html",
+        "https://nais.io/log/"
+      ]
     },
     {
       "id": "R09",
@@ -2374,7 +2675,8 @@ window.ATLES_DATA={
       "summary": "Publicació de serveis actius, transaccions i imports processats per una plataforma pública de pagaments.",
       "limitation": "Les magnituds d’activitat no demostren disponibilitat ni experiència satisfactòria per si soles.",
       "date": "2026-09-07",
-      "accessed": "2026-09-09"
+      "accessed": "2026-09-09",
+      "sectorPublic": true
     },
     {
       "id": "R18",
@@ -2386,7 +2688,8 @@ window.ATLES_DATA={
       "summary": "Marc públic per mesurar, compartir i utilitzar el rendiment dels serveis digitals en la seva millora.",
       "limitation": "És una política australiana, no una obligació del CTTI ni evidència d’una arquitectura desplegada.",
       "date": "s.d.",
-      "accessed": "2026-09-09"
+      "accessed": "2026-09-09",
+      "sectorPublic": true
     },
     {
       "id": "R19",
@@ -2398,7 +2701,8 @@ window.ATLES_DATA={
       "summary": "Compromisos d’enviament de missatges i distinció entre enviament al proveïdor i recepció al destinatari.",
       "limitation": "El 95% en deu segons descriu enviament d’email i SMS, no lliurament final garantit.",
       "date": "s.d.",
-      "accessed": "2026-09-09"
+      "accessed": "2026-09-09",
+      "sectorPublic": true
     },
     {
       "id": "R21",
@@ -2470,7 +2774,8 @@ window.ATLES_DATA={
       "summary": "El projecte públic openDesk distribueix integració Prometheus, regles d’alerta i dashboards Grafana configurables.",
       "limitation": "La cobertura varia per component, tal com mostra la matriu publicada.",
       "date": "s.d.",
-      "accessed": "2026-09-09"
+      "accessed": "2026-09-09",
+      "sectorPublic": true
     },
     {
       "id": "R27",
@@ -2486,15 +2791,21 @@ window.ATLES_DATA={
     },
     {
       "id": "R28",
-      "title": "X-Road Metrics OpenData, EE",
-      "publisher": "RIA / NIIS",
-      "url": "https://logs.x-tee.ee/EE/",
-      "country": "Estònia",
+      "title": "X-tee: dependències visibles amb metadades d’intercanvi",
+      "publisher": "RIA / NIIS / membres de X-tee",
+      "url": "https://github.com/nordic-institute/X-Road-Metrics",
+      "country": "Estònia / cooperació nòrdica",
       "kind": "Cas operatiu",
-      "summary": "Publica dades de monitoratge d’X-Road amb retard de deu dies, hores arrodonides i exclusions explícites.",
-      "limitation": "Aquestes mesures no són una demostració universal d’anonimització aplicable a qualsevol conjunt de dades.",
+      "summary": "X-tee publica mètriques dels intercanvis a partir de metadades operatives. El sistema diferencia les vistes de l’operador i dels membres; les dades públiques agregades no són el contingut dels missatges.",
+      "limitation": "L’exportació pública no és un canal d’incidents en temps real. El model estonià no determina els permisos ni la classificació de dades del CTTI.",
       "date": "s.d.",
-      "accessed": "2026-09-09"
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Operació i repositoris documentats",
+      "dateNote": "Consulta de repositori i portal operatiu; sense data única de publicació",
+      "relatedLinks": [
+        "https://logs.x-tee.ee/EE/"
+      ]
     },
     {
       "id": "R29",
@@ -2542,7 +2853,8 @@ window.ATLES_DATA={
       "summary": "La plataforma pública permet enviar logs d’aplicació a un destí propi per syslog-TLS o HTTPS.",
       "limitation": "El camí documentat exclou esdeveniments d’auditoria i logs dels serveis gestionats.",
       "date": "s.d.",
-      "accessed": "2026-09-09"
+      "accessed": "2026-09-09",
+      "sectorPublic": true
     },
     {
       "id": "R33",
@@ -2554,7 +2866,8 @@ window.ATLES_DATA={
       "summary": "Esdeveniments d’acció amb actor i temps, consultables o exportables per API segons permisos.",
       "limitation": "La cobertura depèn de l’àmbit d’esdeveniment i dels permisos; no és una traça universal de tota activitat.",
       "date": "s.d.",
-      "accessed": "2026-09-09"
+      "accessed": "2026-09-09",
+      "sectorPublic": true
     },
     {
       "id": "CG01",
@@ -2614,7 +2927,8 @@ window.ATLES_DATA={
       "country": "Regne Unit",
       "kind": "Cas operatiu",
       "summary": "Resultats de dos pilots públics: avaluació amb experts i usuaris, comprovació de fonts, qualitat, confiança i latència.",
-      "limitation": "Assistència informativa pública; no és automatització del centre de control ni garantia d’absència d’errors."
+      "limitation": "Assistència informativa pública; no és automatització del centre de control ni garantia d’absència d’errors.",
+      "sectorPublic": true
     },
     {
       "id": "CG06",
@@ -2770,7 +3084,8 @@ window.ATLES_DATA={
       "country": "Regne Unit",
       "kind": "Marc públic",
       "summary": "Recomana mesurar finalització de tasques i combinar comprovacions internes i externes que sobrevisquin a la infraestructura monitoritzada.",
-      "limitation": "Guia de servei britànica; els llindars i recorreguts s’han de decidir per cada servei CTTI."
+      "limitation": "Guia de servei britànica; els llindars i recorreguts s’han de decidir per cada servei CTTI.",
+      "sectorPublic": true
     },
     {
       "id": "CG19",
@@ -2794,7 +3109,8 @@ window.ATLES_DATA={
       "country": "Regne Unit",
       "kind": "Cas operatiu",
       "summary": "Pàgina operativa amb estat separat per component, historial i subscripció per correu, missatge, feeds i webhook.",
-      "limitation": "La pàgina no publica la regla interna que transforma telemetria o SLO en estat comunicat."
+      "limitation": "La pàgina no publica la regla interna que transforma telemetria o SLO en estat comunicat.",
+      "sectorPublic": true
     },
     {
       "id": "CG21",
@@ -3191,6 +3507,592 @@ window.ATLES_DATA={
       "limitation": "Base per a l’encaix de la proposta; no acredita per si sola la cobertura de tot el parc.",
       "accessed": "2026-09-15",
       "contextSource": true
+    },
+    {
+      "id": "CTTI_CG01",
+      "title": "CTTI — Regles corporatives de validació d’API i producte",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/related/apim/3292_AMT_ERQ_Regles-Validacio_MRR.pdf",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Disseny funcional publicat el juliol de 2026; precedent basat en Spectral, no validador de telemetria acreditat.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG02",
+      "title": "CTTI — FAQ d’API Manager",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/apim/faq/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Comportament documentat: errors que bloquegen i avisos que es registren; no s’han inspeccionat execucions productives.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG03",
+      "title": "CTTI — Observabilitat al Cloud",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/observabilitat/obs_cloud_protected/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Arquitectura contrastada amb la còpia aportada, §§1–2; l’entrada pública és protegida i no se n’ha verificat el contingut vigent.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG04",
+      "title": "CTTI — Llibre Blanc d’observabilitat i catàleg de mètriques",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/observabilitat/Llibre-Blanc_protected/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Criteris contrastats amb el Llibre Blanc i el catàleg v1.1 aportats; contingut protegit vigent no contrastat i configuracions productives no inspeccionades.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG05",
+      "title": "CTTI — Repositori d’artefactes",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/ghec/gh-repositori-artefactes/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Polítiques de cicle de vida publicades per a artefactes; són diferents de les polítiques de retenció de telemetria.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG06",
+      "title": "CTTI — Nou orquestrador de releases disponible a SIC+",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/noticies/2026-07-29-orquestrador-de-releases/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Disponibilitat anunciada el 29 de juliol de 2026; no acredita adopció universal.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG07",
+      "title": "CTTI — Orquestrador de releases",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/ghec/gh-orquestrador-releases/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Guia de metadades, versions i plans; no s’han inspeccionat repositoris ni desplegaments reals.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG08",
+      "title": "CTTI — Integració amb Remedy",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/ghec/gh-remedy-integration/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Circuit de canvi documentat; la versió i la modalitat aplicables s’han de verificar abans d’automatitzar-les.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG09",
+      "title": "CTTI — Construcció de la mesura",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/observabilitat/Informacio_general/construccio_mesura/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Paquets i criteris publicats; no demostren compliment de cada aplicació.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG10",
+      "title": "CTTI — Integració amb el MAT",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/ghec/gh-mat-integration/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Proves i tractament de tests no informats documentats; sense inspecció de resultats reals.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG11",
+      "title": "CTTI — Dades de Referència",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/dadesref/dadesref/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Govern funcional i tècnic publicat; el catàleg de referència no substitueix el catàleg de mètriques.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG12",
+      "title": "CTTI — Nivells de mesura",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/observabilitat/Informacio_general/monit_DIS_CAP/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Model publicat de nivells; no és una mesura de cobertura desplegada.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG13",
+      "title": "CTTI — Procediment de gestió d’excepcions d’arquitectura",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/arquitectura/procedimentGestioExcepcionsArquitectura/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Procediment publicat; no atribueix a Arquitectura totes les excepcions de retenció, seguretat o negoci.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG14",
+      "title": "CTTI — Suport d’API Manager",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/apim/suport/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Guia de suport que diferencia projecte i servei; no acredita per si sola el propietari contractual vigent de cada component.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG15",
+      "title": "CTTI — Suport d’EventHub",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/eventhub/Suport/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Oficina, administració i autoritzacions documentades; els compromisos del fabricant no equivalen al temps de restauració de tota la cadena.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG16",
+      "title": "CTTI — Normativa tècnica d’intel·ligència artificial vigent",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/arquitectura/IA/normativa_IA_CTTI/vigent/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Normativa publicada, v2.0 del 3 de setembre de 2026; AI Gateway i nova arquitectura agèntica declarats en planificació i pendents de validació.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG17",
+      "title": "CTTI — Introducció a EventHub",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/eventhub/Introduccio/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Servei corporatiu Kafka/Confluent descrit; no acredita que una aplicació concreta l’utilitzi ni que ja se’n conciliï el resultat funcional.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG18",
+      "title": "CTTI — Mòduls de la PTD: FinOps",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/ptd/2.-Moduls-de-la-PTD/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Capacitat descrita per al perímetre indicat; no s’han verificat factures, estalvis ni atribució a tots els serveis.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG19",
+      "title": "CTTI — Welcome pack de la PTD, pàgina 34",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/ptd/related/PDF/PTD_welcome_pack.pdf#page=34",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Document de maig de 2025 que corrobora el precedent FinOps; no és un balanç d’estalvi mesurat.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "CTTI_CG20",
+      "title": "CTTI — Tipologies d’integració amb GICAR",
+      "publisher": "CTTI · Canigó",
+      "url": "https://canigo.ctti.gencat.cat/plataformes/gicar/integracions/tipologies-integracio/",
+      "country": "Catalunya",
+      "kind": "Documentació oficial",
+      "summary": "Matriu d’integracions publicada; no acredita un únic recorregut d’identitat per a totes les aplicacions.",
+      "limitation": "La font descriu un marc o una capacitat; la cobertura del pilot s’ha de comprovar.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "contextSource": true
+    },
+    {
+      "id": "TEC_WEAVER",
+      "title": "OpenTelemetry Weaver: contractes i convencions",
+      "publisher": "OpenTelemetry",
+      "url": "https://opentelemetry.io/blog/2025/otel-weaver/",
+      "country": "Internacional",
+      "kind": "Documentació tècnica",
+      "summary": "Eina per definir i comprovar convencions semàntiques; cal acordar versió, proves i adaptació al format CTTI.",
+      "limitation": "",
+      "date": "s.d.",
+      "accessed": "2026-09-16"
+    },
+    {
+      "id": "TEC_EXEMPLARS",
+      "title": "OpenTelemetry · Exemplars",
+      "publisher": "OpenTelemetry",
+      "url": "https://opentelemetry.io/docs/specs/otel/metrics/data-model/#exemplars",
+      "country": "Internacional",
+      "kind": "Documentació tècnica",
+      "summary": "Mostres que poden vincular una observació d’una mètrica amb el context d’una traça.",
+      "limitation": "",
+      "date": "s.d.",
+      "accessed": "2026-09-16"
+    },
+    {
+      "id": "TEC_SBOM",
+      "title": "CISA · Framing Software Component Transparency",
+      "publisher": "CISA",
+      "url": "https://www.cisa.gov/sites/default/files/2024-10/SBOM%20Framing%20Software%20Component%20Transparency%202024.pdf",
+      "country": "Internacional",
+      "kind": "Documentació tècnica",
+      "summary": "Marc sobre inventari de components i transparència de programari; no acredita afectació explotable d’un servei concret.",
+      "limitation": "",
+      "date": "s.d.",
+      "accessed": "2026-09-16"
+    },
+    {
+      "id": "INT01",
+      "title": "Altinn: provar la instrumentació abans d’arribar a producció",
+      "publisher": "Digdir / Altinn",
+      "url": "https://docs.altinn.studio/en/altinn-studio/v8/guides/administration/monitor-and-instrument/",
+      "country": "Noruega",
+      "kind": "Cas operatiu",
+      "summary": "Altinn documenta instrumentació OpenTelemetry i un entorn local amb Collector i Grafana. La mateixa guia situa Azure Monitor a producció. El repositori permet examinar com es prepara l’entorn de prova.",
+      "limitation": "La presència de Grafana al laboratori no acredita una migració acabada de producció. No es publica una millora comparable de temps d’alta.",
+      "date": "2025-09-29",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Capacitat operativa documentada",
+      "dateNote": "Actualització de la guia",
+      "relatedLinks": [
+        "https://github.com/Altinn/app-localtest"
+      ]
+    },
+    {
+      "id": "INT03",
+      "title": "Cloud Pi Native: quadres i alertes desplegats des de Git",
+      "publisher": "Ministère de l’Intérieur et des Outre-mer / Cloud Pi Native",
+      "url": "https://cloud-pi-native.fr/agreement/observability",
+      "country": "França",
+      "kind": "Cas operatiu",
+      "summary": "Cloud Pi Native sincronitza quadres i alertes de projecte des de Git mitjançant ArgoCD. La guia adverteix que les alertes específiques de cada projecte no venen definides per defecte.",
+      "limitation": "Tenir la plataforma activa no demostra que les alertes del servei siguin suficients. No retenim la xifra de retenció perquè les versions consultades discrepen.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Operació documentada",
+      "dateNote": "Consulta de documentació viva, sense data única de publicació",
+      "relatedLinks": [
+        "https://github.com/cloud-pi-native/socle"
+      ]
+    },
+    {
+      "id": "INT04",
+      "title": "MoJ: conservar un històric no sempre conserva el càlcul",
+      "publisher": "Ministry of Justice / Cloud Platform",
+      "url": "https://dev.developer-portal.service.justice.gov.uk/docs/cloud-platform/concepts/how-cloud-platform-meet-the-service-standard",
+      "country": "Regne Unit",
+      "kind": "Cas operatiu",
+      "summary": "La Cloud Platform documenta Prometheus i Thanos. La guia assenyala que els històrics de resolució reduïda no serveixen per a determinats càlculs de disponibilitat mensual, trimestral o anual.",
+      "limitation": "L’inventari recent confirma components, però no revalida tota la guia. El cas justifica comprovar el càlcul; no imposar una retenció concreta al CTTI.",
+      "date": "2025-03-05",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Operació documentada; guia amb revisió pendent",
+      "dateNote": "Revisió de la guia; contrast d’inventari del 2026-06-11",
+      "relatedLinks": [
+        "https://reports.cloud-platform.service.justice.gov.uk/namespace/monitoring",
+        "https://github.com/ministryofjustice/cloud-platform-infrastructure"
+      ]
+    },
+    {
+      "id": "INT05",
+      "title": "GOV.UK: comprovar l’alerta i corregir el soroll",
+      "publisher": "Government Digital Service / equips GOV.UK",
+      "url": "https://docs.publishing.service.gov.uk/manual/pagerduty.html",
+      "country": "Regne Unit",
+      "kind": "Cas operatiu",
+      "summary": "GOV.UK descriu una prova setmanal de PagerDuty i, separadament, un Watchdog continu de Prometheus cap a Alertmanager. Un article de 2021 explica com l’equip va corregir fonts concretes de soroll als registres d’error.",
+      "limitation": "La prova periòdica i el Watchdog són mecanismes diferents. La reducció històrica d’esdeveniments registrats no equival a una reducció d’incidents ni a un resultat d’IA.",
+      "date": "2026-09-07",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Operació documentada",
+      "dateNote": "Actualització del procediment; antecedent de soroll del 2021-06-28",
+      "relatedLinks": [
+        "https://technology.blog.gov.uk/2021/06/28/how-we-reduced-errors-on-gov-uk/"
+      ]
+    },
+    {
+      "id": "INT07",
+      "title": "RIA: un centre comú amb responsabilitats distribuïdes",
+      "publisher": "RIA / Centre d’operacions",
+      "url": "https://www.ria.ee/en/ria-operations-centre-begins-work",
+      "country": "Estònia",
+      "kind": "Cas operatiu",
+      "summary": "RIA situa l’inici del seu centre d’operacions l’1 de juny de 2025. Les institucions mantenen la responsabilitat sobre els seus serveis. El febrer de 2026 encara es planteja automatitzar l’entrada d’estat d’institucions durant l’any.",
+      "limitation": "No s’ha acreditat que l’ampliació anunciada estigui completada. Les competències de ciberseguretat de RIA no es poden atribuir al Centre de Control del CTTI.",
+      "date": "2026-02-11",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Centre en funcionament; ampliacions previstes",
+      "dateNote": "Publicació; inici operatiu declarat el 2025-06-01",
+      "relatedLinks": [
+        "https://www.ria.ee/en/cyber-security-estonia-2026"
+      ]
+    },
+    {
+      "id": "INT08",
+      "title": "VA.gov: detectar sol·licituds que es perden sense avisar",
+      "publisher": "Department of Veterans Affairs / VA.gov Platform",
+      "url": "https://depo-platform-documentation.scrollhelp.site/developer-docs/endpoint-monitoring",
+      "country": "EUA",
+      "kind": "Cas operatiu",
+      "summary": "VA.gov documenta el seguiment de fallades silencioses de sol·licituds i de trànsit inesperadament baix, amb Datadog, mètriques, registres i sondes. Els avisos han de permetre actuar i no han d’incloure dades personals o sanitàries.",
+      "limitation": "La guia acredita criteris d’operació, no una reducció quantificada de tràmits perduts. No importem els percentatges de disponibilitat: el resum i la taula discrepen en la finestra temporal.",
+      "date": "2024-10-07",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Operació i pautes documentades",
+      "dateNote": "Actualització de la guia; contrast de fonts el 2026-09-16",
+      "relatedLinks": [
+        "https://depo-platform-documentation.scrollhelp.site/developer-docs/core-service-level-indicators-and-objectives-for-v",
+        "https://depo-platform-documentation.scrollhelp.site/developer-docs/managing-signal-to-noise-ratio"
+      ]
+    },
+    {
+      "id": "INT09",
+      "title": "Login.gov: qui coordina, qui repara i qui comunica",
+      "publisher": "GSA / Login.gov",
+      "url": "https://handbook.login.gov/articles/incident-response-guide.html",
+      "country": "EUA",
+      "kind": "Cas operatiu",
+      "summary": "Login.gov separa direcció de situació, execució tècnica, comunicació i registre cronològic. Documenta sondes New Relic Synthetics connectades amb Statuspage i comprovacions per contrastar falsos positius abans de corregir l’estat.",
+      "limitation": "Els temps d’observació del procediment no són resultats de recuperació. El repartiment és una referència funcional; l’adaptació ha de respectar les competències CTTI.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Operació documentada",
+      "dateNote": "Consulta de manuals operatius sense data d’actualització inequívoca",
+      "relatedLinks": [
+        "https://handbook.login.gov/articles/statuspage-process.html",
+        "https://status.login.gov/"
+      ]
+    },
+    {
+      "id": "INT10",
+      "title": "GSA Site Scanning: descobrir què queda fora de l’inventari",
+      "publisher": "General Services Administration",
+      "url": "https://digital.gov/guides/site-scanning",
+      "country": "EUA",
+      "kind": "Cas operatiu",
+      "summary": "GSA Site Scanning revisa diàriament un inventari federal de webs mitjançant navegador automatitzat. Publica resultats, API i exportacions, i documenta com consolida fonts d’inventari i fa les comprovacions.",
+      "limitation": "Una revisió diària de característiques web no és APM ni monitoratge continu de disponibilitat. Un domini trobat necessita validació abans d’atribuir-li propietari o servei.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Operació documentada",
+      "dateNote": "Consulta de documentació i repositori; sense data única de publicació",
+      "relatedLinks": [
+        "https://digital.gov/guides/site-scanning/technical-details",
+        "https://github.com/GSA/site-scanning-engine"
+      ]
+    },
+    {
+      "id": "INT11",
+      "title": "GC Notify: acceptat, processat i lliurat són fites diferents",
+      "publisher": "Canadian Digital Service / GC Notify",
+      "url": "https://documentation.notification.canada.ca/en/status.html",
+      "country": "Canadà",
+      "kind": "Cas operatiu",
+      "summary": "GC Notify diferencia acceptació, processament i lliurament dels missatges. Publica objectius i incidents amb abast declarat. Això permet distingir una plataforma disponible d’un conjunt de notificacions que no ha arribat al seu destinatari.",
+      "limitation": "Alguns objectius utilitzen expressions sense percentil precís. Les dades d’un incident acrediten impacte, no una millora del servei. L’estat de lliurament té l’abast que informa cada canal.",
+      "date": "s.d.",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Operació documentada",
+      "dateNote": "Consulta de l’API; SLO del 2024-01-25 i acord del 2026-06-03",
+      "relatedLinks": [
+        "https://notification.canada.ca/service-level-objectives",
+        "https://notification.canada.ca/system-status",
+        "https://notification.canada.ca/service-level-agreement"
+      ]
+    },
+    {
+      "id": "INT12",
+      "title": "British Columbia: ampliar capacitat amb evidència d’ús",
+      "publisher": "Govern de British Columbia / CSBC Platform Services",
+      "url": "https://digital.gov.bc.ca/technology/cloud/private/products-tools/sysdig/",
+      "country": "Canadà",
+      "kind": "Cas operatiu",
+      "summary": "British Columbia ofereix Sysdig als equips de la seva plataforma OpenShift i utilitza evidència d’ús per justificar ampliacions de quota. La mesura forma part de les decisions sobre capacitat del servei compartit.",
+      "limitation": "Les fonts no quantifiquen estalvis atribuïbles al monitoratge ni aporten un model complet de cost per servei. Ús, capacitat reservada i factura s’han de conciliar.",
+      "date": "2024-03-19",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Operació documentada",
+      "dateNote": "Fitxa del servei; contrast amb catàleg del 2026-06-16",
+      "relatedLinks": [
+        "https://digital.gov.bc.ca/technology/cloud/private/products-tools/"
+      ]
+    },
+    {
+      "id": "INT13",
+      "title": "Brasil: mantenir la telemetria transportable entre proveïdors",
+      "publisher": "Secretaria de Governo Digital / Governo Digital",
+      "url": "https://www.gov.br/governodigital/pt-br/infraestrutura-nacional-de-dados/ambiente-tecnologico/nuvem/materiais-de-apoio/boas-praticas-para-minimizar-aprisionamento-em-nuvem",
+      "country": "Brasil",
+      "kind": "Marc públic",
+      "summary": "La guia brasilera inclou OpenTelemetry/OTLP, Prometheus, Grafana, Git i infraestructura com a codi. Recomana comprovar cobertura i comportament de les alertes com a part d’una arquitectura amb menys dependència del proveïdor.",
+      "limitation": "És una guia, no una plataforma nacional acreditada. OTLP no trasllada automàticament consultes, permisos, regles ni totes les funcions pròpies d’un producte.",
+      "date": "2026-06-19",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Guia institucional",
+      "dateNote": "Actualització de la guia publicada el 2025-06-10",
+      "relatedLinks": []
+    },
+    {
+      "id": "INT14",
+      "title": "StackOps: observabilitat compartida per a serveis de govern",
+      "publisher": "GovTech Singapore",
+      "url": "https://www.developer.tech.gov.sg/products/categories/devops/stackops/overview",
+      "country": "Singapur",
+      "kind": "Cas operatiu",
+      "summary": "StackOps ofereix logs, mètriques, traces, APM, dependències i sondes. GovTech descriu usos en transferència de fitxers, APIs i eines de desenvolupament. Els testimonis expliquen millores de temps en determinats equips.",
+      "limitation": "Els testimonis no detallen mostra ni període comparatiu. No permeten prometre al CTTI el mateix estalvi, atribuir-lo a IA ni equiparar disponibilitat de plataforma amb èxit del tràmit.",
+      "date": "2026-07-02",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Servei gestionat en producció declarada",
+      "dateNote": "Actualització de la descripció; testimonis del 2025-08-21",
+      "relatedLinks": [
+        "https://www.developer.tech.gov.sg/products/categories/devops/stackops/how-it-works",
+        "https://www.developer.tech.gov.sg/products/categories/devops/stackops/customer-stories"
+      ]
+    },
+    {
+      "id": "INT15",
+      "title": "NIRS: assajar la fallada del transport de logs",
+      "publisher": "National Information Resources Service / Daejeon",
+      "url": "https://www.nirs.go.kr/ncia_MJS/board/dev/board/board.jsp?id=data_301&idx=4746&menu_num=3014&mode=view",
+      "country": "Corea del Sud",
+      "kind": "Cas operatiu",
+      "summary": "NIRS va simular una fallada del component intermedi de transport de logs a nSIMS i va revisar el circuit de comunicació i recuperació. El cas posa a prova una peça de la mateixa infraestructura que permet supervisar els serveis.",
+      "limitation": "No es publica temps de recuperació ni s’explica com es detectava el silenci de logs. El canal independent i la prova completa són propostes d’Atos.",
+      "date": "2026-09-08",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Simulacre executat sobre sistema operatiu",
+      "dateNote": "Data del simulacre i de la notícia institucional",
+      "relatedLinks": []
+    },
+    {
+      "id": "INT16",
+      "title": "Austràlia: observar agents, eines i permisos",
+      "publisher": "Digital Transformation Agency",
+      "url": "https://www.digital.gov.au/policy/ai/agentic-ai-addendum-statements-monitor",
+      "country": "Austràlia",
+      "kind": "Marc públic",
+      "summary": "L’addenda australiana tracta el seguiment d’agents i interaccions, errors d’eines, memòria, permisos, latència i consum. Recomana una visió de control comuna i responsabilitat humana al llarg del cicle de vida.",
+      "limitation": "No acredita una torre nacional d’agents desplegada ni un assistent operatiu de diagnosi TIC. Les traces d’accions no donen accés al raonament intern complet del model.",
+      "date": "2026-06-04",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Guia tècnica institucional",
+      "dateNote": "Publicació de l’addenda institucional",
+      "relatedLinks": [
+        "https://www.digital.gov.au/policy/ai/agentic-ai-addendum",
+        "https://www.digital.gov.au/policy/ai/agentic-ai-addendum-statements-whole-ai-lifecycle"
+      ]
+    },
+    {
+      "id": "INT17",
+      "title": "GovTech: un prototip d’agents amb accions traçables",
+      "publisher": "GovTech AI Practice / Cybersecurity Group",
+      "url": "https://blog.ai.gov.sg/scaling-the-pentesting-team-with-ai/",
+      "country": "Singapur",
+      "kind": "Recerca",
+      "summary": "El prototip de GovTech combina agents especialitzats, control d’eines, MCP, Langfuse autohostat i traces OpenTelemetry. Es va provar amb sistemes de staging a finals de 2025. L’article d’abril de 2026 anuncia la construcció del sistema productiu.",
+      "limitation": "El cas és de proves de ciberseguretat. No demostra resolució autònoma d’incidents TIC, desplegament productiu complet ni superioritat d’una arquitectura anomenada IA Mesh.",
+      "date": "2026-04-21",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Prototip i prova en preproducció",
+      "dateNote": "Publicació; prova de finals de 2025",
+      "relatedLinks": []
+    },
+    {
+      "id": "INT18",
+      "title": "perfSONAR: seguir la degradació entre xarxes",
+      "publisher": "ESnet / consorci perfSONAR",
+      "url": "https://www.es.net/network-r-and-d/perfsonar/",
+      "country": "EUA / Europa / Brasil",
+      "kind": "Cas operatiu",
+      "summary": "perfSONAR combina mesures actives de latència, pèrdua, capacitat i ruta entre dominis. ESnet explica el seu ús per diagnosticar problemes que travessen xarxes administrades per organitzacions diferents.",
+      "limitation": "És una referència d’infraestructura pública científica, no de tots els serveis d’una administració. Les proves consumeixen capacitat i no substitueixen alarmes òptiques ni diagnosi física de fibra.",
+      "date": "2025-04-02",
+      "accessed": "2026-09-16",
+      "sectorPublic": true,
+      "status": "Desplegament sostingut en xarxes de recerca",
+      "dateNote": "Referència d’adopció del consorci; documentació ESnet consultada el 2026-09-15",
+      "relatedLinks": [
+        "https://www.perfsonar.net/ps20.html"
+      ]
     }
   ]
 };

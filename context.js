@@ -288,7 +288,7 @@ window.ATLES_CONTEXT={
         "name": "Seguretat i identitat",
         "assets": "Seguretat del perímetre; IPS; Protecció d’endpoint; SIEM i automatització de seguretat; Gestió de vulnerabilitats; Certificats digitals; Control d’accés de xarxa.",
         "actors": "Seguretat del CTTI; Agència de Ciberseguretat i SOC; enginyeria de seguretat; responsables d’identitat; equips operatius del servei.",
-        "observation": "Relacionar disponibilitat i rendiment dels controls amb incidents, identitats, vulnerabilitats i serveis afectats. Compartir el context necessari amb el SOC mantenint responsabilitats i permisos. Integració controlada amb SIEM/SOAR i EDR. Syslog i API de dispositiu. Inventari de certificats i comprovacions de caducitat. Graf d’actius i identitats. Polítiques d’accés i auditoria.",
+        "observation": "Relacionar disponibilitat i rendiment dels controls amb incidents, identitats, vulnerabilitats i serveis afectats. Compartir el context necessari amb el SOC mantenint responsabilitats i permisos. Integració controlada amb SIEM/SOAR i EDR. Syslog i API de dispositiu. Inventari de certificats i comprovacions de caducitat. Graf d’actius i identitats. Polítiques d’accés i auditoria. La Memòria CTTI 2025 recull Keyfactor Command. Atos proposa contrastar-ne la cobertura i comprovar la renovació efectiva amb una connexió posterior, incloent-hi errors i certificats fora del circuit automatitzat.",
         "cards": [
           "B6",
           "B8",
@@ -296,7 +296,8 @@ window.ATLES_CONTEXT={
           "C4",
           "D2",
           "F3",
-          "G1"
+          "G1",
+          "G2"
         ],
         "check": "Responsabilitats del SOC, permisos i separació de la informació operativa.",
         "roleIds": [
@@ -398,46 +399,66 @@ window.ATLES_CONTEXT={
     }
   },
   "guide": {
-    "title": "Una guia per llegir el moment tecnològic",
-    "intro": "El Hype Cycle de Gartner ajuda a situar les expectatives del mercat. A l’Atles l’utilitzem per obrir la conversa sobre on convé invertir, què cal provar i quines promeses encara demanen evidències. La prioritat per al CTTI dependrà del servei i del resultat que vulguem millorar.",
+    "title": "Quatre situacions per començar",
+    "intro": "Tria un problema recognoscible i segueix les fitxes que el resolen. Cada recorregut parteix de capacitats del CTTI i acaba amb una prova de resultat.",
     "steps": [
       {
-        "label": "Construir la base",
-        "title": "Construir la base",
-        "text": "Identitat de servei, telemetria fiable i cost visible. Una ingesta compartida ha de connectar el que ja existeix i indicar els buits de cobertura. La prova: Poder seguir un incident entre dominis i saber quin camí de dades funciona.",
+        "label": "Alta",
+        "title": "Una aplicació que neix observada",
+        "text": "Reutilitzar el paquet CTTI, la instrumentació i les proves MAT. Comprovar que una operació genera dades vàlides i que el senyal es pot consultar. Un desplegament correcte i una alta observada han de quedar diferenciats.",
         "cards": [
           "A1",
-          "A2",
-          "A6",
+          "A4",
+          "A5",
           "B3",
-          "E3"
+          "D1"
         ]
       },
       {
-        "label": "Provar amb un servei concret",
-        "title": "Provar amb un servei concret",
-        "text": "eBPF on l’entorn sigui compatible, correlació d’avisos i assistència al diagnòstic. Cada pilot compara cobertura, càrrega i temps d’investigació amb el punt de partida. La prova: Resoldre un cas que avui costa entendre i repetir la prova amb una fallada coneguda.",
+        "label": "Canvi",
+        "title": "El servei empitjora després d’un canvi",
+        "text": "Relacionar la degradació amb versions, proves i finestra de desplegament. Comparar abans i després, comprovar la hipòtesi i validar la recuperació funcional.",
         "cards": [
-          "A5",
-          "C5",
-          "C6",
+          "A4",
+          "A6",
+          "B5",
+          "B8",
+          "E2"
+        ]
+      },
+      {
+        "label": "Resultat",
+        "title": "El tràmit s’accepta però no acaba",
+        "text": "Seguir productor, plataforma i consumidor. Fer visible una operació pendent, un reintent i el resultat final, sense comptar duplicats ni donar per completat el que només s’ha rebut.",
+        "cards": [
+          "A2",
+          "A6",
+          "B6",
+          "E1",
           "G2"
         ]
       },
       {
-        "label": "Ampliar l’autonomia amb evidències",
-        "title": "Ampliar l’autonomia amb evidències",
-        "text": "Agents especialitzats amb permisos i límits per tasca. L’execució creix quan les proves acrediten que l’acció és fiable i que el procediment humà continua disponible. La prova: Aturar una acció fora d’abast i reconstruir què ha passat sense perdre el control del cas.",
+        "label": "Assistència",
+        "title": "Un assistent ajuda i deixa evidència",
+        "text": "Provar el diagnòstic sobre fonts autoritzades. Comprovar permisos, context, versions i cost; la persona pot revisar el resultat i reprendre el procediment quan falla una dependència.",
         "cards": [
           "C1",
           "C2",
+          "C3",
           "C4",
+          "C6",
+          "E3",
           "F3"
         ]
       }
     ],
-    "limit": "Aquesta orientació és pròpia de l’Atles. No reprodueix una classificació ni una recomanació específica de Gartner per al CTTI. Els horitzons del gràfic es refereixen a l’adopció de mercat prevista, no al temps d’implantació d’un projecte. El material no acredita productes concrets ni resultats al CTTI.",
+    "limit": "Recorreguts proposats per Atos. El servei, els participants, les dades i els llindars es concretaran abans del pilot.",
     "sections": [
+      {
+        "title": "Com utilitzem el Hype Cycle",
+        "text": "Gartner ajuda a situar expectatives de mercat; els seus horitzons no són terminis d’implantació per al CTTI. La prioritat d’aquests recorreguts depèn del problema, de la base disponible i de l’evidència que falti."
+      },
       {
         "title": "La telemetria continua al centre",
         "text": "El gràfic situa OpenTelemetry i eBPF després del pic d’expectatives. Això convida a concretar compatibilitat, cost i esforç d’adopció en cada entorn."
