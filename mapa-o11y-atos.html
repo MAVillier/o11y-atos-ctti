@@ -1,4 +1,4 @@
-<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mapa de l’Atles O11y · Atos per al CTTI</title><link rel="icon" href="favicon.svg?v=20260916-v3" type="image/svg+xml"><link rel="icon" href="favicon.ico?v=20260916-v3" sizes="any"><style>
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mapa de l’Atles O11y · Atos per al CTTI</title><link rel="icon" href="favicon.svg?v=20260916-rel1" type="image/svg+xml"><link rel="icon" href="favicon.ico?v=20260916-rel1" sizes="any"><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0d1726;font-family:'Segoe UI',Arial,sans-serif}main{height:100vh;display:flex;align-items:center;justify-content:center}svg{display:block;width:min(100vw,calc(100vh * 16 / 9));height:auto;max-height:100vh}svg a{cursor:pointer}svg a:hover text{fill:#0757ed}nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:10px;align-items:center;background:#142634f0;color:white;padding:10px 14px;border-radius:10px;opacity:0;transition:opacity .15s}nav:hover,nav:focus-within,body.show-controls nav{opacity:1}button,nav a{font:14px 'Segoe UI',sans-serif;background:transparent;color:white;border:1px solid #8390a3;border-radius:5px;padding:7px 10px;text-decoration:none;cursor:pointer}.help{font-size:13px;color:#d6deec}@media print{nav{display:none}body{background:white}main{height:auto}}
 
 :focus-visible{outline:3px solid #85baff;outline-offset:4px}
@@ -247,7 +247,7 @@ body.list-open{overflow:auto;height:auto;background:white}body.list-open main{di
 <p class="mobile-map-note">Mapa 16:9 per projectar. Per llegir-lo en una pantalla petita, <a href="#llista" data-list-toggle>obre la llista de fitxes</a>.</p>
 <section id="map-list" hidden aria-label="Llista de les 34 fitxes"></section>
 <nav aria-label="Controls de projecció"><button id="fullscreen">Pantalla completa</button><button id="list-toggle" data-list-toggle aria-controls="map-list" aria-expanded="false">Llista de fitxes</button><a href="./#context/actors" target="atles-detail">Actors i processos ↗</a><a href="./#atlas" target="atles-detail">Obre l’Atles ↗</a><span class="help">F: pantalla completa · Esc: sortir</span></nav>
-<script src="data.js?v=20260916-v3"></script><script src="model.js?v=20260916-v3"></script><script>
+<script src="data.js?v=20260916-rel1"></script><script src="model.js?v=20260916-rel1"></script><script>
 let timer;
 const reveal=()=>{document.body.classList.add('show-controls');clearTimeout(timer);if(!matchMedia('(pointer:coarse)').matches)timer=setTimeout(()=>{if(!document.querySelector('nav').contains(document.activeElement))document.body.classList.remove('show-controls')},2500)};
 async function fullscreen(){try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch{reveal()}}
@@ -267,4 +267,4 @@ const svgLink=document.querySelector('svg a[href$="/\#card/'+c.id+'"]');if(svgLi
 }list.append(section);}
 function toggleList(e){e.preventDefault();const open=list.hidden;list.hidden=!open;document.body.classList.toggle('list-open',open);const button=document.querySelector('#list-toggle');button.textContent=open?'Torna al mapa':'Llista de fitxes';button.setAttribute('aria-expanded',String(open));if(open){window.scrollTo(0,0);h1.focus()}else button.focus();reveal();}
 document.querySelectorAll('[data-list-toggle]').forEach(b=>b.addEventListener('click',toggleList));reveal();
-</script><script src="analytics.js?v=20260916-v3"></script></body></html>
+</script><script src="analytics.js?v=20260916-rel1"></script></body></html>
