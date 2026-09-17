@@ -1,6 +1,6 @@
 window.ATLES_MODEL={
   "schemaVersion": 1,
-  "updated": "2026-09-16",
+  "updated": "2026-09-17",
   "title": "Actors i processos de referència",
   "intro": "Una mateixa lectura per entendre la proposta i situar cada equip. Les responsabilitats concretes de cada pilot es contrastaran amb el CTTI.",
   "assignmentNote": "Encaix funcional proposat per Atos, basat en les fonts. No és un organigrama ni una nova assignació formal de competències.",
@@ -762,7 +762,10 @@ window.ATLES_MODEL={
     {
       "id": "A2",
       "processId": "telemetria",
-      "relatedProcessIds": [],
+      "relatedProcessIds": [
+        "alta_canvi",
+        "qualitat_cobertura"
+      ],
       "coordinator": [
         "eines_o11y"
       ],
@@ -777,9 +780,9 @@ window.ATLES_MODEL={
         "seguretat"
       ],
       "assignmentState": "proposta",
-      "evidence": "Comparar dues fonts representatives i interrompre’n una en un entorn de prova. El resultat ha de separar dades actuals, dades antigues i font inaccessible, i comprovar què es recupera quan torna la connexió.",
+      "evidence": "Comparar dues fonts representatives i interrompre’n una en un entorn de prova. El resultat ha de separar dades actuals, dades antigues i font inaccessible, i comprovar què es recupera quan torna la connexió. Un collector incompatible i una caiguda del servidor de gestió comproven els límits de l’operació remota.",
       "baseCtti": "La guia Cloud aportada descriu una arquitectura federada de Talaia per a AWS i Azure, amb repositoris Elastic a cada entorn i consulta amb Cross-Cluster Search. Aquesta base permet estudiar què convé consultar on ja és i què necessita un camí d’ingesta addicional.",
-      "contribution": "Atos proposa provar cada connector i cada tram de recollida abans d’ampliar l’arquitectura. La comparació faria visibles permisos, retard, pèrdues i cost, amb un responsable per tram i el CdC informat quan es perdi visibilitat.",
+      "contribution": "Atos proposa provar cada connector i cada tram de recollida abans d’ampliar l’arquitectura. La comparació faria visibles permisos, retard, pèrdues i cost, amb un responsable per tram i el CdC informat quan es perdi visibilitat. La gestió de flota afegeix estat real, versions i canvis graduals dels collectors, amb responsabilitat identificada per zona.",
       "sources": [
         {
           "id": "CTTI_T133",
@@ -865,7 +868,7 @@ window.ATLES_MODEL={
       "assignmentState": "proposta",
       "evidence": "Seguir un canvi correcte, un de fallit i un de cancel·lat en un entorn de prova. Des de la consulta del servei s’ha de poder recuperar la versió, la petició de canvi i l’evidència disponible, amb els buits identificats.",
       "baseCtti": "SIC+ publica un orquestrador de releases que relaciona components, dependències, proves MAT i una petició de canvi compartida. Les guies aporten versions i resultats de desplegament, però no acrediten que aquest context ja arribi automàticament a Talaia.",
-      "contribution": "Atos proposa convertir cada desplegament en un esdeveniment consultable des de l’observabilitat, amb servei, entorn, versió, canvi i resultat. L’equip podria passar d’una degradació a les proves del canvi proper, conservant la diferència entre coincidència temporal i causa comprovada.",
+      "contribution": "Atos proposa convertir cada desplegament en un esdeveniment consultable des de l’observabilitat, amb servei, entorn, versió, canvi i resultat. L’equip podria passar d’una degradació a les proves del canvi proper, conservant la diferència entre coincidència temporal i causa comprovada. En plataformes compatibles, aquesta evidència podria governar una ampliació gradual, amb pausa si el resultat és inconcloent.",
       "sources": [
         {
           "id": "CTTI_MEM2025",
@@ -897,7 +900,9 @@ window.ATLES_MODEL={
     {
       "id": "A5",
       "processId": "alta_canvi",
-      "relatedProcessIds": [],
+      "relatedProcessIds": [
+        "problemes"
+      ],
       "coordinator": [
         "gestio_servei"
       ],
@@ -913,7 +918,7 @@ window.ATLES_MODEL={
       "assignmentState": "proposta",
       "evidence": "Executar una operació correcta, una dependència lenta i un cas sense telemetria. L’informe ha de distingir prova superada, fallida, omesa i sense evidència, i assenyalar quin equip ha de resoldre cada buit.",
       "baseCtti": "Els paquets CTTI defineixen què s’ha d’observar segons el servei, i MAT ja aporta proves funcionals, de rendiment i d’API. Una prova no informada es pot ometre; acabar el desplegament no acredita tota la cobertura.",
-      "contribution": "Atos proposa afegir a una prova MAT existent la comprovació que el senyal s’emet, arriba i es consulta amb la identitat correcta. L’alta mostraria quines parts del paquet aplicable estan provades i quines queden pendents o amb excepció.",
+      "contribution": "Atos proposa afegir a una prova MAT existent la comprovació que el senyal s’emet, arriba i es consulta amb la identitat correcta. L’alta mostraria quines parts del paquet aplicable estan provades i quines queden pendents o amb excepció. Amb els mantenidors, es provaria també el diagnòstic fins al codi quan la plataforma ho admeti; els sistemes heretats conservarien les seves vies natives.",
       "sources": [
         {
           "id": "CTTI_MEM2025",
@@ -1263,7 +1268,7 @@ window.ATLES_MODEL={
       "assignmentState": "proposta",
       "evidence": "Ruta provada fins a acceptació, amb suplència i tractament de l’alerta sense titular.",
       "baseCtti": "PagerDuty figura al model 132 i la matriu aporta rutes i franges de cobertura.",
-      "contribution": "Provar l’encaminament complet. La custòdia temporal d’un avís no transfereix la responsabilitat tècnica de la solució.",
+      "contribution": "Provar l’encaminament complet. La custòdia temporal d’un avís no transfereix la responsabilitat tècnica de la solució. Els avisos SAU agrupats es contrasten i es traspassen amb les fonts, sense alterar automàticament la gravetat.",
       "sources": [
         {
           "id": "CTTI_T132",
@@ -1475,7 +1480,10 @@ window.ATLES_MODEL={
     {
       "id": "C5",
       "processId": "qualitat_cobertura",
-      "relatedProcessIds": [],
+      "relatedProcessIds": [
+        "incidents",
+        "dades_accessos"
+      ],
       "coordinator": [
         "oficina_o11y",
         "cdc"
@@ -1485,12 +1493,13 @@ window.ATLES_MODEL={
         "operadors"
       ],
       "validators": [
-        "gestio_servei"
+        "gestio_servei",
+        "seguretat"
       ],
       "assignmentState": "proposta",
-      "evidence": "Canvi d’alerta provat contra incidents coneguts i fallades rares que cal conservar.",
+      "evidence": "Canvi d’alerta provat contra incidents coneguts i fallades rares que cal conservar. Provar també una finestra amb caducitat, retorn automàtic, cost mesurat i camps sensibles filtrats.",
       "baseCtti": "El catàleg i les funcions de prevenció i millora aporten la base per revisar senyals.",
-      "contribution": "Reduir repeticions i cost sense perdre detecció útil ni amagar una segona avaria.",
+      "contribution": "Atos proposa reduir repeticions i cost sense perdre detecció útil, i poder ampliar temporalment el detall d’un servei quan el diagnòstic ho necessiti.",
       "sources": [
         {
           "id": "CTTI_LB2026",
@@ -1524,9 +1533,9 @@ window.ATLES_MODEL={
         "qualitat"
       ],
       "assignmentState": "proposta",
-      "evidence": "Hipòtesi amb fonts, contradiccions i següent prova, comparada amb casos resolts.",
+      "evidence": "Hipòtesi amb fonts, contradiccions i següent prova, comparada amb casos resolts. Un segon equip repeteix l’avaluació i comprova temps fins a context útil, errors, abstencions i cost.",
       "baseCtti": "AI-Powered Failure Prevention consta com a MVP validat en fase inicial; Neo4j Aura té pilots al CdC.",
-      "contribution": "Contrastar i ampliar aquesta base amb diagnòstic reproduïble, dependències vigents i supervisió humana.",
+      "contribution": "Contrastar i ampliar aquesta base amb diagnòstic reproduïble, dependències vigents i supervisió humana. Atos proposa conservar un banc d’incidents reutilitzable per comparar assistents i noves versions amb els mateixos criteris.",
       "sources": [
         {
           "id": "CTTI_MEM2025",
@@ -1689,7 +1698,7 @@ window.ATLES_MODEL={
       "assignmentState": "proposta",
       "evidence": "Escollir una integració asíncrona real i provar un consumidor aturat, un reintent i una recuperació. El recompte d’operacions úniques i el resultat final han de coincidir amb la font transaccional, sense donar per acabat el que només s’ha acceptat.",
       "baseCtti": "Els nivells CTTI inclouen mesura de negoci, i EventHub documenta una via corporativa d’intercanvi asíncron. La confirmació del transport i la finalització del procés consumidor són resultats diferents.",
-      "contribution": "Atos proposa seguir una operació des de l’acceptació fins al resultat que valida el responsable funcional. El quadre distingiria pendent, completada i fallida, reconciliant reintents i duplicats amb la font de negoci.",
+      "contribution": "Atos proposa seguir una operació des de l’acceptació fins al resultat que valida el responsable funcional. El quadre distingiria pendent, completada i fallida, reconciliant reintents i duplicats amb la font de negoci. Una vista compartida hi pot afegir rendiment i retorn d’usuaris, amb criteris de comparació validats pel responsable funcional.",
       "sources": [
         {
           "id": "CTTI_MEM2025",
@@ -1764,7 +1773,10 @@ window.ATLES_MODEL={
     {
       "id": "E3",
       "processId": "seguiment_valor",
-      "relatedProcessIds": [],
+      "relatedProcessIds": [
+        "problemes",
+        "alta_canvi"
+      ],
       "coordinator": [
         "direccio"
       ],
@@ -1779,7 +1791,7 @@ window.ATLES_MODEL={
       "assignmentState": "proposta",
       "evidence": "Conciliar un període de dos serveis amb cost directe, compartit i no assignat. Qualsevol escenari de reducció ha de mostrar l’efecte sobre la cobertura i la qualitat del servei, a més de l’import.",
       "baseCtti": "El mòdul FinOps de la PTD descriu seguiment d’Azure, MongoDB, Databricks i Denodo, normalització FOCUS i anàlisi amb MicroStrategy. És una base concreta amb abast delimitat, sense cobertura universal ni cost per tràmit acreditats.",
-      "contribution": "Atos proposa relacionar les dades de cost disponibles amb el servei i el seu resultat, conservant costos compartits i imports pendents d’assignar. Les estimacions prèvies d’un desplegament es mostrarien separades de la despesa observada.",
+      "contribution": "Atos proposa relacionar les dades de cost disponibles amb el servei i el seu resultat, conservant costos compartits i imports pendents d’assignar. Les estimacions prèvies d’un desplegament es mostrarien separades de la despesa observada. En aplicacions compatibles, el perfilatge pot orientar una optimització de codi i verificar consum per operació, sense confondre menys CPU amb menys factura.",
       "sources": [
         {
           "id": "CTTI_MEM2025",
@@ -1980,7 +1992,10 @@ window.ATLES_MODEL={
     {
       "id": "G2",
       "processId": "resultat_servei",
-      "relatedProcessIds": [],
+      "relatedProcessIds": [
+        "incidents",
+        "escalats"
+      ],
       "coordinator": [
         "funcional",
         "gestio_servei"
@@ -1988,16 +2003,19 @@ window.ATLES_MODEL={
       "executors": [
         "eines_o11y",
         "operadors",
-        "suport_producte"
+        "suport_producte",
+        "sau"
       ],
       "validators": [
         "funcional",
-        "qualitat"
+        "qualitat",
+        "cdc",
+        "propietari_dada"
       ],
       "assignmentState": "proposta",
-      "evidence": "Provar un accés correcte, un permís denegat i una operació acceptada que queda pendent al consumidor. La sonda ha d’identificar el pas afectat i comprovar també la seva pròpia salut abans d’atribuir la fallada al servei.",
+      "evidence": "Provar un accés correcte, un permís denegat i una operació acceptada que queda pendent al consumidor. La sonda ha d’identificar el pas afectat i comprovar també la seva pròpia salut abans d’atribuir la fallada al servei. Comparar l’accés des d’una seu amb el CPD i valorar grups d’avisos SAU sobre incidents coneguts.",
       "baseCtti": "GICAR publica modalitats d’integració diferents segons l’aplicació, i EventHub disposa d’un circuit propi per autoritzar l’accés dels consumidors. Les sondes han de seguir el recorregut real del servei, inclosa la finalització diferida quan existeixi. La Memòria 2025 descriu Keyfactor Command per automatitzar certificats; les proves poden partir d’aquesta capacitat.",
-      "contribution": "Atos proposa una prova de recorregut que distingeixi autenticació, autorització, crida tècnica i resultat funcional. La sonda utilitzaria comptes i dades de prova, amb correlació entre passos quan sigui possible i neteja dels registres generats.",
+      "contribution": "Atos proposa una prova de recorregut que distingeixi autenticació, autorització, crida tècnica i resultat funcional. La sonda utilitzaria comptes i dades de prova, amb correlació entre passos quan sigui possible i neteja dels registres generats. La prova cobreix també el camí d’accés i, en un pilot separat, els avisos SAU com a senyal complementari a contrastar.",
       "sources": [
         {
           "id": "CTTI_T133",

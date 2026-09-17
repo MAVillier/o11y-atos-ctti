@@ -1,5 +1,5 @@
-<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mapa de l’Atles O11y · Atos per al CTTI</title><link rel="icon" href="favicon.svg?v=20260916-rel1" type="image/svg+xml"><link rel="icon" href="favicon.ico?v=20260916-rel1" sizes="any"><style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0d1726;font-family:'Segoe UI',Arial,sans-serif}main{height:100vh;display:flex;align-items:center;justify-content:center}svg{display:block;width:min(100vw,calc(100vh * 16 / 9));height:auto;max-height:100vh}svg a{cursor:pointer}svg a:hover text{fill:#0757ed}nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:10px;align-items:center;background:#142634f0;color:white;padding:10px 14px;border-radius:10px;opacity:0;transition:opacity .15s}nav:hover,nav:focus-within,body.show-controls nav{opacity:1}button,nav a{font:14px 'Segoe UI',sans-serif;background:transparent;color:white;border:1px solid #8390a3;border-radius:5px;padding:7px 10px;text-decoration:none;cursor:pointer}.help{font-size:13px;color:#d6deec}@media print{nav{display:none}body{background:white}main{height:auto}}
+<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mapa de l’Atles O11y · Atos per al CTTI</title><link rel="icon" href="favicon.svg?v=20260917-market1" type="image/svg+xml"><link rel="icon" href="favicon.ico?v=20260917-market1" sizes="any"><style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0d1726;font-family:'Segoe UI',Arial,sans-serif}main{height:100vh;display:flex;align-items:center;justify-content:center}svg{display:block;width:min(100vw,calc(100vh * 16 / 9));height:auto;max-height:100vh}svg a{cursor:pointer}svg a:hover text{fill:#0757ed}nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:10px;align-items:center;background:#142634f0;color:white;padding:10px 14px;border-radius:10px;opacity:0;transition:opacity .15s}nav:hover,nav:focus-within,body.show-controls nav{opacity:1}button,nav a{font:16px 'Segoe UI',sans-serif;background:transparent;color:white;border:1px solid #8390a3;border-radius:5px;padding:7px 10px;text-decoration:none;cursor:pointer}.help{font-size:16px;color:#d6deec}@media print{nav{display:none}body{background:white}main{height:auto}}
 
 :focus-visible{outline:3px solid #85baff;outline-offset:4px}
 button,nav a{min-height:44px;display:inline-flex;align-items:center}
@@ -7,55 +7,60 @@ button,nav a{min-height:44px;display:inline-flex;align-items:center}
 #map-list{background:white;color:#182a38;max-width:1100px;margin:0 auto;padding:35px 6vw 130px}
 #map-list h1{font-size:30px;font-weight:500}#map-list h2{font-size:23px;font-weight:500;color:#0757ed;margin-top:35px}
 #map-list article{border-top:1px solid #cfd9df;padding:18px 0}#map-list a{color:#182a38;font-size:18px;line-height:1.5}
-#map-list p{font-size:16px;line-height:1.6}#map-list .map-role{font-size:14px;color:#586876}
+#map-list p{font-size:16px;line-height:1.6}#map-list .map-role{font-size:16px;color:#586876}
 body.list-open{overflow:auto;height:auto;background:white}body.list-open main{display:none}body.list-open .mobile-map-note{display:none}
 @media(pointer:coarse){nav{opacity:1}}
-@media(max-width:760px){nav{width:calc(100vw - 24px);flex-wrap:wrap;justify-content:center;opacity:1;bottom:12px}.help{display:none}nav a,nav button{font-size:14px;padding:8px}.mobile-map-note{display:block;position:fixed;top:18px;left:6vw;right:6vw;color:white;font-size:16px;line-height:1.5;margin:0}.mobile-map-note a{color:white}}
+@media(max-width:760px){nav{width:calc(100vw - 24px);flex-wrap:wrap;justify-content:center;opacity:1;bottom:12px}.help{display:none}nav a,nav button{font-size:16px;padding:8px}.mobile-map-note{display:block;position:fixed;top:18px;left:6vw;right:6vw;color:white;font-size:16px;line-height:1.5;margin:0}.mobile-map-note a{color:white}}
 @media(prefers-reduced-motion:reduce){nav{transition:none}}
 @media print{.mobile-map-note,#map-list{display:none!important}}
+
+nav{max-width:calc(100vw - 24px);flex-wrap:wrap;justify-content:center}
+#map-list{padding-bottom:180px}
+.reading-note{color:#586876;border-bottom:1px solid #cfd9df;padding-bottom:18px}
+@media(max-width:760px){body.list-open nav{gap:7px}body.list-open nav a,body.list-open nav button{padding:7px 9px}}
 </style></head><body><main><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080" role="group" aria-labelledby="map-title map-description"><title id="map-title">Atles O11y. Mapa de les 34 idees</title><desc id="map-description">Set conjunts de solucions proposades per Atos per ampliar l’observabilitat del CTTI. Cada idea té un codi, un títol i els conceptes tècnics que la concreten.</desc>
 <rect x="0" y="0" width="1920" height="1080" rx="0" fill="#ffffff"/>
 <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNDguNDY1MDMgNDguMzEyMDAiPjx0aXRsZT5BdG9zPC90aXRsZT48cGF0aCBmaWxsPSIjMDA3M2U2IiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0gMTQ4LjQ2NTAzIDMzLjczMDAwIEMgMTQ4LjQ2NTAzIDQzLjQwMzAwIDEzOS42OTEwNCA0OC4yODYwMCAxMjkuMzQ2MDEgNDguMjg2MDAgQyAxMjIuNTc0MDQgNDguMjg2MDAgMTE2LjUzODAyIDQ2Ljc3ODAwIDExMS40ODMwMyA0NC4wMDgwMCBDIDExMi43OTcwMCA0Mi4xMDM5OSAxMTQuNzg0MDYgMzguNzcyOTkgMTE1LjcxMDAyIDM2Ljc5NTAwIEMgMTE5LjEyNDAyIDM4LjIwNzAwIDEyNC42ODEwMyAzOS45MDE5OSAxMjkuNjk2MDQgMzkuOTAxOTkgQyAxMzQuNTk0MDYgMzkuOTAxOTkgMTM4LjQyMDA0IDM3Ljg2NjAwIDEzOC40MjAwNCAzNS4xMzQ5OSBDIDEzOC40MjAwNCAzMi43NTY5OSAxMzcuNjAxMDEgMzAuODk5MDAgMTI5LjgxMTA0IDI4LjQ4MTAwIEMgMTE5LjcyNTA0IDI1LjM1NjAwIDExNC4wMjcwNCAyMi4yMzE5OSAxMTQuMDI3MDQgMTMuNzkxMDAgQyAxMTQuMDI3MDQgNC45MTEwMCAxMjIuMjI5MDAgMC4wMDAwMCAxMzIuNjIwMDYgMC4wMDAwMCBDIDEzNy4xMDUwNCAwLjAwMDAwIDE0Mi40NzUwNCAwLjk5NTAwIDE0NS45NzEwMSAxLjgzMDk5IEwgMTQ1LjQ1MDAxIDE0Ljc2MTAwIEwgMTM4LjA1NjAzIDE0LjYyNzk5IEwgMTM4LjA5MjA0IDguMTk2OTkgQyAxMzcuMDAwMDAgNy45NTc5OSAxMzUuNDMwMDUgNy43NTgwMCAxMzMuMjU2MDQgNy43NTgwMCBDIDEyNy42MzUwMSA3Ljc1ODAwIDEyMy43NjgwMSA5LjY4NzAwIDEyMy43NjgwMSAxMi45NDIwMCBDIDEyMy43NjgwMSAxNS4yNDgwMCAxMjUuOTg4MDQgMTcuNDIwOTkgMTMzLjgzMjAzIDE5LjkzNTk5IEMgMTQzLjkzMzA0IDIzLjE3MDAwIDE0OC40NjUwMyAyNi4yMTE5OSAxNDguNDY1MDMgMzMuNzMwMDAgTSA0Ni4zMzAwMiA0MS41NTYwMCBMIDUwLjA5MDAzIDQxLjU1NjAwIEwgNTAuMDkwMDMgNDcuNDM1MDAgTCAzMi4wNTIwMCA0Ny40MzUwMCBMIDMyLjA1MjAwIDQxLjU1NjAwIEwgMzUuNzYxMDUgNDEuNTU2MDAgTCAzMy40NjUwMyAzNS4xMDM5OSBMIDE1LjE5MTA0IDM1LjEwMzk5IEwgMTIuOTAxMDAgNDEuNTU2MDAgTCAxNi44NjAwNSA0MS41NTYwMCBMIDE2Ljg2MDA1IDQ3LjQzNTAwIEwgMC4wMDAwMCA0Ny40MzUwMCBMIDAuMDAwMDAgNDEuNTU2MDAgTCA0LjAxNzAzIDQxLjU1NjAwIEwgMTYuNTg2MDYgNi4xNzU5OSBMIDExLjU0MzAzIDYuMTc1OTkgTCAxMS41NDMwMyAwLjMwMDk5IEwgMzEuNjQwMDEgMC4zMDA5OSBMIDQ2LjMzMDAyIDQxLjU1NjAwIE0gMzAuODcxMDMgMjcuODIzMDAgTCAyNC4zMTcwMiA5LjQxMjk5IEwgMTcuNzc4MDIgMjcuODIzMDAgTCAzMC44NzEwMyAyNy44MjMwMCBNIDExMy4wNDAwNCAyNy41Mzc5OSBDIDExMy4wNDAwNCAzOS4wNjkwMCAxMDMuNTQ4MDMgNDguMzEyMDAgOTIuMTkwMDAgNDguMzEyMDAgQyA4Ni41ODcwNCA0OC4zMTIwMCA4MS41MDAwMCA0Ni4xMDE5OSA3Ny43NTQwMyA0Mi41MTcwMCBDIDc1LjE5MjAyIDQ1LjU5OTk5IDcwLjU3MTA0IDQ4LjI2MzAwIDY0Ljg5ODAxIDQ4LjI2MzAwIEMgNTguMTI2MDQgNDguMjYzMDAgNTEuMTUwMDIgNDQuOTg1OTkgNTEuMTUwMDIgMzUuMDA2OTkgTCA1MS4xNTAwMiAxNS41ODg5OSBMIDQ0LjA2Nzk5IDE1LjU4ODk5IEwgNDQuMDY3OTkgOC4yMzEwMCBMIDUxLjE1MDAyIDguMjMxMDAgTCA1MS4xNTAwMiAwLjI4NjAwIEwgNjAuNzk4MDMgMC4yODYwMCBMIDYwLjc5ODAzIDguMjMxMDAgTCA3MS41NDMwMyA4LjIzMTAwIEwgNzEuNTQzMDMgMTUuNTg4OTkgTCA2MC43OTgwMyAxNS41ODg5OSBMIDYwLjc5ODAzIDM0LjA2MjAwIEMgNjAuNzk4MDMgMzguMDg4MDAgNjMuMjc5MDUgNDAuNzc4OTkgNjYuNzIwMDMgNDAuNzc4OTkgQyA2OS4yNjAwMSA0MC43Nzg5OSA3MS45MjkwMiAzOS41OTkwMCA3My45MDMwMiAzNy41MjQwMCBDIDcyLjI3MzAxIDM0LjU1NjAwIDcxLjM0MDAzIDMxLjE1OTAwIDcxLjM0MDAzIDI3LjUzNzk5IEMgNzEuMzQwMDMgMTguNDMxOTkgNzcuMzI5MDQgMTAuNDg3MDAgODUuNzM1MDUgNy43ODcwMCBDIDgzLjk5NjAzIDEwLjM2ODAwIDgyLjg0MDAzIDE2LjI1NzAwIDgyLjgzNTAyIDE5LjUwMjk5IEMgODEuMTY1MDQgMjEuNjk2OTkgODAuMTU3MDQgMjQuNDk1MDAgODAuMTU3MDQgMjcuNTM3OTkgQyA4MC4xNTcwNCAzNC42MDE5OSA4NS41NDgwMyA0MC4zMzA5OSA5Mi4xOTAwMCA0MC4zMzA5OSBDIDk0LjYwNDAwIDQwLjMzMDk5IDk2Ljg0NzA1IDM5LjU2NTAwIDk4LjcyOTAwIDM4LjI2MzAwIEMgOTEuMjQ5MDIgMzUuMTEwOTkgODUuOTkxMDMgMjcuNzI4OTkgODUuOTkxMDMgMTkuMTIxOTkgQyA4NS45OTEwMyAxNC41NDEwMCA4Ny40ODUwNSAxMC4zMDgwMCA5MC4wMDQwMyA2Ljg3Mzk5IEMgOTAuNzI1MDQgNi44MDIwMCA5MS40NTEwNSA2Ljc2MTAwIDkyLjE5MDAwIDYuNzYxMDAgQyA5NS4wNzAwMSA2Ljc2MTAwIDk3LjgwOTAyIDcuMzQwMDAgMTAwLjMwMjAwIDguMzkyOTkgQyAxMDAuMzAyMDAgOC4zOTI5OSAxMDAuMjk3MDAgOC4zOTYwMCAxMDAuMjk3MDAgOC4zOTkwMCBDIDEwNy43ODUwMyAxMS41NTAwMCAxMTMuMDQwMDQgMTguOTI5MDAgMTEzLjA0MDA0IDI3LjUzNzk5IE0gMTA0LjIyNTA0IDI3LjUzNzk5IEMgMTA0LjIyNTA0IDIxLjY0OTk5IDEwMC40ODEwMiAxNi43MDUwMCA5NS4zODkwNCAxNS4yMTUwMCBDIDk1LjAxNjA1IDE2LjQ0NDk5IDk0LjgxMTA0IDE3Ljc1ODAwIDk0LjgxMTA0IDE5LjEyMTk5IEMgOTQuODExMDQgMjUuMDA5OTkgOTguNTU4MDQgMjkuOTUzMDAgMTAzLjY0NzAzIDMxLjQ0MjAwIEMgMTA0LjAyMzAxIDMwLjIxMTAwIDEwNC4yMjUwNCAyOC44OTc5OSAxMDQuMjI1MDQgMjcuNTM3OTkiLz48L3N2Zz4=" x="64" y="24" width="77" height="25"/>
-<text x="162" y="42" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="15" font-weight="600" fill="#0757ed" text-anchor="start">PER AL CTTI</text>
+<text x="162" y="42" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#0757ed" text-anchor="start">PER AL CTTI</text>
 <text x="61" y="112" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="57" font-weight="400" fill="#182a38" text-anchor="start">Atles</text>
 <text x="212" y="112" font-family="Georgia,serif" font-style="italic" font-size="59" font-weight="400" fill="#0757ed" text-anchor="start">d’observabilitat</text>
 <text x="1856" y="90" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="25" font-weight="400" fill="#182a38" text-anchor="end">34 idees / 7 conjunts</text>
-<text x="1856" y="122" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18" font-weight="400" fill="#586876" text-anchor="end">Mapa de l’Atles v3 · Octubre 2026</text>
+<text x="1856" y="122" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="end">Mapa de l’Atles v4 · Octubre 2026</text>
 <g id="group-A" class="map-group" data-group="A">
 <rect x="64.0" y="169" width="560.0" height="508" fill="transparent" pointer-events="none"/>
 <line x1="64.0" y1="169" x2="624.0" y2="169" stroke="#cfd9df" stroke-width="1"/>
 <text x="64.0" y="221" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="43" font-weight="300" fill="#0757ed" text-anchor="start">A</text>
 <text x="118.0" y="208" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="29" font-weight="400" fill="#182a38" text-anchor="start">El fonament</text>
-<text x="118.0" y="235" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Des de la font fins a la consulta.</text>
+<text x="118.0" y="235" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Des de la font fins a la consulta.</text>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/A1" target="atles-detail" aria-label="A1: Contracte de telemetria">
-<text x="64.0" y="277.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#0757ed" text-anchor="start">A1</text>
+<text x="64.0" y="277.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#0757ed" text-anchor="start">A1</text>
 <text x="113.0" y="277.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Contracte de telemetria</text>
-<text x="113.0" y="300.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Esquemes · convencions · validació</text>
+<text x="113.0" y="303.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Esquemes · convencions · validació</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/A2" target="atles-detail" aria-label="A2: Ingesta sota control del CTTI">
-<text x="64.0" y="345.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#0757ed" text-anchor="start">A2</text>
+<text x="64.0" y="345.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#0757ed" text-anchor="start">A2</text>
 <text x="113.0" y="345.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Ingesta sota control del CTTI</text>
-<text x="113.0" y="368.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">OpenTelemetry Collector · cues · límits</text>
+<text x="113.0" y="371.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">OpenTelemetry Collector · cues · límits</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/A3" target="atles-detail" aria-label="A3: Retenció segons l’ús">
-<text x="64.0" y="414.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#0757ed" text-anchor="start">A3</text>
+<text x="64.0" y="414.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#0757ed" text-anchor="start">A3</text>
 <text x="113.0" y="414.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Retenció segons l’ús</text>
-<text x="113.0" y="437.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Cicle de vida · agregació · arxiu</text>
+<text x="113.0" y="440.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Cicle de vida · agregació · arxiu</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/A4" target="atles-detail" aria-label="A4: Observabilitat com a codi">
-<text x="64.0" y="482.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#0757ed" text-anchor="start">A4</text>
+<text x="64.0" y="482.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#0757ed" text-anchor="start">A4</text>
 <text x="113.0" y="482.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Observabilitat com a codi</text>
-<text x="113.0" y="505.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Versions · proves · canvi · recuperació</text>
+<text x="113.0" y="508.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Versions · proves · canvi · recuperació</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/A5" target="atles-detail" aria-label="A5: Serveis que neixen observats">
-<text x="64.0" y="551.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#0757ed" text-anchor="start">A5</text>
+<text x="64.0" y="551.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#0757ed" text-anchor="start">A5</text>
 <text x="113.0" y="551.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Serveis que neixen observats</text>
-<text x="113.0" y="574.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Plantilles · OpenTelemetry · proves d’alta</text>
+<text x="113.0" y="577.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Plantilles · OpenTelemetry · proves d’alta</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/A6" target="atles-detail" aria-label="A6: Un llenguatge comú">
-<text x="64.0" y="619.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#0757ed" text-anchor="start">A6</text>
+<text x="64.0" y="619.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#0757ed" text-anchor="start">A6</text>
 <text x="113.0" y="619.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Un llenguatge comú</text>
-<text x="113.0" y="642.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Catàleg semàntic · consulta federada</text>
+<text x="113.0" y="645.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Catàleg semàntic · consulta federada</text>
 </a>
 </g>
 <g id="group-B" class="map-group" data-group="B">
@@ -63,46 +68,46 @@ body.list-open{overflow:auto;height:auto;background:white}body.list-open main{di
 <line x1="680.0" y1="169" x2="1240.0" y2="169" stroke="#cfd9df" stroke-width="1"/>
 <text x="680.0" y="221" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="43" font-weight="300" fill="#2446a5" text-anchor="start">B</text>
 <text x="734.0" y="208" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="29" font-weight="400" fill="#182a38" text-anchor="start">El govern</text>
-<text x="734.0" y="235" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Responsabilitats i decisions amb proves.</text>
+<text x="734.0" y="235" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Responsabilitats i decisions amb proves.</text>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/B1" target="atles-detail" aria-label="B1: Maduresa amb evidències">
-<text x="680.0" y="277.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#2446a5" text-anchor="start">B1</text>
+<text x="680.0" y="277.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#2446a5" text-anchor="start">B1</text>
 <text x="729.0" y="277.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Maduresa amb evidències</text>
-<text x="729.0" y="300.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Matriu de 5 dominis × 6 dimensions · proves</text>
+<text x="729.0" y="303.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Matriu de 5 dominis × 6 dimensions · proves</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/B2" target="atles-detail" aria-label="B2: El deute, a la vista">
-<text x="680.0" y="328.375" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#2446a5" text-anchor="start">B2</text>
+<text x="680.0" y="328.375" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#2446a5" text-anchor="start">B2</text>
 <text x="729.0" y="328.375" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">El deute, a la vista</text>
-<text x="729.0" y="351.375" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Regles · tasques · prova de tancament</text>
+<text x="729.0" y="354.375" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Regles · tasques · prova de tancament</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/B3" target="atles-detail" aria-label="B3: Observar l’observabilitat">
-<text x="680.0" y="379.75" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#2446a5" text-anchor="start">B3</text>
+<text x="680.0" y="379.75" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#2446a5" text-anchor="start">B3</text>
 <text x="729.0" y="379.75" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Observar l’observabilitat</text>
-<text x="729.0" y="402.75" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Sondes · senyal absent · recuperació</text>
+<text x="729.0" y="405.75" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Sondes · senyal absent · recuperació</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/B4" target="atles-detail" aria-label="B4: Publicar dades útils">
-<text x="680.0" y="431.125" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#2446a5" text-anchor="start">B4</text>
+<text x="680.0" y="431.125" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#2446a5" text-anchor="start">B4</text>
 <text x="729.0" y="431.125" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Publicar dades útils</text>
-<text x="729.0" y="454.125" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">API de dades · qualitat · vistes per perfil</text>
+<text x="729.0" y="457.125" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">API de dades · qualitat · vistes per perfil</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/B5" target="atles-detail" aria-label="B5: Aprendre de cada incident">
-<text x="680.0" y="482.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#2446a5" text-anchor="start">B5</text>
+<text x="680.0" y="482.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#2446a5" text-anchor="start">B5</text>
 <text x="729.0" y="482.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Aprendre de cada incident</text>
-<text x="729.0" y="505.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Cronologia · evidències · proves de regressió</text>
+<text x="729.0" y="508.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Cronologia · evidències · proves de regressió</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/B6" target="atles-detail" aria-label="B6: Cooperació entre contractes">
-<text x="680.0" y="533.875" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#2446a5" text-anchor="start">B6</text>
+<text x="680.0" y="533.875" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#2446a5" text-anchor="start">B6</text>
 <text x="729.0" y="533.875" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Cooperació entre contractes</text>
-<text x="729.0" y="556.875" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">API d’incidents · context compartit · permisos</text>
+<text x="729.0" y="559.875" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">API d’incidents · context compartit · permisos</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/B7" target="atles-detail" aria-label="B7: Cap alerta sense responsable">
-<text x="680.0" y="585.25" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#2446a5" text-anchor="start">B7</text>
+<text x="680.0" y="585.25" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#2446a5" text-anchor="start">B7</text>
 <text x="729.0" y="585.25" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Cap alerta sense responsable</text>
-<text x="729.0" y="608.25" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Guàrdies · rutes · confirmació de recepció</text>
+<text x="729.0" y="611.25" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Guàrdies · rutes · confirmació de recepció</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/B8" target="atles-detail" aria-label="B8: Comandament de l’incident">
-<text x="680.0" y="636.625" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#2446a5" text-anchor="start">B8</text>
+<text x="680.0" y="636.625" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#2446a5" text-anchor="start">B8</text>
 <text x="729.0" y="636.625" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Comandament de l’incident</text>
-<text x="729.0" y="659.625" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Estats · traspassos · cronologia compartida</text>
+<text x="729.0" y="662.625" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Estats · traspassos · cronologia compartida</text>
 </a>
 </g>
 <g id="group-C" class="map-group" data-group="C">
@@ -110,41 +115,41 @@ body.list-open{overflow:auto;height:auto;background:white}body.list-open main{di
 <line x1="1296.0" y1="169" x2="1856.0" y2="169" stroke="#cfd9df" stroke-width="1"/>
 <text x="1296.0" y="221" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="43" font-weight="300" fill="#6741ac" text-anchor="start">C</text>
 <text x="1350.0" y="208" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="29" font-weight="400" fill="#182a38" text-anchor="start">La intel·ligència</text>
-<text x="1350.0" y="235" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">IA útil, amb permisos i supervisió.</text>
+<text x="1350.0" y="235" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">IA útil, amb permisos i supervisió.</text>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/C1" target="atles-detail" aria-label="C1: Autonomia de N0 a N3">
-<text x="1296.0" y="277.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#6741ac" text-anchor="start">C1</text>
+<text x="1296.0" y="277.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#6741ac" text-anchor="start">C1</text>
 <text x="1345.0" y="277.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Autonomia de N0 a N3</text>
-<text x="1345.0" y="300.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Permisos · proves · traça d’accions</text>
+<text x="1345.0" y="303.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Permisos · proves · traça d’accions</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/C2" target="atles-detail" aria-label="C2: Agents definits per funció">
-<text x="1296.0" y="335.7142857142857" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#6741ac" text-anchor="start">C2</text>
+<text x="1296.0" y="335.7142857142857" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#6741ac" text-anchor="start">C2</text>
 <text x="1345.0" y="335.7142857142857" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Agents definits per funció</text>
-<text x="1345.0" y="358.7142857142857" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">IA Mesh · MCP/A2A · agents amb permisos</text>
+<text x="1345.0" y="361.7142857142857" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">IA Mesh · MCP/A2A · agents amb permisos</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/C3" target="atles-detail" aria-label="C3: Coneixement operatiu a mà">
-<text x="1296.0" y="394.42857142857144" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#6741ac" text-anchor="start">C3</text>
+<text x="1296.0" y="394.42857142857144" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#6741ac" text-anchor="start">C3</text>
 <text x="1345.0" y="394.42857142857144" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Coneixement operatiu a mà</text>
-<text x="1345.0" y="417.42857142857144" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Cerca híbrida · permisos · respostes amb fonts</text>
+<text x="1345.0" y="420.42857142857144" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Cerca híbrida · permisos · respostes amb fonts</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/C4" target="atles-detail" aria-label="C4: Observar la IA que observa">
-<text x="1296.0" y="453.1428571428571" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#6741ac" text-anchor="start">C4</text>
+<text x="1296.0" y="453.1428571428571" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#6741ac" text-anchor="start">C4</text>
 <text x="1345.0" y="453.1428571428571" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Observar la IA que observa</text>
-<text x="1345.0" y="476.1428571428571" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Traces · permisos · avaluació · cost</text>
+<text x="1345.0" y="479.1428571428571" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Traces · permisos · avaluació · cost</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/C5" target="atles-detail" aria-label="C5: Menys soroll, més senyal">
-<text x="1296.0" y="511.8571428571429" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#6741ac" text-anchor="start">C5</text>
+<text x="1296.0" y="511.8571428571429" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#6741ac" text-anchor="start">C5</text>
 <text x="1345.0" y="511.8571428571429" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Menys soroll, més senyal</text>
-<text x="1345.0" y="534.8571428571429" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Agrupació · utilitat · proves de cobertura</text>
+<text x="1345.0" y="537.8571428571429" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Agrupació · utilitat · proves de cobertura</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/C6" target="atles-detail" aria-label="C6: IA per investigar incidents">
-<text x="1296.0" y="570.5714285714286" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#6741ac" text-anchor="start">C6</text>
+<text x="1296.0" y="570.5714285714286" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#6741ac" text-anchor="start">C6</text>
 <text x="1345.0" y="570.5714285714286" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">IA per investigar incidents</text>
-<text x="1345.0" y="593.5714285714286" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Registres · grafs · hipòtesis amb evidències</text>
+<text x="1345.0" y="596.5714285714286" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Registres · grafs · hipòtesis amb evidències</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/C7" target="atles-detail" aria-label="C7: Quadres generats i explicats">
-<text x="1296.0" y="629.2857142857142" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#6741ac" text-anchor="start">C7</text>
+<text x="1296.0" y="629.2857142857142" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#6741ac" text-anchor="start">C7</text>
 <text x="1345.0" y="629.2857142857142" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Quadres generats i explicats</text>
-<text x="1345.0" y="652.2857142857142" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="19" font-weight="400" fill="#586876" text-anchor="start">Semàntica · consultes validades · gràfics</text>
+<text x="1345.0" y="655.2857142857142" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Semàntica · consultes validades · gràfics</text>
 </a>
 </g>
 <g id="group-D" class="map-group" data-group="D">
@@ -152,21 +157,21 @@ body.list-open{overflow:auto;height:auto;background:white}body.list-open main{di
 <line x1="64.0" y1="711" x2="483.5" y2="711" stroke="#cfd9df" stroke-width="1"/>
 <text x="64.0" y="763" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="43" font-weight="300" fill="#007873" text-anchor="start">D</text>
 <text x="118.0" y="750" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="25" font-weight="400" fill="#182a38" text-anchor="start">L’autonomia dels equips</text>
-<text x="118.0" y="777" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18" font-weight="400" fill="#586876" text-anchor="start">Eines perquè els equips resolguin.</text>
+<text x="118.0" y="777" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Eines perquè els equips resolguin.</text>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/D1" target="atles-detail" aria-label="D1: Autoservei amb comprovacions">
-<text x="64.0" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#007873" text-anchor="start">D1</text>
-<text x="113.0" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Autoservei amb comprovacions</text>
-<text x="113.0" y="842.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Portal · permisos · resultat verificat</text>
+<text x="64.0" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#007873" text-anchor="start">D1</text>
+<text x="113.0" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Autoservei amb comprovacions</text>
+<text x="113.0" y="845.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Portal · permisos · resultat verificat</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/D2" target="atles-detail" aria-label="D2: Regles que es comparteixen">
-<text x="64.0" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#007873" text-anchor="start">D2</text>
-<text x="113.0" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Regles que es comparteixen</text>
-<text x="113.0" y="911.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Regles versionades · proves · distribució</text>
+<text x="64.0" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#007873" text-anchor="start">D2</text>
+<text x="113.0" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Regles que es comparteixen</text>
+<text x="113.0" y="914.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Regles · versions · proves · distribució</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/D3" target="atles-detail" aria-label="D3: Adopció en el treball diari">
-<text x="64.0" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#007873" text-anchor="start">D3</text>
-<text x="113.0" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Adopció en el treball diari</text>
-<text x="113.0" y="981.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Pràctica guiada · eines · ús real</text>
+<text x="64.0" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#007873" text-anchor="start">D3</text>
+<text x="113.0" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Adopció en el treball diari</text>
+<text x="113.0" y="984.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Pràctica guiada · eines · ús real</text>
 </a>
 </g>
 <g id="group-E" class="map-group" data-group="E">
@@ -174,26 +179,26 @@ body.list-open{overflow:auto;height:auto;background:white}body.list-open main{di
 <line x1="521.5" y1="711" x2="941.0" y2="711" stroke="#cfd9df" stroke-width="1"/>
 <text x="521.5" y="763" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="43" font-weight="300" fill="#916313" text-anchor="start">E</text>
 <text x="575.5" y="750" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="25" font-weight="400" fill="#182a38" text-anchor="start">El negoci i el cost</text>
-<text x="575.5" y="777" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18" font-weight="400" fill="#586876" text-anchor="start">Servei, fiabilitat i cost.</text>
+<text x="575.5" y="777" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Servei, fiabilitat i cost.</text>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/E1" target="atles-detail" aria-label="E1: Mesurar el servei real">
-<text x="521.5" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#916313" text-anchor="start">E1</text>
-<text x="570.5" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Mesurar el servei real</text>
-<text x="570.5" y="842.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Tràmits · estats · resultat · abandonaments</text>
+<text x="521.5" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#916313" text-anchor="start">E1</text>
+<text x="570.5" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Mesurar el servei real</text>
+<text x="570.5" y="845.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Tràmits · resultat · abandonaments</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/E2" target="atles-detail" aria-label="E2: Fiabilitat amb objectius">
-<text x="521.5" y="871.25" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#916313" text-anchor="start">E2</text>
-<text x="570.5" y="871.25" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Fiabilitat amb objectius</text>
-<text x="570.5" y="894.25" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Objectius SLO · pressupost d’error</text>
+<text x="521.5" y="871.25" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#916313" text-anchor="start">E2</text>
+<text x="570.5" y="871.25" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Fiabilitat amb objectius</text>
+<text x="570.5" y="897.25" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Objectius SLO · pressupost d’error</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/E3" target="atles-detail" aria-label="E3: Cost per servei observat">
-<text x="521.5" y="923.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#916313" text-anchor="start">E3</text>
-<text x="570.5" y="923.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Cost per servei observat</text>
-<text x="570.5" y="946.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Factura · consum · simulació de costos</text>
+<text x="521.5" y="923.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#916313" text-anchor="start">E3</text>
+<text x="570.5" y="923.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Cost per servei observat</text>
+<text x="570.5" y="949.5" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Factura · consum · simulació de costos</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/E4" target="atles-detail" aria-label="E4: Reinvertir el temps recuperat">
-<text x="521.5" y="975.75" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#916313" text-anchor="start">E4</text>
-<text x="570.5" y="975.75" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Reinvertir el temps recuperat</text>
-<text x="570.5" y="998.75" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Tasques repetides · estalvi net · millores</text>
+<text x="521.5" y="975.75" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#916313" text-anchor="start">E4</text>
+<text x="570.5" y="975.75" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Reinvertir el temps recuperat</text>
+<text x="570.5" y="1001.75" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Tasques repetides · estalvi · millores</text>
 </a>
 </g>
 <g id="group-F" class="map-group" data-group="F">
@@ -201,21 +206,21 @@ body.list-open{overflow:auto;height:auto;background:white}body.list-open main{di
 <line x1="979.0" y1="711" x2="1398.5" y2="711" stroke="#cfd9df" stroke-width="1"/>
 <text x="979.0" y="763" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="43" font-weight="300" fill="#a05931" text-anchor="start">F</text>
 <text x="1033.0" y="750" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="25" font-weight="400" fill="#182a38" text-anchor="start">El blindatge</text>
-<text x="1033.0" y="777" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18" font-weight="400" fill="#586876" text-anchor="start">Control i llibertat de canvi.</text>
+<text x="1033.0" y="777" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Control i llibertat de canvi.</text>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/F1" target="atles-detail" aria-label="F1: Provar la sortida cada any">
-<text x="979.0" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#a05931" text-anchor="start">F1</text>
-<text x="1028.0" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Provar la sortida cada any</text>
-<text x="1028.0" y="842.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Exportació · reconstrucció · proves</text>
+<text x="979.0" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#a05931" text-anchor="start">F1</text>
+<text x="1028.0" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Provar la sortida cada any</text>
+<text x="1028.0" y="845.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Exportació · reconstrucció · proves</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/F2" target="atles-detail" aria-label="F2: Dades obertes amb límits">
-<text x="979.0" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#a05931" text-anchor="start">F2</text>
-<text x="1028.0" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Dades obertes amb límits</text>
-<text x="1028.0" y="911.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Agregació · revisió · publicació per API</text>
+<text x="979.0" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#a05931" text-anchor="start">F2</text>
+<text x="1028.0" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Dades obertes amb límits</text>
+<text x="1028.0" y="914.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Agregació · revisió · publicació per API</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/F3" target="atles-detail" aria-label="F3: Control de dades i accessos">
-<text x="979.0" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#a05931" text-anchor="start">F3</text>
-<text x="1028.0" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Control de dades i accessos</text>
-<text x="1028.0" y="981.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Identitat · ubicació · accés · auditoria</text>
+<text x="979.0" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#a05931" text-anchor="start">F3</text>
+<text x="1028.0" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Control de dades i accessos</text>
+<text x="1028.0" y="984.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Identitat · ubicació · accés · auditoria</text>
 </a>
 </g>
 <g id="group-G" class="map-group" data-group="G">
@@ -223,31 +228,31 @@ body.list-open{overflow:auto;height:auto;background:white}body.list-open main{di
 <line x1="1436.5" y1="711" x2="1856.0" y2="711" stroke="#cfd9df" stroke-width="1"/>
 <text x="1436.5" y="763" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="43" font-weight="300" fill="#677a44" text-anchor="start">G</text>
 <text x="1490.5" y="750" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="25" font-weight="400" fill="#182a38" text-anchor="start">La frontera</text>
-<text x="1490.5" y="777" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18" font-weight="400" fill="#586876" text-anchor="start">Seguretat, experiència i estat.</text>
+<text x="1490.5" y="777" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Seguretat, experiència i estat.</text>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/G1" target="atles-detail" aria-label="G1: Seguretat segons l’exposició">
-<text x="1436.5" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#677a44" text-anchor="start">G1</text>
-<text x="1485.5" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Seguretat segons l’exposició</text>
-<text x="1485.5" y="842.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Exposició · camins d’atac · validació</text>
+<text x="1436.5" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#677a44" text-anchor="start">G1</text>
+<text x="1485.5" y="819.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Seguretat segons l’exposició</text>
+<text x="1485.5" y="845.0" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Exposició · camins d’atac · validació</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/G2" target="atles-detail" aria-label="G2: L’experiència, a prova">
-<text x="1436.5" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#677a44" text-anchor="start">G2</text>
-<text x="1485.5" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">L’experiència, a prova</text>
-<text x="1485.5" y="911.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">Proves sintètiques · ús real · traces</text>
+<text x="1436.5" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#677a44" text-anchor="start">G2</text>
+<text x="1485.5" y="888.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">L’experiència, a prova</text>
+<text x="1485.5" y="914.6666666666666" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Proves sintètiques · ús real · traces</text>
 </a>
 <a href="https://mavillier.github.io/o11y-atos-ctti/#card/G3" target="atles-detail" aria-label="G3: Estat dels components comuns">
-<text x="1436.5" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="20" font-weight="400" fill="#677a44" text-anchor="start">G3</text>
-<text x="1485.5" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="21" font-weight="600" fill="#182a38" text-anchor="start">Estat dels components comuns</text>
-<text x="1485.5" y="981.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="18.5" font-weight="400" fill="#586876" text-anchor="start">API d’estat · historial · subscripcions</text>
+<text x="1436.5" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#677a44" text-anchor="start">G3</text>
+<text x="1485.5" y="958.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="600" fill="#182a38" text-anchor="start">Estat dels components comuns</text>
+<text x="1485.5" y="984.3333333333334" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">API d’estat · historial · subscripcions</text>
 </a>
 </g>
 <line x1="64" y1="1034" x2="1856" y2="1034" stroke="#cfd9df" stroke-width="1"/>
-<text x="64" y="1062" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="17" font-weight="400" fill="#586876" text-anchor="start">Solucions d’Atos per ampliar l’observabilitat del CTTI</text>
-<text x="1856" y="1062" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="17" font-weight="400" fill="#0757ed" text-anchor="end">mavillier.github.io/o11y-atos-ctti</text>
+<text x="64" y="1062" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#586876" text-anchor="start">Solucions d’Atos per ampliar l’observabilitat del CTTI</text>
+<text x="1856" y="1062" font-family="Segoe UI,Arial,sans-serif" font-style="normal" font-size="22" font-weight="400" fill="#0757ed" text-anchor="end">mavillier.github.io/o11y-atos-ctti</text>
 </svg></main>
 <p class="mobile-map-note">Mapa 16:9 per projectar. Per llegir-lo en una pantalla petita, <a href="#llista" data-list-toggle>obre la llista de fitxes</a>.</p>
 <section id="map-list" hidden aria-label="Llista de les 34 fitxes"></section>
 <nav aria-label="Controls de projecció"><button id="fullscreen">Pantalla completa</button><button id="list-toggle" data-list-toggle aria-controls="map-list" aria-expanded="false">Llista de fitxes</button><a href="./#context/actors" target="atles-detail">Actors i processos ↗</a><a href="./#atlas" target="atles-detail">Obre l’Atles ↗</a><span class="help">F: pantalla completa · Esc: sortir</span></nav>
-<script src="data.js?v=20260916-rel1"></script><script src="model.js?v=20260916-rel1"></script><script>
+<script src="data.js?v=20260917-market1"></script><script src="model.js?v=20260917-market1"></script><script>
 let timer;
 const reveal=()=>{document.body.classList.add('show-controls');clearTimeout(timer);if(!matchMedia('(pointer:coarse)').matches)timer=setTimeout(()=>{if(!document.querySelector('nav').contains(document.activeElement))document.body.classList.remove('show-controls')},2500)};
 async function fullscreen(){try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch{reveal()}}
@@ -265,6 +270,15 @@ for(const c of window.ATLES_DATA.cards.filter(c=>c.id[0]===id)){
 const a=fits[c.id],article=document.createElement('article'),link=document.createElement('a'),body=document.createElement('p'),meta=document.createElement('p');link.href='./#card/'+c.id;link.target='atles-detail';link.textContent=c.id+' · '+c.title;body.textContent=a.contribution;meta.className='map-role';meta.textContent=processes[a.processId]+' · Coordinació proposada: '+a.coordinator.map(id=>roles[id]).join(' · ');article.append(link,body,meta);section.append(article);
 const svgLink=document.querySelector('svg a[href$="/\#card/'+c.id+'"]');if(svgLink){svgLink.setAttribute('href','./#card/'+c.id);svgLink.setAttribute('aria-label',c.id+': '+c.title+'. '+processes[a.processId]);const tip=document.createElementNS('http://www.w3.org/2000/svg','title');tip.textContent=a.baseCtti+' '+a.contribution;svgLink.prepend(tip);}
 }list.append(section);}
-function toggleList(e){e.preventDefault();const open=list.hidden;list.hidden=!open;document.body.classList.toggle('list-open',open);const button=document.querySelector('#list-toggle');button.textContent=open?'Torna al mapa':'Llista de fitxes';button.setAttribute('aria-expanded',String(open));if(open){window.scrollTo(0,0);h1.focus()}else button.focus();reveal();}
-document.querySelectorAll('[data-list-toggle]').forEach(b=>b.addEventListener('click',toggleList));reveal();
-</script><script src="analytics.js?v=20260916-rel1"></script></body></html>
+let explicitView=false;
+function setList(open,focus=false){
+ list.hidden=!open;document.body.classList.toggle('list-open',open);
+ const button=document.querySelector('#list-toggle');button.textContent=open?'Veure el mapa general':'Llista de fitxes';button.setAttribute('aria-expanded',String(open));
+ if(focus){if(open){window.scrollTo(0,0);h1.focus()}else button.focus();}
+}
+function toggleList(e){e.preventDefault();explicitView=true;setList(list.hidden,true);reveal();}
+const readingNote=document.createElement('p');readingNote.className='reading-note';readingNote.textContent='Vista de lectura · Les mateixes 34 fitxes, amb els actors i els processos relacionats.';h1.before(readingNote);
+function fitReadingView(){if(!explicitView){const scale=Math.min(innerWidth/1920,innerHeight/1080);setList(22*scale<16);}}
+document.querySelectorAll('[data-list-toggle]').forEach(b=>b.addEventListener('click',toggleList));
+window.addEventListener('resize',fitReadingView);document.addEventListener('fullscreenchange',fitReadingView);fitReadingView();reveal();
+</script><script src="analytics.js?v=20260917-market1"></script></body></html>

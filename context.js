@@ -1,4 +1,4 @@
-window.ATLES_CONTEXT={
+window.ATLES_CONTEXT= {
   "scope": {
     "intro": "El mapa relaciona el procés públic amb el servei TIC, les dependències i els equips que hi intervenen. Parteix de la memòria, el llibre blanc, la matriu d’escalats i els models dels serveis 132 i 133. Atos proposa comprovar aquest encaix amb cada servei i fer que totes les fitxes comparteixin els mateixos actors i processos.",
     "actors": [
@@ -96,7 +96,7 @@ window.ATLES_CONTEXT={
         "name": "Aplicacions i serveis a la ciutadania",
         "assets": "Justícia i eJCAT; ATRI i recursos humans; Portals GECO i gestió documental; Tributs, ajuts, educació i salut; Dependències AOC: Vàlid, e-NOTUM, signador i PSIS.",
         "actors": "Equips d’aplicació AM01–AM23; Responsables funcionals dels departaments; Equips d’entitats i serveis externs.",
-        "observation": "Traces i mètriques d’aplicació, logs, proves de recorregut i resultat de negoci. Incloure les crides a serveis externs i el límit de visibilitat de cada dependència. SDK i instrumentació automàtica OpenTelemetry. Sondes funcionals amb Playwright. Esdeveniments de negoci. API d’estat de dependències quan estigui disponible.",
+        "observation": "Traces i mètriques d’aplicació, logs, proves de recorregut i resultat de negoci. Incloure les crides a serveis externs i el límit de visibilitat de cada dependència. SDK i instrumentació automàtica OpenTelemetry. Sondes funcionals amb Playwright. Esdeveniments de negoci. API d’estat de dependències quan estigui disponible. Perfilatge i diagnòstic dinàmic en aplicacions compatibles, amb permisos, límit temporal i impacte mesurat.",
         "cards": [
           "A1",
           "A5",
@@ -113,7 +113,9 @@ window.ATLES_CONTEXT={
           "E2",
           "F2",
           "G2",
-          "G3"
+          "G3",
+          "C5",
+          "E3"
         ],
         "check": "Continuïtat de traça, permisos i visibilitat de les dependències externes.",
         "roleIds": [
@@ -210,7 +212,7 @@ window.ATLES_CONTEXT={
         "name": "Xarxa, connectivitat i fibra",
         "assets": "LAN i WLAN Educació; GESLAN, monitoratge i logs LAN C6; NUS, CATNIX, Xarxa SARA i anella sanitària; DNS, DHCP, NTP, ISE i VPN; Ethernet i transport transparent; Fibra fosca, canalitzacions i inventari de torres. Classes d’actius a contrastar: routers, commutadors (switches), tallafocs, punts d’accés Wi-Fi i transceptors.",
         "actors": "Equips LAN/Wi-Fi i C6; Operadors GESNUS i connectivitat; Operadors de transport; Responsables de Xarxa País i fibra.",
-        "observation": "Estat i errors de ports, pèrdua, latència, jitter, saturació, canvis de ruta i configuració. Per a fibra, relacionar el circuit amb el tram físic i combinar potència òptica disponible, alarmes de l’operador i proves de camp. SNMPv3 i MIB disponibles. gNMI/OpenConfig quan el dispositiu ho suporti. Syslog. IPFIX o NetFlow segons compatibilitat. DOM dels transceptors compatibles. API d’operador, inventari geogràfic i resultats OTDR quan es disposi d’aquests.",
+        "observation": "Estat i errors de ports, pèrdua, latència, jitter, saturació, canvis de ruta i configuració. Per a fibra, relacionar el circuit amb el tram físic i combinar potència òptica disponible, alarmes de l’operador i proves de camp. SNMPv3 i MIB disponibles. gNMI/OpenConfig quan el dispositiu ho suporti. Syslog. IPFIX o NetFlow segons compatibilitat. DOM dels transceptors compatibles. API d’operador, inventari geogràfic i resultats OTDR quan es disposi d’aquests. Sondes des de seu, Internet i destinació per diferenciar DNS, connexió i aplicació; els trams sense dades es mostren explícitament.",
         "cards": [
           "A1",
           "A2",
@@ -222,7 +224,8 @@ window.ATLES_CONTEXT={
           "D2",
           "E2",
           "F3",
-          "G3"
+          "G3",
+          "G2"
         ],
         "check": "Models, MIB i protocols disponibles; inventari de circuits i proves òptiques de l’operador.",
         "roleIds": [
@@ -335,7 +338,7 @@ window.ATLES_CONTEXT={
         "name": "Centre de Control i cadena de resposta",
         "assets": "Gestió de servei amb Àtom/Helix i els circuits corporatius aplicables; SOSTIC, PCN&ME i PagerDuty; gestió de canvis, problemes i incidents; eines d’observabilitat i canals d’avís; CONTIC per al seguiment corresponent; escalats de nivell 0 a nivell 4.",
         "actors": "Centre de Control; gestió del servei i de l’entrega; Àrees TIC; SAU; gestió d’eines d’observabilitat; equips resolutors, integradors i fabricants; responsables funcionals quan el cas ho requereixi.",
-        "observation": "Relacionar detecció, servei afectat, responsable, escalat, acceptació, intervenció i restauració. Mesurar també si falla l’eina de monitoratge o el camí de notificació. Connectors ITSM amb confirmació i deduplicació. Directori de responsabilitats versionat. Motor d’encaminament i guàrdies. Cronologia d’incident. Sondes de la cadena d’observació.",
+        "observation": "Relacionar detecció, servei afectat, responsable, escalat, acceptació, intervenció i restauració. Mesurar també si falla l’eina de monitoratge o el camí de notificació. Connectors ITSM amb confirmació i deduplicació. Directori de responsabilitats versionat. Motor d’encaminament i guàrdies. Cronologia d’incident. Sondes de la cadena d’observació. Agrupació de tiquets SAU autoritzats com a senyal a contrastar. Banc d’incidents per repetir l’avaluació dels assistents de diagnòstic.",
         "cards": [
           "A3",
           "A6",
@@ -357,7 +360,9 @@ window.ATLES_CONTEXT={
           "E4",
           "F2",
           "F3",
-          "G3"
+          "G3",
+          "G2",
+          "C6"
         ],
         "check": "Vigència dels responsables, rutes, franges de cobertura i acceptació de l’escalat.",
         "roleIds": [
@@ -375,26 +380,26 @@ window.ATLES_CONTEXT={
     "source": "Síntesi de la Memòria CTTI 2025, documentació d’observabilitat d’agost de 2026, matriu d’escalats de maig de 2026 i models de servei 132/133. Revisió: 15 de setembre de 2026. No es publiquen documents originals ni dades de contacte.",
     "cardNotes": {
       "A1": "Atos proposa adaptar aquest contracte a cada família: una transacció d’aplicació, un port de switch, un circuit de fibra o un treball batch no expressen la salut de la mateixa manera. Tots comparteixen identitat de servei i responsable; cada família conserva les seves unitats, estats i límits.",
-      "A2": "L’abast inclou les eines LAN C6, els serveis del NUS, els CPD, el mainframe i la col·laboració. Atos proposa aprofitar les fonts existents i incorporar adaptadors quan calguin, amb una prova d’entrada, pèrdua i recuperació per a cadascuna. Per al mainframe, es validarien fonts natives i connectors com IBM Z Observability Connect; per a M365, la informació de Service Health es contrastaria amb proves pròpies.",
-      "A5": "Per als sistemes heretats i el mainframe, l’alta partiria de les fonts natives disponibles i mostraria on s’interromp la continuïtat amb la resta del servei. En incorporar equips o serveis nous, la prova d’alta comprovaria també responsable, senyals esperats i camí d’escalat.",
+      "A2": "L’abast inclou les eines LAN C6, els serveis del NUS, els CPD, el mainframe i la col·laboració. Atos proposa aprofitar les fonts existents i incorporar adaptadors quan calguin, amb una prova d’entrada, pèrdua i recuperació per a cadascuna. Per al mainframe, es validarien fonts natives i connectors com IBM Z Observability Connect; per a M365, la informació de Service Health es contrastaria amb proves pròpies. La flota de collectors identifica versions i configuració real, amb desplegament gradual i recuperació provats per domini.",
+      "A5": "Per als sistemes heretats i el mainframe, l’alta partiria de les fonts natives disponibles i mostraria on s’interromp la continuïtat amb la resta del servei. En incorporar equips o serveis nous, la prova d’alta comprovaria també responsable, senyals esperats i camí d’escalat. En aplicacions compatibles es comprovaria també el pas de la petició lenta al perfil de codi i el diagnòstic temporal autoritzat.",
       "A6": "Atos proposa relacionar aplicació, base de dades, servidor, seu, circuit i tram de xarxa amb l’equip que els opera. Les relacions de la matriu d’escalats són un punt de partida que cal contrastar amb l’inventari i la descoberta. Una dependència tindria origen i data de validació per evitar que el mapa presenti com a vigent una relació antiga.",
       "B1": "Dins de cada domini, la cobertura es llegiria per famílies: mainframe, CPD i cloud, xarxa i fibra, comunicacions, lloc de treball i serveis especialitzats. Així, una bona cobertura d’aplicacions no amagaria una mancança en un enllaç o en un servei de veu.",
       "B3": "Incloure una font de xarxa de C6, una aplicació, una font del mainframe i un servei SaaS. Una caiguda de l’adaptador o una dada sense actualitzar ha d’aparèixer com a pèrdua de visibilitat, encara que el servei continuï disponible.",
       "B6": "Un cas de prova útil travessa aplicació, CPD i operador de xarxa: cada equip aporta el fragment que pot acreditar i el traspàs conserva el mateix servei i incident. Les dependències AOC o d’altres organismes també han de tenir un punt de contacte funcional i un límit de visibilitat declarat.",
       "B7": "Atos proposa convertir la matriu d’escalats en una font versionada de rols i rutes, contrastada amb els responsables. Es conservaria la distinció entre incidència i petició, les franges de cobertura i els nivells d’escalat del proveïdor. Aquests nivells 0–4 són independents dels nivells d’autonomia dels agents de C1.",
       "B8": "El comandament ha de poder reunir aplicacions, CPD, telco, lloc de treball i SOC quan comparteixen afectació. La matriu ajuda a identificar els equips; l’incident registra qui participa, què ha acceptat i quina comprovació falta per donar el servei per recuperat.",
-      "C5": "En una avaria de xarxa, la regla pot agrupar alarmes de ports i serveis dependents sense perdre el detall de les seus afectades. La inhibició s’ha de provar amb el mapa de dependències vigent per evitar que una segona avaria quedi amagada.",
+      "C5": "En una avaria de xarxa, la regla pot agrupar alarmes de ports i serveis dependents sense perdre el detall de les seus afectades. La inhibició s’ha de provar amb el mapa de dependències vigent per evitar que una segona avaria quedi amagada. Una finestra de diagnòstic podria augmentar el detall només en el servei afectat, amb caducitat, càrrega i cost controlats.",
       "C6": "Provar un incident amb impacte en diverses seus: contrastar errors d’aplicació, estat de ports, degradació òptica disponible i avisos de l’operador. L’assistent ha de distingir una hipòtesi sobre el tram físic d’una avaria confirmada.",
       "D1": "Les altes poden oferir plantilles diferents per a una aplicació, un equip de xarxa, una font Windows o una API de servei SaaS. El resultat sempre mostra què ha quedat connectat i quines proves s’han superat.",
       "D2": "Un paquet per a una base de dades, un switch o una plataforma VDI ha d’indicar versions, senyals i llindars aplicables. Compartir el paquet no significa aplicar el mateix llindar a tots els serveis.",
       "D3": "Els exercicis poden reproduir el mateix incident des del SAU, l’equip d’aplicació, el CPD, l’operador de xarxa i el SOC. Cada rol ha de trobar la seva evidència i saber com compartir-la.",
       "E1": "El recorregut pot ser un tràmit amb signatura i notificació, una sessió de treball amb VDI o l’establiment d’una comunicació. Atos proposa triar el resultat que representa servei prestat i relacionar-lo amb les dependències tècniques.",
       "E2": "Els indicadors s’adapten al servei: temps i èxit d’un tràmit, pèrdua i latència d’un circuit, establiment de trucada o disponibilitat d’un escriptori virtual. Es manté la mateixa disciplina de càlcul i es conserven les diferències entre famílies.",
-      "E3": "Atos proposa llegir el cost per família i servei, incloent CPD, cloud, xarxa i eines de lloc de treball quan les dades ho permetin. El repartiment de recursos compartits, com un circuit o una plataforma, ha de quedar explicat.",
+      "E3": "Atos proposa llegir el cost per família i servei, incloent CPD, cloud, xarxa i eines de lloc de treball quan les dades ho permetin. El repartiment de recursos compartits, com un circuit o una plataforma, ha de quedar explicat. El perfilatge pot orientar millores de codi en plataformes compatibles; la reducció de consum es contrasta separadament amb la factura.",
       "F1": "La mostra ha d’anar incloent una aplicació, una font de xarxa, un entorn heretat i un servei cloud. Atos proposa registrar quins senyals o funcions depenen d’un connector o llicència que no es pot traslladar.",
       "F3": "Aquesta separació és especialment rellevant quan una mateixa vista combina dades d’operadors telco, equips d’aplicació i SOC, o informació d’experiència del lloc de treball. Cada rol consulta només el detall necessari per al seu servei.",
       "G1": "Atos proposa incorporar-hi la salut del perímetre, els certificats i el control d’accés de xarxa, coordinant el context amb l’Agència de Ciberseguretat. Un control de seguretat indisponible o una connexió caducada també pot explicar l’afectació d’un servei.",
-      "G2": "Per al lloc de treball i les comunicacions, les proves han de sortir del navegador: entrada a VDI, accés a col·laboració o establiment de trucada, amb instruments compatibles. Les dades d’experiència s’agreguen per servei i ubicació per comprendre l’afectació sense seguir l’activitat personal.",
+      "G2": "Per al lloc de treball i les comunicacions, les proves han de sortir del navegador: entrada a VDI, accés a col·laboració o establiment de trucada, amb instruments compatibles. Les dades d’experiència s’agreguen per servei i ubicació per comprendre l’afectació sense seguir l’activitat personal. Els avisos SAU minimitzats poden aportar un senyal complementari: el pilot els agrupa i el CdC els contrasta amb les fonts disponibles, sense retardar el circuit ordinari d’avís i escalat encara que falti telemetria.",
       "G3": "La vista pot incloure components comuns com identitat, DNS, connectivitat del NUS i serveis de col·laboració, a més de les dependències externes. La informació d’un operador s’ha de distingir de les comprovacions pròpies."
     }
   },

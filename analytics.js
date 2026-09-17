@@ -47,7 +47,7 @@ window.AtlesAnalytics=(()=>{
     if(el.hasAttribute('data-rel-project'))event('projecta_relacions');
     if(el.tagName!=='A')return;
     try{const u=new URL(el.href,location.href);
-      if(/Atles_O11y_CTTI_v[23]\.pdf$/.test(u.pathname))event('descarrega_pdf');
+      if(/Atles_O11y_CTTI_v[0-9]+\.pdf$/.test(u.pathname))event('descarrega_pdf');
       else if(u.pathname.endsWith('mapa-o11y-atos.html'))event('obre_mapa');
       else if(u.protocol==='https:'&&u.hostname!==location.hostname)event('consulta_font',{domini:u.hostname});
     }catch{}

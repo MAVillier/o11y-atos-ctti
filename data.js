@@ -1,4 +1,4 @@
-window.ATLES_DATA={
+window.ATLES_DATA= {
   "cards": [
     {
       "id": "A1",
@@ -87,9 +87,9 @@ window.ATLES_DATA={
     {
       "id": "A2",
       "title": "Una ingesta sota control del CTTI",
-      "subtitle": "Una xarxa de collectors desacobla les fonts dels destins i fa visibles les pèrdues de telemetria.",
+      "subtitle": "Collectors amb estat i configuració coneguts separen les fonts dels destins i fan visibles les pèrdues de dades.",
       "problem": "Talaia, Montic, AppDynamics i les sondes descrites al servei d’eines són el punt de partida; la memòria també recull pilots d’integració AWS/Azure amb Talaia. Les eines de l’entorn CTTI tenen funcions diferents i han de poder conviure. Quan cada font envia directament a un únic destí, canviar d’eina obliga a tocar moltes integracions. També costa saber si un buit correspon al servei observat o a una fallada de recollida. La ingesta necessita identitat, capacitat mesurada i supervisió pròpia.",
-      "proposal": "La proposta desplega collectors prop de les fonts i passarel·les d’ingesta per domini o zona. Reben protocols compatibles, apliquen el contracte A1, filtren camps i envien cada senyal als destins autoritzats. Un segon camí permet comparar eines durant una migració. Les cues persistents i els reintents absorbeixen interrupcions dins d’un límit conegut; la seva ocupació i els descartats es monitoren. La gestió de configuració, certificats i rutes queda disponible per al CTTI. Els connectors de Talaia, OBM, Elastic o els entorns cloud es validen un a un: el disseny no pressuposa que tots ofereixin la mateixa interfície. Cada tram identifica el seu operador i el suport d’integrador o fabricant. Una fallada del camí de dades s’escalaria al component afectat, amb el CdC informat de la visibilitat perduda.",
+      "proposal": "Atos proposa collectors prop de les fonts i passarel·les d’ingesta per domini o zona. Apliquen el contracte A1, filtren camps i envien cada senyal als destins autoritzats; un segon camí permet comparar eines. Cues persistents i reintents absorbeixen interrupcions dins d’un marge conegut, amb ocupació i descartats visibles. La flota té un inventari efectiu: operador, versió, capacitats i configuració real, contrastada amb la prevista. Els canvis es despleguen primer en un grup petit i es poden recuperar si fallen. La configuració, els certificats i les rutes queden disponibles per al CTTI. Els connectors de Talaia, OBM, Elastic i cloud es validen un a un. Cada tram identifica operador i suport; el CdC coneix la visibilitat perduda quan falla la recollida.",
       "flow": [
         "Recollir a cada zona amb la identitat del servei.",
         "Validar, filtrar i limitar el volum per font.",
@@ -108,14 +108,20 @@ window.ATLES_DATA={
         {
           "name": "Certificats i límits per emissor",
           "role": "Autentiquen cada connexió i eviten que una font descontrolada consumeixi tota la capacitat d’ingesta."
+        },
+        {
+          "name": "OpAMP i gestió de collectors",
+          "role": "Permeten consultar estat i gestionar configuracions en implementacions compatibles. Bindplane és una referència de mercat; el pilot valida versions, desplegament gradual i recuperació."
         }
       ],
-      "pilot": "Connectar dues fonts representatives a una passarel·la i dos destins de prova. Mesurar càrrega normal i de pic, tallar temporalment un destí i reiniciar un collector. Comparar comptadors d’entrada, sortida i pèrdua amb un conjunt conegut. Lliurar configuració, model de capacitat i procediment de recuperació, incloent què passa quan el marge de cua s’esgota.",
+      "pilot": "Connectar dues fonts representatives a una passarel·la i dos destins de prova. Mesurar càrrega normal i de pic, tallar temporalment un destí i reiniciar un collector. Comparar comptadors d’entrada, sortida i pèrdua amb un conjunt conegut. Lliurar configuració, model de capacitat i procediment de recuperació, incloent què passa quan el marge de cua s’esgota. Inventariar la configuració efectiva i provar un canvi gradual amb un collector incompatible. Tallar també el servidor de gestió i comprovar si la recollida continua amb la darrera configuració vàlida.",
       "tender": "Atos proposa una ingesta amb protocols documentats, configuració exportable i diversos destins autoritzats. El pilot comprova reinicis, saturació i indisponibilitat del receptor, amb pèrdues i retards visibles per font. La proposta inclou connectors i configuracions dins dels drets d’ús acordats. Els límits de capacitat i recuperació es concreten a partir de la càrrega mesurada al pilot.",
       "acceptance": [
         "Un destí aturat no impedeix l’enviament a l’altre dins del dimensionament acordat.",
         "Es reconcilien mostres enviades, rebudes, pendents i descartades.",
-        "Es recupera la configuració en una instal·lació neta."
+        "Es recupera la configuració en una instal·lació neta.",
+        "Un collector incompatible queda identificat; el canvi s’atura en el grup pilot i es recupera la configuració anterior sense propagar-lo a tota la flota.",
+        "La caiguda del servidor de gestió deixa una alarma i es comprova la continuïtat de recollida amb la configuració vigent."
       ],
       "metrics": [
         "Retard d’ingesta p95 i percentatge de senyals perduts.",
@@ -123,10 +129,17 @@ window.ATLES_DATA={
       ],
       "dependencies": [
         "A1",
-        "F3"
+        "F3",
+        "A4",
+        "B3"
       ],
       "caution": "Un collector també pot fallar. Les cues tenen límits i els reintents poden generar duplicats segons el protocol. Cal dimensionar cada salt i evitar que una aturada de telemetria freni la transacció del ciutadà.",
       "evidence": [
+        {
+          "sourceId": "MKT04",
+          "claim": "OpenTelemetry documenta gestió d’agents amb OpAMP; les implementacions ofereixen capacitats diferents.",
+          "transfer": "Atos proposa controlar la flota amb inventari efectiu, desplegament gradual i recuperació. La prova es repeteix amb cada distribució i versió admesa."
+        },
         {
           "sourceId": "INT14",
           "relatedSourceIds": [
@@ -257,7 +270,7 @@ window.ATLES_DATA={
       "title": "Observabilitat com a codi",
       "subtitle": "Configuració versionada i context de cada desplegament per comprovar què ha canviat i amb quin resultat.",
       "problem": "La memòria ja descriu SIC/SIC+ i la incorporació d’observabilitat de cloud a Talaia. Atos proposa estendre aquest camí on sigui aplicable. Un canvi manual en una alerta pot resoldre una urgència i perdre’s quan es reinstal·la l’eina. Si les configuracions viuen només a les consoles, costa comparar entorns i entendre qui va canviar un llindar. Al CTTI, la convivència de proveïdors fa especialment útil disposar d’un paquet de configuració que es pugui revisar i repetir.",
-      "proposal": "Atos proposa mantenir collectors, regles, sondes i dashboards com a codi, amb revisió i proves abans de publicar-los. Sobre SIC+, cada desplegament de la solució observada deixaria també un esdeveniment amb servei, entorn, versió, canvi autoritzat i resultat. Des d’una degradació es podria arribar a les proves del canvi proper i comparar el comportament abans i després. La proximitat temporal orienta la investigació; no acredita per si sola la causa. El circuit de canvi manté les aprovacions i els equips executors, i una finestra de manteniment no oculta qualsevol afectació.",
+      "proposal": "Atos proposa mantenir collectors, regles, sondes i dashboards com a codi, amb revisió i proves abans de publicar-los. Sobre SIC+, cada desplegament de la solució observada deixaria també un esdeveniment amb servei, entorn, versió, canvi autoritzat i resultat. Des d’una degradació es podria arribar a les proves del canvi proper i comparar el comportament abans i després. La proximitat temporal orienta la investigació; no acredita per si sola la causa. El circuit de canvi manté les aprovacions i els equips executors, i una finestra de manteniment no oculta qualsevol afectació. Quan la plataforma ho permeti, el resultat observat també pot condicionar el pas següent d’un desplegament: continuar, pausar o recuperar la versió autoritzada. Sense prou trànsit o amb telemetria absent, el resultat és inconcloent i requereix revisió.",
       "flow": [
         "Versionar configuració i proves.",
         "Validar i desplegar pel circuit corporatiu.",
@@ -276,21 +289,27 @@ window.ATLES_DATA={
         {
           "name": "Esdeveniments de canvi i línia temporal",
           "role": "Permeten investigar el comportament del servei amb context de desplegament, sense confondre correlació amb causa."
+        },
+        {
+          "name": "Anàlisi de desplegaments, com Argo Rollouts",
+          "role": "Contrasta mètriques abans d’ampliar un desplegament en plataformes compatibles. El patró es prova dins del circuit corporatiu, sense pressuposar Kubernetes a tot l’entorn."
         }
       ],
-      "pilot": "Seguir un canvi correcte, un de fallit i un de cancel·lat en preproducció. Comprovar configuració d’observabilitat, versió de l’aplicació, proves MAT i referència del canvi. Comparar el servei abans i després i verificar la recuperació quan es desfaci un canvi autoritzat.",
+      "pilot": "Seguir un canvi correcte, un de fallit i un de cancel·lat en preproducció. Comprovar configuració d’observabilitat, versió de l’aplicació, proves MAT i referència del canvi. Comparar el servei abans i després i verificar la recuperació quan es desfaci un canvi autoritzat. En una plataforma compatible, provar una ampliació gradual amb resultat bo, dolent i sense dades suficients; el darrer cas ha de quedar pendent de revisió.",
       "tender": "Atos proposa versionar la configuració d’observabilitat i relacionar cada canvi de la solució amb el seu comportament abans i després. El pilot reutilitza SIC+, metadades, proves i circuit de canvi per identificar què es va desplegar, quina evidència queda i si s’ha recuperat el resultat funcional.",
       "acceptance": [
         "Un canvi deixa configuració, versió, entorn i evidència de les proves accessibles.",
         "Es distingeixen desplegament correcte, fallit, cancel·lat i prova omesa.",
-        "La comparació abans/després mostra la recuperació funcional i les fonts que encara falten."
+        "La comparació abans/després mostra la recuperació funcional i les fonts que encara falten.",
+        "Una anàlisi sense dades suficients no autoritza automàticament ampliar el desplegament; deixa el resultat inconcloent i una decisió pendent."
       ],
       "metrics": [
         "Canvis amb prova i revisió / canvis totals.",
         "Divergències obertes i temps necessari per recuperar una versió."
       ],
       "dependencies": [
-        "A1"
+        "A1",
+        "E2"
       ],
       "caution": "Algunes eines exporten configuració incompleta o depenen d’identificadors interns. Cal provar la reconstrucció, no donar-la per feta perquè hi hagi un fitxer JSON. La reconciliació automàtica ha de respectar les intervencions d’emergència autoritzades.",
       "evidence": [
@@ -309,6 +328,11 @@ window.ATLES_DATA={
           "sourceId": "R26",
           "claim": "openDesk distribueix regles Prometheus i dashboards Grafana mitjançant configuració desplegable.",
           "transfer": "Mostra una pràctica pública reutilitzable. La cobertura publicada és desigual per component i s’hauria de comprovar al pilot."
+        },
+        {
+          "sourceId": "MKT09",
+          "claim": "Argo Rollouts permet condicionar el desplegament a una anàlisi de mètriques i pausar davant d’un resultat inconcloent.",
+          "transfer": "Atos proposa provar aquest patró on sigui compatible amb SIC+/MAT i els circuits vigents, conservant aprovacions, evidències i recuperació autoritzada."
         }
       ],
       "effort": "mitjà",
@@ -319,7 +343,7 @@ window.ATLES_DATA={
       "title": "Serveis que neixen observats",
       "subtitle": "Les plantilles d’alta incorporen telemetria i comproven un recorregut real abans de donar el servei per preparat.",
       "problem": "SIC+/Talaia i els circuits corporatius d’alta ja ofereixen una base per incorporar observabilitat al desplegament. Atos proposa comprovar que aquesta alta deixa el servei preparat per al diagnòstic: identitat, dependències, senyals, responsable i camí d’escalat. Les excepcions han de mostrar què encara no es pot observar i com es revisarà.",
-      "proposal": "La plantilla de servei genera identitat, configuració de telemetria, dashboard inicial, responsable d’alertes i enllaç al manual operatiu. La instrumentació automàtica cobreix protocols i llibreries compatibles; el codi afegeix els punts de negoci que falten. En sistemes Linux adequats, eBPF pot ajudar a descobrir dependències i rendiment mentre es completa la instrumentació. La prova d’alta executa un recorregut sintètic i verifica que es pot seguir entre components. Un servei heretat pot entrar amb una excepció de cobertura, amb una data de revisió i el deute associat. L’alta mostra què s’observa i què encara queda fora. La instrumentació seguiria els criteris de l’Oficina d’Observabilitat, inclòs el circuit d’activació d’APM. La gestió del servei, Arquitectura/Integració i el responsable funcional participarien en les validacions que corresponguin.",
+      "proposal": "La plantilla de servei genera identitat, configuració de telemetria, dashboard inicial, responsable d’alertes i enllaç al manual operatiu. La instrumentació automàtica cobreix protocols i llibreries compatibles; el codi afegeix els punts de negoci que falten. En sistemes Linux adequats, eBPF pot ajudar a descobrir dependències i rendiment mentre es completa la instrumentació. La prova d’alta executa un recorregut sintètic i verifica que es pot seguir entre components. Un servei heretat pot entrar amb una excepció de cobertura, amb una data de revisió i el deute associat. L’alta mostra què s’observa i què encara queda fora. La instrumentació seguiria els criteris de l’Oficina d’Observabilitat, inclòs el circuit d’activació d’APM. La gestió del servei, Arquitectura/Integració i el responsable funcional participarien en les validacions que corresponguin. En aplicacions compatibles, l’alta pot deixar preparat el perfilatge que relaciona una petició lenta amb les funcions que consumeixen recursos. També pot preveure punts de diagnòstic dinàmic: el mantenidor activa detall de codi durant la finestra limitada de C5, amb permisos i filtratge de dades sensibles.",
       "flow": [
         "Crear el servei amb una plantilla corporativa.",
         "Incorporar instrumentació segons plataforma i llenguatge.",
@@ -342,15 +366,20 @@ window.ATLES_DATA={
         {
           "name": "MAT i proves de visibilitat",
           "role": "Reutilitzen una operació funcional per comprovar emissió, recepció i consulta del senyal amb la identitat correcta."
+        },
+        {
+          "name": "Perfils de codi i instrumentació dinàmica",
+          "role": "Pyroscope relaciona traces i perfils en integracions compatibles; Lightrun és un exemple d’agent per afegir punts de diagnòstic en execució. Són capacitats complementàries, amb requisits i impacte propis."
         }
       ],
-      "pilot": "Executar una operació correcta, una dependència lenta i un cas sense telemetria. L’informe ha de distingir prova superada, fallida, omesa i sense evidència, i assenyalar quin equip ha de resoldre cada buit. Es reutilitzaria una prova MAT i es contrastaria la cobertura amb el paquet corporatiu aplicable.",
+      "pilot": "Executar una operació correcta, una dependència lenta i un cas sense telemetria. L’informe ha de distingir prova superada, fallida, omesa i sense evidència, i assenyalar quin equip ha de resoldre cada buit. Es reutilitzaria una prova MAT i es contrastaria la cobertura amb el paquet corporatiu aplicable. En una aplicació compatible, seguir una petició lenta fins al perfil de codi. Comprovar també l’activació i retirada d’un punt de diagnòstic, amb filtratge de camps i càrrega mesurada.",
       "tender": "Atos proposa patrons d’instrumentació i plantilles d’alta per a les plataformes acordades. Cada alta comprova identitat, senyals mínims, encaminament d’alertes i traçabilitat del recorregut de prova. Les limitacions i excepcions tenen responsable i revisió. La proposta inclou actualització, desactivació i retirada dels agents, amb l’impacte sobre l’aplicació mesurat.",
       "acceptance": [
         "Una petició de prova es relaciona amb el servei i les dependències cobertes.",
         "Una fallada controlada arriba a l’equip assignat amb context útil.",
         "Es mesura la sobrecàrrega i es retira l’agent sense perdre la configuració base.",
-        "L’alta diferencia prova superada, fallida, omesa i sense evidència; cap desplegament verd substitueix la prova de recepció dels senyals."
+        "L’alta diferencia prova superada, fallida, omesa i sense evidència; cap desplegament verd substitueix la prova de recepció dels senyals.",
+        "El pilot identifica llenguatge, versió i instrumentació compatibles; quan no hi ha mostres de perfil o detall de codi, ho mostra com a buit de cobertura."
       ],
       "metrics": [
         "Altes que superen el mínim observable / altes revisades.",
@@ -364,6 +393,14 @@ window.ATLES_DATA={
       ],
       "caution": "L’autoinstrumentació no entén un tràmit administratiu. eBPF té requisits de sistema i no cobreix totes les comunicacions. Cal descriure els buits i afegir instrumentació de negoci on el diagnòstic ho necessiti.",
       "evidence": [
+        {
+          "sourceId": "MKT03",
+          "claim": "Pyroscope documenta la connexió entre traces i perfils de codi; Lightrun, punts de diagnòstic afegits mitjançant un agent.",
+          "transfer": "Atos proposa validar aquestes capacitats amb els mantenidors: passar d’una petició lenta al detall que permet investigar-la, mesurant cobertura i impacte.",
+          "relatedSourceIds": [
+            "MKT02"
+          ]
+        },
         {
           "sourceId": "INT01",
           "relatedSourceIds": [
@@ -905,7 +942,7 @@ window.ATLES_DATA={
       "title": "Cap alerta sense responsable",
       "subtitle": "Un directori de serveis i guàrdies resol el destinatari i comprova que algú ha acceptat l’avís.",
       "problem": "PagerDuty ja figura al model del Centre de Control. La millora consisteix a comprovar que les rutes i els rols de la matriu d’escalats continuen funcionant. Una alerta enviada no és necessàriament una alerta atesa. Les llistes de correu caducades, els canvis de guàrdia i els serveis sense propietari creen buits difícils de veure fins que arriba una urgència. La proposta de l’Atles es pot convertir en una regla comprovable d’alta i en un circuit d’escalat mesurat.",
-      "proposal": "Cada regla es vincula a un servei i a un equip responsable. El directori resol qui està de guàrdia, quin canal correspon i quin substitut actua si no hi ha acceptació. El sistema diferencia lliurament, acceptació i inici de diagnòstic. Una ruta invàlida es detecta amb avisos de prova. Les alertes òrfenes de serveis existents entren en una cua amb custòdia temporal i escalat acordats amb el CdC i la gestió del servei, i generen deute. La custòdia de l’avís no transfereix al CdC la responsabilitat tècnica final; les noves regles no s’activen sense ruta o excepció aprovada. Agrupar notificacions redueix repeticions sense eliminar el detall de l’incident.",
+      "proposal": "Cada regla es vincula a un servei i a un equip responsable. El directori resol qui està de guàrdia, quin canal correspon i quin substitut actua si no hi ha acceptació. El sistema diferencia lliurament, acceptació i inici de diagnòstic. Una ruta invàlida es detecta amb avisos de prova. Les alertes òrfenes de serveis existents entren en una cua amb custòdia temporal i escalat acordats amb el CdC i la gestió del servei, i generen deute. La custòdia de l’avís no transfereix al CdC la responsabilitat tècnica final; les noves regles no s’activen sense ruta o excepció aprovada. Agrupar notificacions redueix repeticions sense eliminar el detall de l’incident. Els grups d’avisos SAU contrastats a G2 poden entrar al mateix circuit, conservant els tiquets d’origen, el servei i l’acceptació del traspàs. Agrupar avisos no n’assigna automàticament la gravetat.",
       "flow": [
         "Relacionar regla, servei i equip responsable.",
         "Resoldre guàrdia i canal vigents.",
@@ -926,12 +963,13 @@ window.ATLES_DATA={
           "role": "Verifiquen periòdicament els destinataris i registren els temps de cada etapa fins a l’acceptació."
         }
       ],
-      "pilot": "Provar alertes de dos serveis en horari ordinari i fora d’horari. Simular baixa d’un destinatari, absència de resposta i canvi de torn. Comprovar el suplent i la cua d’alertes òrfenes. Lliurar el mapa de responsabilitats, les proves i l’històric complet dels avisos del pilot.",
+      "pilot": "Provar alertes de dos serveis en horari ordinari i fora d’horari. Simular baixa d’un destinatari, absència de resposta i canvi de torn. Comprovar el suplent i la cua d’alertes òrfenes. Lliurar el mapa de responsabilitats, les proves i l’històric complet dels avisos del pilot. Comprovar també un grup d’avisos SAU validat: el traspàs conserva les fonts i diferencia una incidència nova de més avisos d’una incidència ja oberta.",
       "tender": "Atos proposa associar cada alerta de l’abast a un servei, responsable, ruta, suplència i criteri d’escalat. Lliurament i acceptació es registren com a fets diferents. La proposta inclou proves periòdiques de les rutes i registre dels buits com a deute. Les altes i els canvis de regles incorporen validació de responsabilitat i tractament explícit de les excepcions. Les alertes sense titular tenen un circuit temporal de custòdia i assignació acordat, separat de la responsabilitat de resoldre la solució.",
       "acceptance": [
         "Un destinatari inactiu activa la suplència prevista.",
         "El canvi de guàrdia aplica la ruta correcta sense modificar cada alerta.",
-        "Una alerta òrfena es fa visible i té un equip que en resol l’assignació."
+        "Una alerta òrfena es fa visible i té un equip que en resol l’assignació.",
+        "Un grup SAU validat arriba a l’equip adequat amb les fonts i l’acceptació del traspàs, sense duplicar una incidència existent."
       ],
       "metrics": [
         "Alertes amb ruta verificada / alertes actives.",
@@ -1339,9 +1377,9 @@ window.ATLES_DATA={
     {
       "id": "C5",
       "title": "Higiene del senyal i revisió d’elements sense ús",
-      "subtitle": "Un registre d’utilitat i proves sobre incidents permeten reduir notificacions i dades prescindibles sense perdre cobertura.",
+      "subtitle": "Conservar els senyals que ajuden i activar més detall, només on cal i durant el temps necessari.",
       "problem": "El volum de mètriques del catàleg aportat justifica revisar l’ús, però no demostra que una regla sense activacions sigui inútil. Podria protegir una fallada rara i greu. La millora del CTTI hauria de relacionar alertes, consultes, informes i incidents amb el valor que aporten, mantenint els senyals necessaris per diagnosticar, auditar i verificar la disponibilitat dels serveis.",
-      "proposal": "Proposem construir un registre d’elements amb propietari, propòsit, consum, consultes dependents, activacions i decisions provocades. Les alertes s’agrupen per incident i servei per identificar duplicats; els silenciaments es vinculen a manteniments autoritzats. Cada candidata a canvi presenta l’evidència i una estimació de cost evitable. Abans d’aplicar-la, es reprodueixen incidents coneguts per comprovar què s’hauria perdut i s’afegeixen proves de fallades rares protegides. La modificació passa per observació paral·lela o desactivació reversible, amb data de revisió. Una regla sense ús conserva valor quan té una funció acreditada. El registre també recull els senyals absents que un diagnòstic ha necessitat.",
+      "proposal": "Atos proposa un registre de senyals amb propietari, propòsit, consum, consultes dependents i decisions que han ajudat a prendre. Les alertes s’agrupen per incident; els silenciaments es limiten als manteniments autoritzats. Abans de retirar dades o regles, es reprodueixen incidents coneguts i fallades rares, amb un canvi reversible i data de revisió. Una regla poc usada pot continuar sent necessària. Quan el diagnòstic requereix més detall, s’obre una finestra per a un servei concret: més mostres i, si és compatible, punts de diagnòstic dinàmic al codi. Té autorització, caducitat, límit de volum i càrrega, i retorn a la configuració habitual. El CdC coordina la necessitat; l’operador d’eines aplica la política i el mantenidor intervé sobre el codi. L’Oficina d’Observabilitat fixa els criteris comuns.",
       "flow": [
         "Creuar inventari, consultes, dependències, costos i incidents.",
         "Proposar agrupació, recalibratge o retirada amb una justificació concreta.",
@@ -1360,14 +1398,20 @@ window.ATLES_DATA={
         {
           "name": "Proves de regles sobre dades històriques",
           "role": "Compara la configuració vigent i la candidata amb incidents coneguts, i comprova detecció abans d’aplicar canvis reversibles."
+        },
+        {
+          "name": "Mostreig temporal i diagnòstic amb caducitat",
+          "role": "Una política canvia el detall d’un servei durant una finestra autoritzada i després torna al nivell habitual. Edge Delta documenta mostreig amb expiració; el detall de codi requereix instrumentació compatible."
         }
       ],
-      "pilot": "Escollir un servei amb historial d’incidents i una font de telemetria de cost conegut. Inventariar alertes, dashboards i consum indirecte; revisar amb els operadors quines notificacions van provocar accions. Seleccionar canvis de baix risc i provar-los amb dades històriques i un exercici de fallada rara. Aplicar-los gradualment amb una configuració recuperable. Lliurar el registre de decisions, l’estalvi observat i les evidències que la cobertura necessària s’ha mantingut.",
+      "pilot": "Escollir un servei amb historial d’incidents i una font de telemetria de cost conegut. Inventariar alertes, dashboards i consum indirecte; revisar amb els operadors quines notificacions van provocar accions. Seleccionar canvis de baix risc i provar-los amb dades històriques i un exercici de fallada rara. Aplicar-los gradualment amb una configuració recuperable. Lliurar el registre de decisions, l’estalvi observat i les evidències que la cobertura necessària s’ha mantingut. Afegir una fallada intermitent i obrir una finestra de diagnòstic només per al servei afectat. Mesurar detall útil, volum, cost i càrrega; comprovar caducitat, retorn a la configuració habitual i filtratge de camps sensibles.",
       "tender": "Atos proposa revisar periòdicament la utilitat de senyals, regles i visualitzacions. Cada canvi identifica propietari, dependències, ús, risc i reversió; la manca d’activacions o consultes no justifica per si sola una retirada. La proposta inclou configuracions versionades, proves de cobertura i balanç de consum i notificacions abans i després. El CTTI validaria els canvis que afectin detecció, retenció o evidències operatives.",
       "acceptance": [
         "Una fallada rara prevista continua generant l’avís necessari després del canvi.",
         "L’agrupació permet consultar totes les alertes originals de l’incident.",
-        "Una font amb dependències d’auditoria no es retira per manca de consultes recents."
+        "Una font amb dependències d’auditoria no es retira per manca de consultes recents.",
+        "La finestra expira i recupera la configuració habitual; queda constància de qui l’ha activada, sobre quin servei i amb quin volum addicional.",
+        "El detall ampliat respecta els límits de captura i filtratge, sense alterar silenciosament el càlcul dels indicadors de servei."
       ],
       "metrics": [
         "Notificacions que provoquen una acció útil / notificacions revisades.",
@@ -1375,10 +1419,21 @@ window.ATLES_DATA={
       ],
       "dependencies": [
         "C1",
-        "A6"
+        "A6",
+        "A2",
+        "A5",
+        "F3"
       ],
-      "caution": "Els logs de consulta poden ometre accessos indirectes i usos excepcionals. Cal conèixer informes, investigacions i obligacions de conservació abans de retirar dades; reduir avisos sense mesurar incidents perduts pot empitjorar el servei.",
+      "caution": "Els logs de consulta poden ometre accessos indirectes i usos excepcionals. Cal conèixer informes, investigacions i obligacions de conservació abans de retirar dades; reduir avisos sense mesurar incidents perduts pot empitjorar el servei. Augmentar la captura no recupera el que ja s’ha descartat. Una mostra enriquida en errors no serveix directament per calcular un SLO sense corregir-ne el biaix.",
       "evidence": [
+        {
+          "sourceId": "MKT01",
+          "claim": "Edge Delta documenta canvis de mostreig per servei amb caducitat i retorn automàtic al nivell habitual.",
+          "transfer": "Atos proposa provar una finestra de diagnòstic amb permisos, pressupost i càrrega limitats. La instrumentació dinàmica és opcional i es valida separadament.",
+          "relatedSourceIds": [
+            "MKT02"
+          ]
+        },
         {
           "sourceId": "INT05",
           "relatedSourceIds": [],
@@ -1404,7 +1459,7 @@ window.ATLES_DATA={
       "title": "Intel·ligència artificial sobre els registres",
       "subtitle": "Consultes controlades i grafs de dependències produeixen hipòtesis contrastables, amb evidències i límits de confiança explícits.",
       "problem": "La memòria descriu AI-Powered Failure Prevention com una prova de concepte validada i lliurada com a MVP en fase inicial, i pilots de Neo4j Aura al CdC. Atos proposa contrastar aquesta base amb incidents reals i ampliar-ne la utilitat per al diagnòstic. L’assistent ha de distingir una coincidència temporal d’una causa i mostrar dades absents, hipòtesis i proves següents sense actuar sobre producció.",
-      "proposal": "Proposem que l’assistent construeixi consultes limitades sobre dades normalitzades i un graf de servei alimentat per inventari i traces. Primer verifica cobertura, sincronització temporal i vigència de dependències. Després calcula canvis respecte de períodes comparables i identifica desplegaments o configuracions pròxims a l’incident. Un motor estadístic ordena candidats; el model redacta l’explicació utilitzant només els resultats retornats. Cada hipòtesi inclou evidències favorables, contradiccions, alternatives i una comprovació següent. La confiança es calibra amb casos resolts i s’indica quan no és estimable. El descobriment de patrons i la predicció s’introdueixen separadament, amb observació silenciosa abans de generar avisos.",
+      "proposal": "Proposem que l’assistent construeixi consultes limitades sobre dades normalitzades i un graf de servei alimentat per inventari i traces. Primer verifica cobertura, sincronització temporal i vigència de dependències. Després calcula canvis respecte de períodes comparables i identifica desplegaments o configuracions pròxims a l’incident. Un motor estadístic ordena candidats; el model redacta l’explicació utilitzant només els resultats retornats. Cada hipòtesi inclou evidències favorables, contradiccions, alternatives i una comprovació següent. La confiança es calibra amb casos resolts i s’indica quan no és estimable. El descobriment de patrons i la predicció s’introdueixen separadament, amb observació silenciosa abans de generar avisos. La primera resposta lliura el context útil disponible dins d’un temps acordat; la investigació pot continuar després, sense retardar l’avís original. Cada nova versió es contrasta amb un banc de casos que el CTTI pugui conservar i repetir, independent de l’assistent escollit. Les investigacions comparteixen quotes i prioritats per no saturar les mateixes fonts.",
       "flow": [
         "Comprovar cobertura de dades, rellotges i dependències del servei.",
         "Consultar logs, canvis i mètriques dins una finestra limitada.",
@@ -1423,14 +1478,20 @@ window.ATLES_DATA={
         {
           "name": "Models estadístics de diagnòstic",
           "role": "Classifiquen anomalies i candidats causals sobre mètriques; incorporen restriccions expertes i resultats de validació abans d’alimentar l’explicació."
+        },
+        {
+          "name": "Banc d’incidents i proves de regressió",
+          "role": "Conserva dades autoritzades, versions, preguntes i criteris de valoració per repetir la comparació entre assistents. Es mesuren errors, abstencions, temps fins a context útil i cost."
         }
       ],
-      "pilot": "Escollir incidents resolts d’un servei amb dependències conegudes i dades suficients. Separar els casos usats per ajustar el sistema dels que serviran per avaluar-lo. Ocultar la conclusió final i demanar l’expedient a l’assistent. Els operadors contrastaran hipòtesis, contradiccions i fonts amb la investigació original. Afegir un incident de prova amb dades incompletes. El lliurable inclourà consultes, errors de diagnòstic, cobertura i decisions sobre quines funcions poden passar a assistència real. El punt de partida inclourà les funcions i les evidències disponibles del MVP existent, per comparar millora incremental i evitar duplicacions.",
+      "pilot": "Escollir incidents resolts d’un servei amb dependències conegudes i dades suficients. Separar els casos usats per ajustar el sistema dels que serviran per avaluar-lo. Ocultar la conclusió final i demanar l’expedient a l’assistent. Els operadors contrastaran hipòtesis, contradiccions i fonts amb la investigació original. Afegir un incident de prova amb dades incompletes. El lliurable inclourà consultes, errors de diagnòstic, cobertura i decisions sobre quines funcions poden passar a assistència real. El punt de partida inclourà les funcions i les evidències disponibles del MVP existent, per comparar millora incremental i evitar duplicacions. Lliurar el banc de casos i les instruccions de repetició al CTTI. Incloure un canvi innocent, una hipòtesi plausible però errònia i diverses investigacions simultànies. Comparar temps fins a context útil, errors, abstencions adequades, cost i càrrega sobre les fonts.",
       "tender": "Atos proposa investigacions de lectura reproduïbles sobre telemetria, canvis i dependències autoritzades. Les hipòtesis mostren evidències, alternatives, dades absents i confiança justificada per avaluació, distingint correlació, inferència causal i confirmació humana. La proposta inclou consultes, models de dades, configuracions i proves exportables. La predicció es valida específicament en mode silenciós; disposar de diagnòstic assistit no n’activa l’ús.",
       "acceptance": [
         "Cada afirmació de l’expedient remet a una consulta o evidència verificable.",
         "Un canvi coincident però irrellevant no es presenta com una causa demostrada.",
-        "La manca de traces o dependències apareix com a límit, sense completar-les amb invencions."
+        "La manca de traces o dependències apareix com a límit, sense completar-les amb invencions.",
+        "Un segon equip repeteix l’avaluació amb els casos conservats i identifica millores o regressions entre versions, sense veure abans la resolució de cada incident.",
+        "Les investigacions simultànies respecten les quotes de consulta i el primer context no retarda el circuit d’avís i resposta."
       ],
       "metrics": [
         "Incidents amb causa validada entre les primeres hipòtesis / incidents avaluables.",
@@ -1444,6 +1505,11 @@ window.ATLES_DATA={
       ],
       "caution": "Una topologia desactualitzada pot dirigir tota la investigació al component equivocat. Els grafs causals depenen d’hipòtesis i dades observables; l’explicació lingüística no converteix una correlació en demostració ni substitueix la comprovació operativa.",
       "evidence": [
+        {
+          "sourceId": "MKT07",
+          "claim": "Datadog explica com reprodueix context d’incidents per detectar regressions del seu assistent de diagnòstic.",
+          "transfer": "Atos proposa un banc de casos transferible al CTTI, amb els mateixos incidents i criteris per comparar versions i alternatives; es contrasta primer amb les capacitats existents."
+        },
         {
           "sourceId": "CG11",
           "claim": "Meta descriu HawkEye com un flux guiat que relaciona degradació de producte, models, versions, característiques i llinatge de dades. La investigació recorre dependències i estadístiques per reduir el conjunt de candidats, amb informació de confiança per al personal de guàrdia.",
@@ -1746,7 +1812,7 @@ window.ATLES_DATA={
       "title": "Mesurar el que li passa al servei",
       "subtitle": "Seguir una operació fins al resultat funcional evita donar per acabat un tràmit que només s’ha acceptat.",
       "problem": "PCN&ME recull processos crítics i moments d’estrès, i Patró ja recull informació de negoci d’aplicacions segons el model del servei d’eines. Atos proposa connectar aquesta base amb traces i dependències. La definició funcional és decisiva: un intent, un reintent i una finalització no poden acabar comptant com tres operacions satisfactòries.",
-      "proposal": "Atos proposa relacionar l’experiència tècnica amb el resultat que defineix el responsable funcional: una operació acceptada, pendent, completada o fallida. En fluxos asíncrons, la confirmació d’API o del broker es contrastaria amb el consumidor i la font transaccional. Identificadors d’operació i regles de conciliació permetrien tractar reintents, duplicats i resultats tardans. El quadre mostraria temps fins a la finalització, volum pendent i trams sense evidència. Els equips tècnics instrumenten el recorregut i el negoci valida què significa èxit; no cal capturar el contingut personal del tràmit.",
+      "proposal": "Atos proposa relacionar l’experiència tècnica amb el resultat que defineix el responsable funcional: una operació acceptada, pendent, completada o fallida. En fluxos asíncrons, la confirmació d’API o del broker es contrastaria amb el consumidor i la font transaccional. Identificadors d’operació i regles de conciliació permetrien tractar reintents, duplicats i resultats tardans. El quadre mostraria temps fins a la finalització, volum pendent i trams sense evidència. Els equips tècnics instrumenten el recorregut i el negoci valida què significa èxit; no cal capturar el contingut personal del tràmit. Una vista compartida pot reunir resultat, rendiment i dificultats comunicades pels usuaris. Per comparar serveis, el responsable funcional acorda recorreguts i canals equivalents; accessibilitat, satisfacció i incidència tècnica es mantenen com a dimensions diferents.",
       "flow": [
         "Acordar el recorregut i què vol dir completar-lo.",
         "Emetre esdeveniments amb identificadors opacs.",
@@ -1771,12 +1837,13 @@ window.ATLES_DATA={
           "role": "Relacionen productor, transport i consumidor; recuperen resultats tardans sense comptar duplicats."
         }
       ],
-      "pilot": "Escollir una integració asíncrona real i provar un consumidor aturat, un reintent i una recuperació. El recompte d’operacions úniques i el resultat final han de coincidir amb la font transaccional, sense donar per acabat el que només s’ha acceptat.",
+      "pilot": "Escollir una integració asíncrona real i provar un consumidor aturat, un reintent i una recuperació. El recompte d’operacions úniques i el resultat final han de coincidir amb la font transaccional, sense donar per acabat el que només s’ha acceptat. Afegir al quadre el retorn d’usuaris disponible i revisar amb el responsable funcional què es pot comparar i què necessita context propi.",
       "tender": "Atos proposa observar el resultat de negoci de cada recorregut, des de l’acceptació fins a la finalització validada. La solució diferencia operacions pendents, completades i fallides, concilia reintents i relaciona les desviacions amb els equips del tram afectat.",
       "acceptance": [
         "Una operació acceptada però no completada continua visible com a pendent.",
         "Els reintents no inflen el recompte d’operacions úniques.",
-        "El resultat final coincideix amb la font transaccional i té validació funcional."
+        "El resultat final coincideix amb la font transaccional i té validació funcional.",
+        "La vista separa resultat funcional, qualitat percebuda i problema tècnic; una comparació entre serveis explicita canal, període i criteri equivalent."
       ],
       "metrics": [
         "Tràmits completats / intents elegibles, amb exclusions explícites.",
@@ -1789,6 +1856,11 @@ window.ATLES_DATA={
       ],
       "caution": "L’abandonament pot tenir causes alienes a la tecnologia. Una caiguda de finalitzacions necessita context de demanda i calendari. Els identificadors opacs també requereixen controls d’accés i una retenció justificada.",
       "evidence": [
+        {
+          "sourceId": "MKT08",
+          "claim": "WOGAA reuneix rendiment, retorn d’usuaris i comparació de serveis públics en una vista compartida per a les agències de Singapur.",
+          "transfer": "Atos proposa aprofitar aquest enfocament amb els responsables funcionals, conservant la conciliació de cada tràmit i evitant una classificació de serveis que no siguin comparables."
+        },
         {
           "sourceId": "INT08",
           "relatedSourceIds": [
@@ -1889,9 +1961,9 @@ window.ATLES_DATA={
     {
       "id": "E3",
       "title": "El cost de cada servei observat",
-      "subtitle": "La factura es relaciona amb consum, retenció i ús per explicar què costa observar cada servei.",
+      "subtitle": "Relacionar cost, activitat i consum del codi ajuda a decidir on optimitzar i comprovar si la millora es nota.",
       "problem": "La memòria documenta FinOps a la PTD i al núvol. Atos proposa ampliar-ne la lectura al servei observat, al cost de la telemetria i al resultat obtingut. Cal conciliar primer les fonts existents, separar costos atribuïbles, compartits i encara no assignats, i comparar alternatives amb la mateixa cobertura.",
-      "proposal": "Proposem unir facturació normalitzada, consum d’ingesta, emmagatzematge, consulta i catàleg de serveis. El model atribueix cost directe quan hi ha mesura i reparteix costos compartits amb criteris publicats. Manté una categoria no assignada perquè el quadre no ofereixi una precisió falsa. Permet simular canvis de retenció, mostreig o cardinalitat i mostrar-ne l’efecte sobre cobertura i recuperació. S’hi incorporen llicències, transferències i operació dins de l’abast acordat. El responsable pot comparar cost per servei i per unitat d’activitat, tenint present que els serveis tenen criticitats diferents. Les xifres es concilien amb la base FinOps aplicable abans de publicar una nova atribució, amb la gestió del servei i els responsables de seguiment econòmic.",
+      "proposal": "Proposem unir facturació normalitzada, consum d’ingesta, emmagatzematge, consulta i catàleg de serveis. El model atribueix cost directe quan hi ha mesura i reparteix costos compartits amb criteris publicats. Manté una categoria no assignada perquè el quadre no ofereixi una precisió falsa. Permet simular canvis de retenció, mostreig o cardinalitat i mostrar-ne l’efecte sobre cobertura i recuperació. S’hi incorporen llicències, transferències i operació dins de l’abast acordat. El responsable pot comparar cost per servei i per unitat d’activitat, tenint present que els serveis tenen criticitats diferents. Les xifres es concilien amb la base FinOps aplicable abans de publicar una nova atribució, amb la gestió del servei i els responsables de seguiment econòmic. Quan l’aplicació ho permeti, el perfilatge relaciona una operació lenta amb les funcions que consumeixen CPU o memòria. El mantenidor pot comparar versions amb càrrega equivalent i comprovar consum per operació i temps de resposta. L’estalvi de recursos es mostra separat de l’estalvi de factura, que depèn de la capacitat contractada i de com es facturi.",
       "flow": [
         "Normalitzar factures i recollir consum per servei.",
         "Separar cost directe, compartit i no assignat.",
@@ -1914,14 +1986,19 @@ window.ATLES_DATA={
         {
           "name": "Model analític de consum i simulació",
           "role": "Relaciona volum, retenció i consultes amb servei, i calcula escenaris amb hipòtesis visibles i sensibilitat als preus."
+        },
+        {
+          "name": "Perfilatge continu vinculat a traces",
+          "role": "Pyroscope és una opció per relacionar una petició amb perfils de codi, segons llenguatge i instrumentació. Ajuda a provar una optimització; no calcula per si sol la factura atribuïda al servei."
         }
       ],
-      "pilot": "Conciliar un període de dos serveis amb cost directe, compartit i no assignat. Qualsevol escenari de reducció ha de mostrar l’efecte sobre la cobertura i la qualitat del servei, a més de l’import.",
+      "pilot": "Conciliar un període de dos serveis amb cost directe, compartit i no assignat. Qualsevol escenari de reducció ha de mostrar l’efecte sobre la cobertura i la qualitat del servei, a més de l’import. En una aplicació compatible, localitzar una funció costosa i comparar dues versions amb càrrega equivalent. Mesurar CPU o memòria per operació, latència, sobrecàrrega del profiler i efecte real o estimat sobre la despesa.",
       "tender": "Atos proposa un model de costos reproduïble per servei i capacitat d’observabilitat. Separa costos directes, compartits i no assignats i reconcilia els totals amb la facturació. Les simulacions mostren hipòtesis i efectes sobre cobertura. La proposta inclou dades i regles exportables, amb el tractament acordat de llicències, transferències i operació.",
       "acceptance": [
         "La suma de categories reconcilia amb la factura o explica la diferència.",
         "Un canvi de repartiment mostra el seu efecte sense alterar el cost total.",
-        "Un escenari d’estalvi identifica la cobertura o resolució que es perd."
+        "Un escenari d’estalvi identifica la cobertura o resolució que es perd.",
+        "Una optimització de codi es contrasta amb càrrega equivalent; es distingeix consum de recursos, cost atribuït i estalvi de factura efectivament observat."
       ],
       "metrics": [
         "Cost per servei i percentatge de cost encara no assignat.",
@@ -1930,10 +2007,16 @@ window.ATLES_DATA={
       "dependencies": [
         "A3",
         "A6",
-        "E1"
+        "E1",
+        "A5"
       ],
       "caution": "El repartiment dels costos comuns és una convenció que s’ha d’acordar. FOCUS no aporta la identitat del servei per art de màgia. Les tarifes i els descomptes poden canviar el resultat dels escenaris.",
       "evidence": [
+        {
+          "sourceId": "MKT03",
+          "claim": "Els perfils associats a traces de Pyroscope permeten relacionar una operació amb mostres de consum del codi.",
+          "transfer": "Atos proposa fer servir aquesta evidència per orientar una correcció i comprovar-ne l’efecte, mantenint separats consum tècnic, atribució de cost i despesa facturada."
+        },
         {
           "sourceId": "INT12",
           "relatedSourceIds": [],
@@ -2335,9 +2418,9 @@ window.ATLES_DATA={
     {
       "id": "G2",
       "title": "Experiència d’ús i monitorització sintètica",
-      "subtitle": "Recorreguts amb dades de prova i mesures reals separen fallades del tràmit, del navegador i de la xarxa.",
+      "subtitle": "Seguir el recorregut des de la seu fins al tràmit i contrastar-lo amb allò que els usuaris expliquen al SAU.",
       "problem": "Una comprovació HTTP correcta pot conviure amb un tràmit que falla en identificar-se o adjuntar un document. Les sondes existents al context CTTI ofereixen una base, però els recorreguts s’han de relacionar amb finalització efectiva, dependències i tipus d’accés. Els tràmits de poc volum necessiten observació programada; els de gran ús requereixen contrastar-la amb l’experiència real de col·lectius diversos.",
-      "proposal": "Proposem definir recorreguts per servei i criticitat amb passos, comptes de prova i criteris d’èxit de negoci. Un navegador automatitzat executa des de punts independents i registra temps per pas, errors i dependències. La monitorització d’usuaris reals recull mètriques mínimes de navegació i interacció, sense capturar contingut dels formularis. Ambdues fonts s’etiqueten perquè el trànsit sintètic no alteri els indicadors reals. La comparació per dispositiu, territori i canal permet saber si la fallada és general o parcial. Quan el robot falla, es comprova també la salut de la sonda. Un resultat funcional i una traça connecten l’experiència amb el component tècnic responsable.",
+      "proposal": "Atos proposa recorreguts per servei i criticitat, amb passos, comptes de prova i èxit funcional definit. Les sondes executen des de punts independents i separen DNS, connexió, autenticació, dependències i resposta de l’aplicació. Comparar seu, Internet i núvol ajuda a delimitar una afectació parcial; les mesures dels equips i operadors completen el camí de xarxa. Les dades reals de navegació es recullen amb minimització, sense contingut dels formularis, i separades del trànsit sintètic. Un pilot complementari agrupa avisos SAU autoritzats per servei, temps i ubicació: els contrasta amb les fonts disponibles i fa explícita l’absència de telemetria, sense retardar el circuit ordinari d’avís i escalat. El SAU aporta el context, el CdC el contrasta i coordina la resposta, i els responsables funcionals valoren l’impacte. Si falla una sonda, se’n comprova també la salut.",
       "flow": [
         "Definir recorregut crític, passos i dades de prova controlades.",
         "Executar sondes des de punts independents i mesurar cada pas.",
@@ -2356,25 +2439,49 @@ window.ATLES_DATA={
         {
           "name": "Correlació amb traces distribuïdes",
           "role": "Connecta la petició de prova o sessió autoritzada amb les dependències del servei, accelerant el diagnòstic del pas que falla."
+        },
+        {
+          "name": "Sondes de xarxa i dependències externes",
+          "role": "Eines com ThousandEyes, Kentik o perfSONAR aporten mesures des de punts diferents. La cobertura real depèn de la ubicació de les sondes, les proves admeses i les dades disponibles de cada operador."
+        },
+        {
+          "name": "Agrupació d’avisos SAU amb revisió humana",
+          "role": "Relaciona informes semblants i els contrasta amb el servei, el temps i la telemetria. Utilitza tiquets autoritzats i minimitzats; conserva l’enllaç restringit a la font per poder verificar l’avís."
         }
       ],
-      "pilot": "Triar el recorregut amb el responsable funcional, partint dels processos i moments crítics documentats a PCN&ME i de les sondes disponibles. Triar un tràmit amb alta criticitat i un component d’identitat o notificació que comparteixi amb altres serveis. Acordar comptes i dades de prova, incloent la neteja de registres generats. Executar el recorregut en preproducció i després amb transaccions controlades en producció, si s’autoritza. Comparar amb mesures reals agregades i simular una fallada de sonda. Lliurar scripts, mapa de passos, criteris d’èxit i evidències de cobertura de diferents accessos.",
+      "pilot": "Triar amb el responsable funcional un recorregut crític documentat a PCN&ME, amb identitat o notificació compartida. Acordar comptes, dades de prova i neteja de registres. Executar-lo des d’una seu, un punt extern i l’entorn de destinació; provar en un entorn autoritzat una fallada de DNS, retard de xarxa, bloqueig d’accés i error d’aplicació. Comparar amb dades reals agregades, comprovar una fallada de sonda i l’accés posterior a un canvi de certificat o identitat. Com a segona fase, reproduir un període de tiquets SAU minimitzats: valorar si els grups d’avisos haurien ajudat a detectar incidents coneguts i quins falsos avisos generen. Lliurar scripts, passos, punts cecs i resultats verificables.",
       "tender": "Atos proposa recorreguts crítics versionats, amb èxit funcional definit, punts d’execució independents i mesures per pas. La solució separa trànsit sintètic i real, controla comptes i dades de prova i observa les sondes. La recollida s’ajusta a la finalitat de diagnòstic. La proposta inclou scripts, configuracions, resultats exportables i documentació perquè el CTTI els mantingui davant de canvis d’aplicació o proveïdor.",
       "acceptance": [
         "Una resposta HTTP correcta amb tràmit incomplet es detecta com a fallada funcional.",
         "Una avaria de la sonda no es publica com una caiguda confirmada del servei.",
         "Les transaccions sintètiques queden separades del càlcul d’ús real.",
-        "Si el recorregut inclou renovació de certificat o canvi d’identitat, es comprova l’accés funcional posterior amb els equips responsables."
+        "Si el recorregut inclou renovació de certificat o canvi d’identitat, es comprova l’accés funcional posterior amb els equips responsables.",
+        "La prova distingeix un servei que respon al CPD d’un accés que falla en una seu, i mostra quins trams tenen evidència i quins queden sense observar.",
+        "Un grup d’avisos SAU es pot contrastar amb les fonts autoritzades, fent explícita l’absència de telemetria i sense retardar el circuit ordinari. El nombre de queixes no determina automàticament gravetat ni causa."
       ],
       "metrics": [
         "Recorreguts crítics amb comprovació funcional completa / recorreguts prioritzats.",
-        "Taxa de finalització i latència per pas, separades per font i context."
+        "Taxa de finalització i latència per pas, separades per font i context.",
+        "Temps d’anticipació i falsos avisos del pilot SAU, comparats amb incidents confirmats."
       ],
       "dependencies": [
-        "B3"
+        "B3",
+        "A6",
+        "B7",
+        "F3"
       ],
-      "caution": "Els robots poden quedar bloquejats per autenticació multifactor, proteccions antiabús o canvis d’interfície. Les dades reals tenen biaixos de mostra; cal explicar cobertura i no extrapolar un dispositiu o navegador a tota la ciutadania.",
+      "caution": "Els robots poden quedar bloquejats per autenticació multifactor, proteccions antiabús o canvis d’interfície. Les dades reals tenen biaixos de mostra; cal explicar cobertura i no extrapolar un dispositiu o navegador a tota la ciutadania. Les sondes no acrediten una avaria física de fibra: calen mesures òptiques o proves de l’operador. Els avisos SAU tenen biaix de participació i poden duplicar el mateix problema.",
       "evidence": [
+        {
+          "sourceId": "MKT06",
+          "claim": "Detectr agrupa informes d’usuaris i suport com a complement de la detecció tècnica interna de Google.",
+          "transfer": "Atos proposa començar amb un pilot de tiquets SAU autoritzats, sense rastrejar canals personals. El CdC contrastaria els grups amb les fonts disponibles, fent explícita l’absència de telemetria i sense retardar el circuit ordinari d’avís i escalat."
+        },
+        {
+          "sourceId": "MKT05",
+          "claim": "Els tribunals escocesos expliquen l’ús de ThousandEyes per completar el monitoratge d’audiències virtuals i treball híbrid.",
+          "transfer": "Atos proposa contrastar el mateix recorregut des de punts diferents i compartir les evidències entre CdC, telecomunicacions i aplicacions, amb els límits de visibilitat declarats."
+        },
         {
           "sourceId": "INT08",
           "relatedSourceIds": [
@@ -4093,6 +4200,150 @@ window.ATLES_DATA={
       "relatedLinks": [
         "https://www.perfsonar.net/ps20.html"
       ]
+    },
+    {
+      "id": "MKT01",
+      "title": "Més detall durant un incident, amb retorn automàtic",
+      "publisher": "Edge Delta",
+      "url": "https://docs.edgedelta.com/flow-control/",
+      "country": "Internacional",
+      "kind": "Documentació tècnica",
+      "summary": "La documentació descriu un mostreig per servei que consulta una taxa i una data de caducitat. Quan la finestra expira, torna a la taxa habitual.",
+      "limitation": "Capacitat descrita pel fabricant. Els percentatges comercials d’estalvi no són una previsió per al CTTI. Augmentar la captura no recupera dades descartades anteriorment.",
+      "date": "s.d.",
+      "accessed": "2026-09-17",
+      "sectorPublic": false,
+      "status": "Funcionalitat de producte documentada",
+      "relatedLinks": []
+    },
+    {
+      "id": "MKT02",
+      "title": "Diagnòstic dinàmic dins d’una aplicació en execució",
+      "publisher": "Lightrun",
+      "url": "https://docs.lightrun.com/actions/",
+      "country": "Internacional",
+      "kind": "Documentació tècnica",
+      "summary": "Lightrun documenta logs, mètriques i captures de diagnòstic afegits a punts del codi mitjançant un agent, mentre l’aplicació continua executant-se.",
+      "limitation": "Cal validar llenguatge, versió, agent, permisos i impacte. L’accés a variables exigeix filtratge de dades sensibles; no implica compatibilitat universal ni cost de captura nul.",
+      "date": "s.d.",
+      "accessed": "2026-09-17",
+      "sectorPublic": false,
+      "status": "Instrumentació dinàmica de producte",
+      "relatedLinks": [
+        "https://docs.lightrun.com/datasecurity/overview/"
+      ]
+    },
+    {
+      "id": "MKT03",
+      "title": "Relacionar una petició lenta amb el consum del codi",
+      "publisher": "Grafana Pyroscope",
+      "url": "https://grafana.com/docs/pyroscope/latest/configure-client/trace-span-profiles/",
+      "country": "Internacional",
+      "kind": "Documentació tècnica",
+      "summary": "Els perfils associats a spans permeten examinar quines funcions s’executen durant un tram de la petició i relacionar traces amb mostres de consum.",
+      "limitation": "La cobertura depèn del llenguatge i del profiler; un tram molt curt pot no tenir mostres. La via concreta OTel eBPF Profiler–Pyroscope via OTLP manté advertiments de desenvolupament i compatibilitat.",
+      "date": "s.d.",
+      "accessed": "2026-09-17",
+      "sectorPublic": false,
+      "status": "Capacitat documentada; suport variable per integració",
+      "relatedLinks": [
+        "https://grafana.com/docs/pyroscope/latest/configure-client/opentelemetry/ebpf-profiler/"
+      ]
+    },
+    {
+      "id": "MKT04",
+      "title": "Gestionar una flota de collectors amb OpAMP",
+      "publisher": "OpenTelemetry",
+      "url": "https://opentelemetry.io/docs/collector/management/",
+      "country": "Internacional",
+      "kind": "Documentació tècnica",
+      "summary": "OpenTelemetry presenta OpAMP per gestionar agents i mostra com consultar-ne l’estat i canviar configuracions. Bindplane documenta opcions de gestió de collectors i desplegament gradual.",
+      "limitation": "El suport de gestió es valida per distribució, component i versió. Utilitzar OpenTelemetry no garanteix que tots els collectors admetin les mateixes ordres ni el mateix mecanisme de recuperació.",
+      "date": "2026-07-17",
+      "accessed": "2026-09-17",
+      "sectorPublic": false,
+      "status": "Protocol i implementacions amb compatibilitat per validar",
+      "relatedLinks": [
+        "https://docs.bindplane.com/feature-guides"
+      ],
+      "dateNote": "Darrera modificació indicada a la guia d’OpenTelemetry"
+    },
+    {
+      "id": "MKT05",
+      "title": "Escòcia: observar audiències virtuals i treball híbrid",
+      "publisher": "Scottish Courts and Tribunals Service",
+      "url": "https://www.scotcourts.gov.uk/about-us/news/news/2024/february/success-for-scts-at-international-technology-awards/",
+      "country": "Regne Unit · Escòcia",
+      "kind": "Cas operatiu",
+      "summary": "Els tribunals escocesos expliquen que van utilitzar ThousandEyes per complementar el monitoratge de les audiències virtuals i donar suport al treball híbrid.",
+      "limitation": "Font del mateix organisme, publicada arran d’un premi del fabricant. No detalla una comparació quantitativa ni acredita diagnòstic físic de fibra.",
+      "date": "2024-02-21",
+      "accessed": "2026-09-17",
+      "sectorPublic": true,
+      "status": "Ús operatiu declarat per l’organisme",
+      "relatedLinks": []
+    },
+    {
+      "id": "MKT06",
+      "title": "Detectr: detectar problemes a partir dels avisos d’usuaris",
+      "publisher": "Google SRE",
+      "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/",
+      "country": "EUA",
+      "kind": "Cas operatiu",
+      "summary": "Google descriu Detectr, que agrupa informes d’usuaris i suport per identificar possibles incidències que el monitoratge tècnic pot haver passat per alt.",
+      "limitation": "Experiència interna de Google, no un producte ofert al CTTI. La transferència proposada parteix de tiquets autoritzats; volum o sentiment no demostren per si sols gravetat ni causa.",
+      "date": "s.d.",
+      "accessed": "2026-09-17",
+      "sectorPublic": false,
+      "status": "Experiència operativa publicada per l’organització",
+      "relatedLinks": []
+    },
+    {
+      "id": "MKT07",
+      "title": "Reproduir incidents per avaluar un assistent de diagnòstic",
+      "publisher": "Datadog Engineering",
+      "url": "https://www.datadoghq.com/blog/engineering/bits-ai-eval-platform/",
+      "country": "Internacional",
+      "kind": "Cas operatiu",
+      "summary": "Datadog explica com va construir entorns d’avaluació repetibles amb context d’incidents per detectar regressions del seu assistent entre versions.",
+      "limitation": "Experiència d’enginyeria publicada pel fabricant. No és una avaluació independent ni una mesura de precisió transferible al CTTI.",
+      "date": "2026-04-07",
+      "accessed": "2026-09-17",
+      "sectorPublic": false,
+      "status": "Plataforma interna d’avaluació descrita",
+      "relatedLinks": []
+    },
+    {
+      "id": "MKT08",
+      "title": "WOGAA: una vista compartida de la qualitat dels serveis públics",
+      "publisher": "GovTech Singapore",
+      "url": "https://www.tech.gov.sg/products-and-services/for-government-agencies/informational-services/wogaa/",
+      "country": "Singapur",
+      "kind": "Cas operatiu",
+      "summary": "WOGAA reuneix analítica de webs i serveis públics, retorn d’usuaris, informes i comparacions en una vista comuna per a les agències.",
+      "limitation": "Inspect Plus, el resum de comentaris amb IA i el comprovador d’enllaços consten com a beta. Comparar serveis requereix criteris equivalents; la fitxa no acredita conciliació transaccional de tots els tràmits.",
+      "date": "s.d.",
+      "accessed": "2026-09-17",
+      "sectorPublic": true,
+      "status": "Servei públic disponible amb ampliacions beta",
+      "relatedLinks": [
+        "https://home.wogaa.sg/"
+      ]
+    },
+    {
+      "id": "MKT09",
+      "title": "Decidir el pas següent d’un desplegament amb mesures",
+      "publisher": "Argo Rollouts",
+      "url": "https://argoproj.github.io/argo-rollouts/features/analysis/",
+      "country": "Internacional",
+      "kind": "Documentació tècnica",
+      "summary": "Argo Rollouts documenta anàlisis de mètriques que condicionen un desplegament progressiu. Un resultat inconcloent pot deixar-lo en pausa per a una decisió posterior.",
+      "limitation": "És una capacitat de desplegament en Kubernetes. El patró es pot estudiar amb altres eines, però la integració amb SIC+/MAT i amb cada plataforma CTTI s’ha de demostrar.",
+      "date": "s.d.",
+      "accessed": "2026-09-17",
+      "sectorPublic": false,
+      "status": "Funcionalitat de projecte obert documentada",
+      "relatedLinks": []
     }
   ]
 };
